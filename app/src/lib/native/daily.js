@@ -13,7 +13,14 @@ export async function allowNotifications() {
 }
 
 /** Replace the pending reminders with one per day for the next 14 days (the text differs each day, so no repeat rule). Call on every app open. */
-export async function scheduleDaily(dataset, idx, goals) {
+export function scheduleDaily(...args) {
+  queue = queue.catch(() => {}).then(() => reschedule(...args))
+  return queue
+}
+// calls run one at a time: overlapping cancel+schedule runs (Settings fires input and change) can interleave on the phone
+let queue = Promise.resolve()
+
+async function reschedule(dataset, idx, goals) {
   const { Capacitor } = await import('@capacitor/core')
   if (!Capacitor.isNativePlatform()) return
   const { LocalNotifications } = await import('@capacitor/local-notifications')

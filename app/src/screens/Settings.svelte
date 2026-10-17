@@ -34,7 +34,7 @@
   let timer
   const timeSoon = (t) => { clearTimeout(timer); timer = setTimeout(() => changeTime(t), 800) }
   async function changeTime(time) {
-    if (!time) return
+    if (!time || time === $daily.time) return
     setDaily({ time })
     const r = await scheduleDaily($dataset, $idx, tacticGoals).catch((e) => `Schedule failed: ${e.message ?? e}`)
     if (r) showToast(r)
