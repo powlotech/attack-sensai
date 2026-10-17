@@ -22,6 +22,7 @@ jobs:
       - run: npm run build -w app
         env:
           VITE_BASE: ./
+          VITE_APP_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || format('0.0.{0}', github.run_number) }}
           VITE_DATA_BASE: https://powlotech.github.io/attack-learner/data/
       - run: npx cap sync android
         working-directory: app

@@ -7,6 +7,7 @@
   import TabBar from './components/TabBar.svelte'
   import Intro from './screens/Intro.svelte'
   import Learn from './screens/Learn.svelte'
+  import Quiz from './screens/Quiz.svelte'
   import Search from './screens/Search.svelte'
   import { syncStatusBar } from './lib/native/statusBar.js'
   import Layers from './screens/Layers.svelte'
@@ -58,6 +59,8 @@
     <Layers />
   {:else if $route.name === 'compare'}
     <Compare />
+  {:else if $route.name === 'quiz'}
+    <Quiz />
   {:else if $route.name === 'technique'}
     <Technique />
   {:else}

@@ -26,6 +26,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: echo "VITE_APP_VERSION=web-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
       - run: npm run build -w app
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

@@ -1,4 +1,5 @@
 <script>
+  const RELEASES = 'https://github.com/powlotech/attack-learner/releases'
   import { onMount } from 'svelte'
   import ConfirmSheet from '../components/ConfirmSheet.svelte'
   import { idx, layers, activeLayer, dataset, dataStatus, domain, DOMAINS, refreshLayers, switchDomain, updateDomainData, showToast } from '../lib/stores.js'
@@ -147,7 +148,9 @@
   </div>
 
   <details class="about">
-    <summary>About</summary>
+    <summary>About<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></summary>
+    <p>Version {__APP_VERSION__} · ATT&CK data {$dataset?.attackVersion ?? '—'}</p>
+    <p><a href={RELEASES + (/^v\d/.test(__APP_VERSION__) ? `/tag/${__APP_VERSION__}` : '')} target="_blank" rel="noopener">Release notes</a></p>
     <p>© The MITRE Corporation. ATT&CK® is a registered trademark of The MITRE Corporation. This app is not affiliated with or endorsed by MITRE.</p>
     <p><a href="https://attack.mitre.org/resources/legal-and-branding/terms-of-use/" target="_blank" rel="noopener">MITRE ATT&CK terms of use</a></p>
   </details>
@@ -188,7 +191,10 @@
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
   .seg button.on { background: var(--surface); font-weight: 700; }
-  .about { margin-top: 24px; color: var(--muted); }
-  .about summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
+  .about { margin-top: 24px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 0 16px 4px; }
+  .about summary { min-height: 52px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none; color: var(--text); font-weight: 700; font-size: 17px; }
+  .about summary::-webkit-details-marker { display: none; }
+  .about summary svg { transition: transform 0.2s; }
+  .about[open] summary svg { transform: rotate(180deg); }
   .about a { color: var(--accent); }
 </style>

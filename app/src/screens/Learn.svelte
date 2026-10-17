@@ -17,8 +17,9 @@
     <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax={total} aria-valuenow={learned} aria-label="Techniques learned">
       <span style="width: {total ? (100 * learned) / total : 0}%"></span>
     </div>
-    <button type="button" class="link" onclick={() => navigate('/intro')}>Replay the intro</button>
   </section>
+
+  <button type="button" class="quiz" onclick={() => navigate('/quiz')}>Take a quiz</button>
 
   {#each $dataset?.tactics ?? [] as t, i}
     <a class="card tactic" href="#/matrix?tactic={t.shortname}">
@@ -30,6 +31,8 @@
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
     </a>
   {/each}
+
+  <button type="button" class="link replay" onclick={() => navigate('/intro')}>Replay the intro</button>
 </main>
 
 <style>
@@ -41,6 +44,8 @@
   .track { height: 8px; border-radius: 4px; background: var(--border); margin: 12px 0; overflow: hidden; }
   .track span { display: block; height: 100%; background: var(--accent); }
   .link { background: none; border: 0; padding: 0; cursor: pointer; }
+  .quiz { display: block; width: 100%; min-height: 56px; margin-top: 12px; border: 0; border-radius: 18px; background: var(--accent); color: var(--bg); font: inherit; font-size: 18px; font-weight: 700; cursor: pointer; }
+  .replay { display: block; margin: 32px auto 0; min-height: 44px; color: var(--muted); }
   .tactic { display: flex; align-items: center; gap: 14px; color: inherit; text-decoration: none; min-height: 72px; }
   .n { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent-tint); color: var(--accent); font-weight: 700; display: grid; place-items: center; }
   .txt { flex: 1; }
