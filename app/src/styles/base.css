@@ -11,6 +11,7 @@
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
+html { scrollbar-gutter: stable; }
 body {
   background: var(--bg);
   color: var(--text);
