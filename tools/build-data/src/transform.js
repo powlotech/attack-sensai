@@ -34,7 +34,7 @@ export function transform(bundle, { builtAt }) {
       name: o.name,
       parent: isSub ? id.split('.')[0] : null,
       isSub,
-      tactics: (o.kill_chain_phases ?? []).filter((k) => k.kill_chain_name === 'mitre-attack').map((k) => k.phase_name),
+      tactics: (o.kill_chain_phases ?? []).filter((k) => k.kill_chain_name.startsWith('mitre-')).map((k) => k.phase_name),
       platforms: o.x_mitre_platforms ?? [],
       description: text(o.description),
       url: `${ATTACK_URL}/techniques/${id.replace('.', '/')}/`,

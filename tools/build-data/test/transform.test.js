@@ -59,3 +59,11 @@ test('citations stripped', () => {
 test('dangling relationships ignored', () => {
   for (const g of d.groups) for (const id of g.techniques) expect(t(id)).toBeTruthy()
 })
+
+test('ICS bundle: mitre-ics-attack kill chain gives every technique a tactic', async () => {
+  const ics = (await import('./fixtures/ics-mini.json', { with: { type: 'json' } })).default
+  const x = transform(ics, { builtAt: 'x' })
+  expect(x.tactics.map((t) => t.shortname)).toEqual(expect.arrayContaining(['initial-access', 'inhibit-response-function']))
+  expect(x.techniques.length).toBeGreaterThan(0)
+  expect(x.techniques.every((t) => /^T\d{4}(\.\d{3})?$/.test(t.id) && t.tactics.length > 0)).toBe(true)
+})

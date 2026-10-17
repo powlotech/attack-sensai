@@ -1,4 +1,4 @@
-// Usage: node cli.js --out <dir>   (downloads the latest Enterprise bundle, writes attack.json + version.json)
+// Usage: node cli.js --out <dir>   (downloads the latest Enterprise and ICS bundles, writes attack.json/version.json and ics.json/ics-version.json)
 import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -13,28 +13,29 @@ async function getJson(url) {
   return res.json()
 }
 
-async function main() {
-  const out = process.argv[process.argv.indexOf('--out') + 1]
-  if (!out || out.startsWith('--')) throw new Error('usage: cli.js --out <dir>')
+const DOMAINS = [
+  { name: 'Enterprise ATT&CK', file: 'attack.json', versionFile: 'version.json', minTechniques: 100 },
+  { name: 'ICS ATT&CK', file: 'ics.json', versionFile: 'ics-version.json', minTechniques: 50 },
+]
 
-  const index = await getJson(INDEX_URL)
-  const enterprise = index.collections.find((c) => c.name === 'Enterprise ATT&CK')
-  if (!enterprise) throw new Error('Enterprise collection not found in index.json')
+async function build(index, out, { name, file, versionFile, minTechniques }) {
+  const enterprise = index.collections.find((c) => c.name === name)
+  if (!enterprise) throw new Error(`${name} collection not found in index.json`)
   const latest = [...enterprise.versions].sort((a, b) => b.modified.localeCompare(a.modified))[0]
 
   const bundle = await getJson(latest.url)
   // builtAt is inside attack.json, so a fresh timestamp would change the sha every run:
   // rebuild with the previous builtAt first and stop if that is byte-identical.
-  const prevPath = join(out, 'version.json')
+  const prevPath = join(out, versionFile)
   const prev = existsSync(prevPath) ? JSON.parse(readFileSync(prevPath, 'utf8')) : null
   const sha = (text) => createHash('sha256').update(text).digest('hex')
   if (prev && sha(JSON.stringify(transform(bundle, { builtAt: prev.builtAt }))) === prev.sha256) {
-    console.log(`ATT&CK ${prev.attackVersion}: unchanged, nothing written`)
+    console.log(`${name} ${prev.attackVersion}: unchanged, nothing written`)
     return
   }
 
   const dataset = transform(bundle, { builtAt: new Date().toISOString() })
-  const problems = sanityCheck(dataset)
+  const problems = sanityCheck(dataset, { minTechniques })
   if (problems.length) {
     console.error('Sanity check failed, nothing written:\n- ' + problems.join('\n- '))
     process.exit(1)
@@ -48,9 +49,16 @@ async function main() {
     bytes: Buffer.byteLength(body),
   }
   mkdirSync(out, { recursive: true })
-  writeFileSync(join(out, 'attack.json'), body)
-  writeFileSync(join(out, 'version.json'), JSON.stringify(version) + '\n')
-  console.log(`ATT&CK ${version.attackVersion}: attack.json ${(version.bytes / 1024 / 1024).toFixed(2)} MB`)
+  writeFileSync(join(out, file), body)
+  writeFileSync(join(out, versionFile), JSON.stringify(version) + '\n')
+  console.log(`${name} ${version.attackVersion}: ${file} ${(version.bytes / 1024 / 1024).toFixed(2)} MB`)
+}
+
+async function main() {
+  const out = process.argv[process.argv.indexOf('--out') + 1]
+  if (!out || out.startsWith('--')) throw new Error('usage: cli.js --out <dir>')
+  const index = await getJson(INDEX_URL)
+  for (const d of DOMAINS) await build(index, out, d)
 }
 
 main().catch((e) => {
