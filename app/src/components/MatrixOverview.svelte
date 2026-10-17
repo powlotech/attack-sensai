@@ -3,6 +3,7 @@
   import { rolledScore, tacticAbbr, tacticSummary } from '../lib/matrix/summary.js'
 
   let { tactic, onopen } = $props()
+  // svelte-ignore state_referenced_locally -- the prop only seeds the selection
   let selected = $state(tactic)
   const tactics = $derived($dataset?.tactics ?? [])
   const current = $derived(tactics.find((t) => t.shortname === selected) ?? tactics[0])

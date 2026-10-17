@@ -10,6 +10,7 @@
   const KINDS = [['techniques', 'Techniques'], ['groups', 'Groups'], ['software', 'Software'], ['campaigns', 'Campaigns']]
   let q = $state($route.query.q ?? '')
   let kind = $state(KINDS.some(([k]) => k === $route.query.kind) ? $route.query.kind : 'techniques')
+  // svelte-ignore state_referenced_locally -- the prop only seeds the field
   let applied = $state(q)
   let openId = $state(null)
 

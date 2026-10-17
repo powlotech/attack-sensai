@@ -58,7 +58,6 @@
   .prompt { font-weight: 600; margin: 0 0 var(--gap); }
   .opt, .btn { display: block; width: 100%; min-height: 48px; margin-top: var(--gap); border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: inherit; font: inherit; text-align: left; padding: 0 14px; cursor: pointer; }
   .btn { background: var(--accent); color: var(--bg); border: 0; font-weight: 700; text-align: center; }
-  .btn.alt { background: var(--accent-tint); color: var(--accent); }
   .right { border-color: var(--accent); background: var(--accent-tint); }
   .wrong { border-style: dashed; text-decoration: line-through; }
 </style>

@@ -8,6 +8,7 @@
   import ScoreSquare from './ScoreSquare.svelte'
 
   let { tactic } = $props()
+  // svelte-ignore state_referenced_locally -- the prop only seeds the open section
   let open = $state(tactic)
   let subsOpen = $state({})
   const tactics = $derived($dataset?.tactics ?? [])
@@ -29,9 +30,9 @@
   <div class="banner">Platform: {filterLabel} <button type="button" aria-label="Clear platform filter" onclick={() => platformFilter.set(new Set())}>✕</button></div>
 {/if}
 
-<div class="chips" role="list">
+<div class="chips" role="group" aria-label="Tactics">
   {#each tactics as t}
-    <button type="button" role="listitem" class="chip" class:on={open === t.shortname} onclick={() => jump(t.shortname)}>{t.name}</button>
+    <button type="button" class="chip" class:on={open === t.shortname} onclick={() => jump(t.shortname)}>{t.name}</button>
   {/each}
 </div>
 
