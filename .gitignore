@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.jks
+*.keystore
+keystore.properties
+exports/
+*.layer.json
+android/app/build/
+.env*
+.superpowers/

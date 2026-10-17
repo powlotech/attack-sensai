@@ -1,0 +1,10 @@
+{
+  "name": "attack-learner",
+  "private": true,
+  "type": "module",
+  "workspaces": ["app", "tools/build-data"],
+  "scripts": {
+    "test": "npm test --workspaces --if-present",
+    "e2e": "npm run e2e -w app"
+  }
+}
