@@ -1,5 +1,5 @@
 <script>
-  const RELEASES = 'https://github.com/powlotech/attack-learner/releases'
+  const RELEASES = 'https://github.com/powlotech/attack-sensai/releases'
   import { dataset, idx, dataStatus, updateDomainData, showToast, refreshLayers } from '../lib/stores.js'
   import { exportProgress, importProgress } from '../lib/sync/progress.js'
   import { getSyncConfig, setSyncConfig, syncWithGithub } from '../lib/sync/github.js'
@@ -41,8 +41,8 @@
   let busy = $state(false)
   const saveSync = () => setSyncConfig({ ...sync, token: sync.token.trim(), repo: sync.repo.trim() })
   const exportFile = async () => {
-    const r = await shareOrDownload('attack-learner-progress.json', await exportProgress())
-    showToast(r === 'shared' ? 'Shared' : 'Downloaded attack-learner-progress.json')
+    const r = await shareOrDownload('attack-sensai-progress.json', await exportProgress())
+    showToast(r === 'shared' ? 'Shared' : 'Downloaded attack-sensai-progress.json')
   }
   async function onFile(e) {
     const file = e.currentTarget.files[0]
@@ -118,7 +118,7 @@
     <button type="button" class="ghost" onclick={() => fileInput.click()}>Import file</button>
   </div>
   <input bind:this={fileInput} type="file" accept="application/json,.json" hidden onchange={onFile} />
-  <label>GitHub repo (owner/name)<input bind:value={sync.repo} onchange={saveSync} placeholder="you/attack-learner-sync" autocapitalize="off" spellcheck="false" /></label>
+  <label>GitHub repo (owner/name)<input bind:value={sync.repo} onchange={saveSync} placeholder="you/attack-sensai-sync" autocapitalize="off" spellcheck="false" /></label>
   <label>GitHub token (fine-grained, Contents read/write on that repo only)<input type="password" bind:value={sync.token} onchange={saveSync} autocomplete="off" /></label>
   <button type="button" class="solid" disabled={busy} onclick={syncNow}>{busy ? 'Syncing…' : 'Sync with GitHub'}</button>
   <p class="muted">Last synced: {rel(sync.last)}. The token stays on this device only.</p>

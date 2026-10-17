@@ -10,8 +10,8 @@
   const recent = $derived(here($bookmarks.recent))
 
   const exportAll = async () => {
-    const r = await shareOrDownload('attack-learner-bookmarks.json', exportBookmarks($bookmarks))
-    showToast(r === 'shared' ? 'Shared' : 'Downloaded attack-learner-bookmarks.json')
+    const r = await shareOrDownload('attack-sensai-bookmarks.json', exportBookmarks($bookmarks))
+    showToast(r === 'shared' ? 'Shared' : 'Downloaded attack-sensai-bookmarks.json')
   }
   async function onFile(e) {
     const file = e.currentTarget.files[0]

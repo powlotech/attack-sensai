@@ -4,7 +4,7 @@ import { ensureDefaultLayer, getActiveLayerId, layerDomain, listLayers, setStore
 import { loadDataset, checkForUpdate, getDataStatus } from './data/dataset.js'
 
 export const DOMAINS = [['enterprise', 'Enterprise'], ['ics', 'ICS'], ['mobile', 'Mobile']]
-const DOMAIN_KEY = 'attack-learner.domain'
+const DOMAIN_KEY = 'attack-sensai.domain'
 const savedDomain = () => {
   try {
     const d = localStorage.getItem(DOMAIN_KEY)

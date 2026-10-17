@@ -25,7 +25,7 @@ test('round trip: layers re-import as a merge, not a duplicate', async () => {
 
 test('same name, different id merges; unknown layer is added; junk is rejected', async () => {
   await createLayer('Progress')
-  await importProgress({ type: 'attack-learner-progress', layers: [
+  await importProgress({ type: 'attack-sensai-progress', layers: [
     { id: 'other', name: 'Progress', createdAt: 1, updatedAt: 1, entries: { T1: { score: 1, comment: '', learned: true } } },
     { id: 'new', name: 'Fresh', createdAt: 1, updatedAt: 1, entries: {} },
   ] })

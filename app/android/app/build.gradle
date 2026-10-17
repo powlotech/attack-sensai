@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "io.github.powlotech.attacklearner"
+    namespace = "io.github.powlotech.attacksensai"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "io.github.powlotech.attacklearner"
+        applicationId "io.github.powlotech.attacksensai"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode = (project.findProperty("appVersionCode") ?: "1").toInteger()

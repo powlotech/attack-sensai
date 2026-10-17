@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.VITE_BASE ?? '/attack-learner/',
+  base: process.env.VITE_BASE ?? '/attack-sensai/',
   define: { __APP_VERSION__: JSON.stringify(process.env.VITE_APP_VERSION ?? 'dev') },
   plugins: [
     svelte(),
@@ -12,7 +12,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'ATT&CK Learner',
+        name: 'ATT&CK Sensai',
         short_name: 'ATT&CK',
         display: 'standalone',
         orientation: 'portrait',

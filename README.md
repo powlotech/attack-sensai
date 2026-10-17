@@ -1,13 +1,13 @@
-# ATT&CK Learner
+# ATT&CK Sensai
 
 A portrait-first app for learning [MITRE ATT&CK®](https://attack.mitre.org) and putting it to practical use. It runs in the browser as an installable PWA and as an Android app (APK), and covers the **Enterprise**, **ICS** and **Mobile** matrices.
 
-- **Live app:** https://powlotech.github.io/attack-learner/
-- **Android APK:** the latest `attack-learner-<version>.apk` on the [Releases](https://github.com/powlotech/attack-learner/releases) page
+- **Live app:** https://powlotech.github.io/attack-sensai/
+- **Android APK:** the latest `attack-sensai-<version>.apk` on the [Releases](https://github.com/powlotech/attack-sensai/releases) page
 
 ## What it is for
 
-ATT&CK is a large knowledge base of how attackers operate. Reading it on a website is slow on a phone, and the official tools are built for desktop analysts. ATT&CK Learner is a pocket version with two jobs:
+ATT&CK is a large knowledge base of how attackers operate. Reading it on a website is slow on a phone, and the official tools are built for desktop analysts. ATT&CK Sensai is a pocket version with two jobs:
 
 1. **Learn it.** Walk through the attacker goals (tactics) in the order an attack unfolds, read plain-language descriptions of techniques, and look up unfamiliar terms as you go.
 2. **Use it.** Score techniques on your own *layers* to track what you have studied, what a threat group does, what you detect, or what happened in a real incident. Export layers to the official [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/), or import layers from it.
@@ -78,7 +78,7 @@ Layers, scores and notes are stored only on your device (IndexedDB). Nothing is 
 ## Installing
 
 - **Browser / iPhone / desktop:** open the live app and use *Install* or *Add to Home Screen*.
-- **Android:** download `attack-learner-<version>.apk` from Releases and open it. Each build installs over the previous one. Builds are signed with the project's release key; see `docs/apk-signing.md`.
+- **Android:** download `attack-sensai-<version>.apk` from Releases and open it. Each build installs over the previous one. Builds are signed with the project's release key; see `docs/apk-signing.md`.
 
 ## Development
 

@@ -4,7 +4,7 @@ import { createLayer, listLayers, setEntry } from '../layers/store.js'
 import { openDb } from '../data/db.js'
 import { syncWithGithub } from './github.js'
 
-const cfg = { token: 't', repo: 'me/attack-learner-sync', last: 0 }
+const cfg = { token: 't', repo: 'me/attack-sensai-sync', last: 0 }
 beforeEach(async () => {
   const db = await openDb()
   await db.clear('layers')

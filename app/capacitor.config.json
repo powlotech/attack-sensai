@@ -1,5 +1,5 @@
 {
-  "appId": "io.github.powlotech.attacklearner",
-  "appName": "ATT&CK Learner",
+  "appId": "io.github.powlotech.attacksensai",
+  "appName": "ATT&CK Sensai",
   "webDir": "dist"
 }

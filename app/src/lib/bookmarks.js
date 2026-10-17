@@ -43,11 +43,11 @@ export const setBookmarkNote = (id, domain, note) =>
 export const touchRecent = (id, domain) =>
   update((s) => ({ ...s, recent: [{ id, domain }, ...s.recent.filter((r) => !same(id, domain)(r))].slice(0, MAX_RECENT) }))
 
-export const exportBookmarks = (s) => ({ type: 'attack-learner-bookmarks', version: 1, saved: s.saved })
+export const exportBookmarks = (s) => ({ type: 'attack-sensai-bookmarks', version: 1, saved: s.saved })
 
 /** Merge an exported file in: new bookmarks are added, existing ones keep their note unless theirs is empty. */
 export function importBookmarks(json) {
-  if (json?.type !== 'attack-learner-bookmarks' || !Array.isArray(json.saved)) throw new Error('Not an Attack Learner bookmarks file')
+  if ((json?.type !== 'attack-sensai-bookmarks' && json?.type !== 'attack-learner-bookmarks') || !Array.isArray(json.saved)) throw new Error('Not an Attack Sensai bookmarks file')
   const incoming = json.saved.filter((b) => typeof b?.id === 'string' && typeof b?.domain === 'string')
   let added = 0
   update((s) => {

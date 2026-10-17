@@ -7,7 +7,7 @@ import { openDb } from '../data/db.js'
 export const isEmptyEntry = (e) => e.score === 0 && e.comment === '' && !e.learned && e.order == null && !e.when
 
 const EMPTY = { score: 0, comment: '', learned: false }
-const ACTIVE_KEY = 'attack-learner.activeLayer' // enterprise; other domains append ':<domain>'
+const ACTIVE_KEY = 'attack-sensai.activeLayer' // enterprise; other domains append ':<domain>'
 
 /** Layers saved before domains existed have none: they are Enterprise. */
 export const layerDomain = (l) => l.domain ?? 'enterprise'

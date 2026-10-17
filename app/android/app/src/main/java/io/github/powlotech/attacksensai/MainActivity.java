@@ -1,4 +1,4 @@
-package io.github.powlotech.attacklearner;
+package io.github.powlotech.attacksensai;
 
 import com.getcapacitor.BridgeActivity;
 

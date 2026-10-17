@@ -1,6 +1,6 @@
 import { exportProgress, importProgress } from './progress.js'
 
-const KEY = 'attack-learner.sync'
+const KEY = 'attack-sensai.sync'
 const FILE = 'progress.json'
 
 export const getSyncConfig = () => {
