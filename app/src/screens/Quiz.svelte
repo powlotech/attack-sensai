@@ -8,7 +8,6 @@
   let i = $state(0)
   let picked = $state(null)
   let score = $state(0)
-  let marked = $state(false)
 
   const q = $derived(questions[i])
   const done = $derived(i >= questions.length)
@@ -16,15 +15,14 @@
   const answer = (opt) => {
     if (picked !== null) return
     picked = opt
-    if (opt === q.answer) score++
+    if (opt === q.answer) { score++; if (q.techId && $activeLayer) markLearned() }
   }
-  const next = () => { i++; picked = null; marked = false }
-  const restart = () => { questions = makeQuiz($dataset, $idx, tacticGoals); i = 0; picked = null; score = 0; marked = false }
+  const next = () => { i++; picked = null }
+  const restart = () => { questions = makeQuiz($dataset, $idx, tacticGoals); i = 0; picked = null; score = 0 }
   const markLearned = async () => {
     await setEntry($activeLayer.id, q.techId, { learned: true })
     await refreshLayers()
-    marked = true
-    showToast('Marked as learned')
+    showToast(`${q.techId} marked as learned`)
   }
 </script>
 
@@ -46,9 +44,6 @@
       {/each}
       {#if picked !== null}
         <p role="status">{picked === q.answer ? 'Correct!' : `Not quite: ${q.answer}`}</p>
-        {#if picked === q.answer && q.techId && $activeLayer && !marked}
-          <button type="button" class="btn alt" onclick={markLearned}>Mark {q.techId} as learned</button>
-        {/if}
         <button type="button" class="btn" onclick={next}>{i + 1 === questions.length ? 'See score' : 'Next'}</button>
       {/if}
     </section>
