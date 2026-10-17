@@ -108,6 +108,12 @@
           {/each}
         </div>
         <label class="learned"><input type="checkbox" checked={learned} onchange={(e) => setPatch({ learned: e.currentTarget.checked })} /> Learned it</label>
+        <div class="when">
+          <input type="number" inputmode="numeric" min="1" aria-label="Step #" placeholder="Step #" value={entry?.order ?? ''}
+            onchange={(e) => setPatch({ order: e.currentTarget.value === '' ? null : Number(e.currentTarget.value) })} />
+          <input type="text" aria-label="When" placeholder="When (e.g. 03:12 UTC)" maxlength="60" value={entry?.when ?? ''}
+            onchange={(e) => setPatch({ when: e.currentTarget.value })} />
+        </div>
         <textarea rows="3" placeholder="Notes" bind:value={note} oninput={onNote}></textarea>
       </section>
     {/if}
@@ -146,6 +152,10 @@
   .scores { display: flex; gap: 8px; }
   .scores button { flex: 1; border: 1.5px solid var(--score-0-border); border-radius: 10px; font-weight: 700; font-size: 17px; cursor: pointer; }
   .scores button.on { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .when { display: flex; gap: 8px; margin-bottom: 8px; }
+  .when input { min-height: 44px; border: 1px solid var(--border); border-radius: 10px; padding: 0 10px; background: var(--bg); color: var(--text); font: inherit; }
+  .when input[type=number] { width: 96px; flex: none; }
+  .when input[type=text] { flex: 1; min-width: 0; }
   .learned { display: flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 8px; }
   textarea { width: 100%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: var(--bg); color: var(--text); font: inherit; }
   .desc :global(.defcard) { background: var(--accent-tint); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; }

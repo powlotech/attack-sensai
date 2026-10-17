@@ -3,9 +3,10 @@
   import LayerPicker from '../components/LayerPicker.svelte'
   import MatrixList from '../components/MatrixList.svelte'
   import MatrixOverview from '../components/MatrixOverview.svelte'
+  import Timeline from '../components/Timeline.svelte'
   import { dataset } from '../lib/stores.js'
 
-  const view = $derived($route.query.view === 'overview' ? 'overview' : 'list')
+  const view = $derived(['overview', 'timeline'].includes($route.query.view) ? $route.query.view : 'list')
   const tactic = $derived($route.query.tactic ?? $dataset?.tactics[0]?.shortname)
   const setView = (v) => navigate(`/matrix?view=${v}&tactic=${tactic}`)
 </script>
@@ -17,14 +18,16 @@
   </header>
 
   <div class="seg" role="tablist" aria-label="View">
-    {#each ['list', 'overview'] as v}
-      <button type="button" role="tab" aria-selected={view === v} class:on={view === v} onclick={() => setView(v)}>{v === 'list' ? 'List' : 'Overview'}</button>
+    {#each ['list', 'overview', 'timeline'] as v}
+      <button type="button" role="tab" aria-selected={view === v} class:on={view === v} onclick={() => setView(v)}>{v[0].toUpperCase() + v.slice(1)}</button>
     {/each}
   </div>
 
   {#key tactic + view}
     {#if view === 'list'}
       <MatrixList {tactic} />
+    {:else if view === 'timeline'}
+      <Timeline />
     {:else}
       <MatrixOverview {tactic} onopen={(s) => navigate(`/matrix?view=list&tactic=${s}`)} />
     {/if}
