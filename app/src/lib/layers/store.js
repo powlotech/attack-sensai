@@ -113,6 +113,19 @@ export const mergeLayers = (idA, idB) =>
     return layer
   })
 
+/** Bring in a layer from another device: merged into the one with the same id (or same name and domain), else added. */
+export const upsertLayer = (inc) =>
+  serial(async () => {
+    const all = await readAll()
+    const dom = layerDomain(inc)
+    const mine = all.find((l) => l.id === inc.id) ?? all.find((l) => l.name === inc.name && layerDomain(l) === dom)
+    if (!mine) return void (await write({ ...inc, domain: dom, entries: structuredClone(inc.entries ?? {}) })), 'added'
+    const entries = { ...mine.entries }
+    for (const [id, e] of Object.entries(inc.entries ?? {})) entries[id] = mergeEntries(entries[id], e)
+    await write({ ...mine, entries, updatedAt: now() })
+    return 'merged'
+  })
+
 export const deleteLayer = (id) =>
   serial(async () => {
     const d = await db()

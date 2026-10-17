@@ -8,7 +8,7 @@ Ideas agreed with Paul. Done items first, then the rest ordered easiest to harde
 - [x] 4. Keep the bottom tab bar visible on technique pages (App.svelte hides it for the intro and technique routes)
 - [x] 5. Coverage dashboard (as "Detailed Progress", linked from Learn): % learned per tactic, "next to learn"
 - [x] 6. Layer extras: duplicate, merge into new layer, heatmap legend (duplicate and legend already existed)
-- [ ] 7. Sync and export learning progress (layers, learned ticks, quiz results) between devices; manual file export/import, as bookmarks do
+- [x] 7. Sync and export learning progress (layers incl. learned ticks, bookmarks, quiz results) between devices: manual file export/import, plus optional GitHub sync to the private repo `attack-learner-sync` (fine-grained token, one `progress.json`, per-item newest-wins merge).. Quiz results are not stored yet, so not included
 - [ ] 8. Export: PDF/CSV layer report, Markdown incident timeline
 - [ ] 9. "What changed" after a data update: added, changed, deprecated techniques/groups/tools
 - [ ] 10. Mitigations and detections (data sources) on technique pages; may need the data build extended
