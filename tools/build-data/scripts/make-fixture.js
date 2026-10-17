@@ -13,7 +13,7 @@ const rels = objects.filter((o) => o.type === 'relationship')
 
 const keep = new Set()
 for (const o of objects) {
-  if (o.type === 'x-mitre-matrix' || o.type === 'x-mitre-tactic') keep.add(o.id)
+  if (o.type === 'x-mitre-collection' || o.type === 'x-mitre-matrix' || o.type === 'x-mitre-tactic') keep.add(o.id)
   if (OTHERS.includes(extId(o))) keep.add(o.id)
 }
 const parents = patterns.filter((o) => TECHNIQUES.includes(extId(o)))
@@ -31,5 +31,5 @@ const dangling = rels.find(
 )
 writeFileSync(
   outPath,
-  JSON.stringify({ ...bundle, objects: [...objects.filter((o) => keep.has(o.id)), ...kept, dangling] }, null, 1) + '\n',
+  JSON.stringify({ ...bundle, objects: [...objects.filter((o) => keep.has(o.id)).map((o) => (o.type === 'x-mitre-collection' ? { ...o, x_mitre_contents: [] } : o)), ...kept, dangling] }, null, 1) + '\n',
 )
