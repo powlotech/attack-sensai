@@ -9,6 +9,7 @@
   import Intro from './screens/Intro.svelte'
   import Learn from './screens/Learn.svelte'
   import Search from './screens/Search.svelte'
+  import { syncStatusBar } from './lib/native/statusBar.js'
   import Layers from './screens/Layers.svelte'
   import Technique from './screens/Technique.svelte'
   import Matrix from './screens/Matrix.svelte'
@@ -25,7 +26,7 @@
   }
 
   onMount(() => {
-    const stopTheme = startTheme()
+    const stopTheme = startTheme((t) => syncStatusBar(t).catch(() => {}))
     ;(async () => {
       try {
         const { data } = await loadDataset()

@@ -1,0 +1,52 @@
+name: build-apk
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - run: npm run build -w app
+        env:
+          VITE_BASE: ./
+          VITE_DATA_BASE: https://powlotech.github.io/attack-learner/data/
+      - run: npx cap sync android
+        working-directory: app
+      - name: Decode keystore
+        run: echo "$ANDROID_KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+        env:
+          ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+      - name: Assemble signed release APK
+        working-directory: app/android
+        env:
+          VERSION_NAME: ${{ github.ref_type == 'tag' && github.ref_name || format('0.0.{0}', github.run_number) }}
+        run: |
+          ./gradlew assembleRelease \
+            -PappVersionCode=${{ github.run_number }} \
+            -PappVersionName="$VERSION_NAME" \
+            -PsigningStoreFile="$RUNNER_TEMP/release.jks" \
+            -PsigningStorePassword="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
+            -PsigningKeyAlias="${{ secrets.ANDROID_KEY_ALIAS }}" \
+            -PsigningKeyPassword="${{ secrets.ANDROID_KEY_PASSWORD }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: app/android/app/build/outputs/apk/release/app-release.apk
+      - name: Publish release
+        if: github.ref_type == 'tag'
+        run: gh release create "$GITHUB_REF_NAME" app/android/app/build/outputs/apk/release/app-release.apk --title "$GITHUB_REF_NAME" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

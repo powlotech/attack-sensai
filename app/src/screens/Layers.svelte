@@ -4,6 +4,7 @@
   import { idx, layers, activeLayer, dataset, dataStatus, refreshLayers, setDataset, showToast } from '../lib/stores.js'
   import { createLayer, renameLayer, duplicateLayer, deleteLayer, ensureDefaultLayer, setActiveLayerId, orphanCount, isPersistent } from '../lib/layers/store.js'
   import { fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
+  import { syncStatusBar } from '../lib/native/statusBar.js'
   import { shareOrDownload } from '../lib/layers/share.js'
   import { checkForUpdate, getDataStatus } from '../lib/data/dataset.js'
   import { getThemePref, setThemePref, resolveTheme } from '../lib/theme/theme.js'
@@ -86,7 +87,9 @@
   const setTheme = (p) => {
     theme = p
     setThemePref(p)
-    document.documentElement.dataset.theme = resolveTheme(p, matchMedia('(prefers-color-scheme: dark)').matches)
+    const resolved = resolveTheme(p, matchMedia('(prefers-color-scheme: dark)').matches)
+    document.documentElement.dataset.theme = resolved
+    syncStatusBar(resolved).catch(() => {})
   }
 </script>
 

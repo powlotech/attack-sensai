@@ -11,6 +11,8 @@
     "e2e": "playwright test --pass-with-no-tests"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
     "@playwright/test": "^1.64.1",
     "@sveltejs/vite-plugin-svelte": "^7.3.0",
     "fake-indexeddb": "^6.2.6",
@@ -24,6 +26,7 @@
     "@capacitor/core": "^8.5.3",
     "@capacitor/filesystem": "^8.1.5",
     "@capacitor/share": "^8.0.3",
+    "@capacitor/status-bar": "^8.0.4",
     "dompurify": "^3.4.17",
     "idb": "^8.0.4",
     "marked": "^18.1.1"
