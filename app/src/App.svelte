@@ -15,6 +15,7 @@
   import Compare from './screens/Compare.svelte'
   import Technique from './screens/Technique.svelte'
   import Matrix from './screens/Matrix.svelte'
+  import Bookmarks from './screens/Bookmarks.svelte'
 
   let ready = $state(false)
   let failure = $state('')
@@ -42,7 +43,7 @@
     return stopTheme
   })
 
-  const chrome = $derived(!['intro', 'technique'].includes($route.name))
+  const chrome = $derived(!['intro'].includes($route.name))
 </script>
 
 {#if failure}
@@ -60,6 +61,8 @@
     <Layers />
   {:else if $route.name === 'compare'}
     <Compare />
+  {:else if $route.name === 'bookmarks'}
+    <Bookmarks />
   {:else if $route.name === 'settings'}
     <Settings />
   {:else if $route.name === 'quiz'}

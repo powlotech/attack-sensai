@@ -12,3 +12,5 @@ Ideas agreed with Paul, most useful first. Tick when done.
 - [ ] 8. Export: PDF/CSV layer report, Markdown incident timeline
 - [ ] 9. Daily "technique of the day" notification (Android, Capacitor)
 - [x] 10. Polish: release notes in About, short commit hash for Pages version
+- [ ] 11. Sync and export learning progress (layers, learned ticks, quiz results) between devices; manual file export/import, as bookmarks do
+- [x] 12. Keep the bottom tab bar visible on technique pages (App.svelte hides it for the intro and technique routes)
