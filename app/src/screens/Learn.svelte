@@ -1,0 +1,49 @@
+<script>
+  import tacticGoals from '../lib/content/tactics.json'
+  import { dataset, activeLayer } from '../lib/stores.js'
+  import { navigate } from '../lib/router.js'
+
+  const learned = $derived(Object.values($activeLayer?.entries ?? {}).filter((e) => e.learned).length)
+  const total = $derived($dataset?.techniques.length ?? 0)
+  const firstSentence = (s) => s.split(/(?<=\.)\s/)[0]
+</script>
+
+<main>
+  <h1>Learn</h1>
+  <p class="muted">The {$dataset?.tactics.length} attacker goals, in the order an attack usually unfolds.</p>
+
+  <section class="card">
+    <div class="row"><strong>Your progress</strong><span class="muted">{learned} techniques learned</span></div>
+    <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax={total} aria-valuenow={learned} aria-label="Techniques learned">
+      <span style="width: {total ? (100 * learned) / total : 0}%"></span>
+    </div>
+    <button type="button" class="link" onclick={() => navigate('/intro')}>Replay the intro</button>
+  </section>
+
+  {#each $dataset?.tactics ?? [] as t, i}
+    <a class="card tactic" href="#/matrix?tactic={t.shortname}">
+      <span class="n">{i + 1}</span>
+      <span class="txt">
+        <strong>{t.name}</strong> <code class="muted">{t.id}</code>
+        <span class="muted goal">{tacticGoals[t.shortname] ?? firstSentence(t.description)}</span>
+      </span>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+    </a>
+  {/each}
+</main>
+
+<style>
+  main { padding: 24px 20px 88px; }
+  h1 { font-size: 32px; margin: 0 0 4px; }
+  .muted { color: var(--muted); margin: 0; }
+  .card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .track { height: 8px; border-radius: 4px; background: var(--border); margin: 12px 0; overflow: hidden; }
+  .track span { display: block; height: 100%; background: var(--accent); }
+  .link { background: none; border: 0; padding: 0; cursor: pointer; }
+  .tactic { display: flex; align-items: center; gap: 14px; color: inherit; text-decoration: none; min-height: 72px; }
+  .n { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent-tint); color: var(--accent); font-weight: 700; display: grid; place-items: center; }
+  .txt { flex: 1; }
+  .goal { display: block; }
+  code { font-size: 13px; }
+</style>
