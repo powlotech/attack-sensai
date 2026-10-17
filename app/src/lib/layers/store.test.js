@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto'
 import { beforeEach, expect, test, vi } from 'vitest'
 import {
   createLayer, deleteLayer, duplicateLayer, ensureDefaultLayer, getActiveLayerId, getLayer,
-  isPersistent, listLayers, orphanCount, renameLayer, setActiveLayerId, setEntry,
+  isPersistent, layerDomain, listLayers, orphanCount, renameLayer, setActiveLayerId, setEntry, setStoreDomain,
 } from './store.js'
 import { openDb } from '../data/db.js'
 
@@ -93,4 +93,24 @@ test('IndexedDB unavailable: not persistent, CRUD works in memory', async () => 
   expect((await mem.getLayer(l.id)).entries.T1.score).toBe(2)
   expect(await mem.listLayers()).toHaveLength(1)
   vi.doUnmock('../data/db.js')
+})
+
+test('layers carry a domain; each domain has its own default and active layer', async () => {
+  await ensureDefaultLayer()
+  setStoreDomain('ics')
+  try {
+    const d = await ensureDefaultLayer()
+    expect(layerDomain(d)).toBe('ics')
+    expect((await listLayers()).map(layerDomain).sort()).toEqual(['enterprise', 'ics'])
+    const l = await createLayer('Pump attack')
+    expect(l.domain).toBe('ics')
+    setActiveLayerId(l.id)
+    expect(getActiveLayerId()).toBe(l.id)
+    setStoreDomain('enterprise')
+    expect(getActiveLayerId()).not.toBe(l.id)
+    expect((await createLayer('x', {}, 'ics')).domain).toBe('ics')
+  } finally {
+    setStoreDomain('enterprise')
+  }
+  expect(layerDomain({ id: 'old' })).toBe('enterprise')
 })

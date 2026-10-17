@@ -3,7 +3,13 @@ import { isEmptyEntry } from './store.js'
 
 const LAYER_VERSION = '4.5'
 const NAVIGATOR_VERSION = '5.2.0'
-const ENTERPRISE_DOMAINS = ['enterprise-attack', 'mitre-enterprise'] // the second is the pre-v4 spelling
+const DOMAIN_NAMES = {
+  enterprise: ['enterprise-attack', 'mitre-enterprise'], // the second is the pre-v4 spelling
+  ics: ['ics-attack', 'mitre-ics'],
+}
+/** 'enterprise' | 'ics' for a Navigator domain string; undefined (a file with no domain) means enterprise, unknown values give null. */
+export const domainOfName = (name) =>
+  name === undefined ? 'enterprise' : (Object.keys(DOMAIN_NAMES).find((k) => DOMAIN_NAMES[k].includes(name)) ?? null)
 const SCORE_COLOURS = ['#FCE7C8', '#F6B76B', '#E07A2E', '#9A3F0E'] // light palette, scores 1-4
 
 export class LayerImportError extends Error {
@@ -29,7 +35,7 @@ const metaValue = (t, name) => t.metadata?.find?.((m) => m?.name === name)?.valu
 export function toNavigatorLayer(layer, { attackVersion }) {
   return {
     name: layer.name,
-    domain: 'enterprise-attack',
+    domain: DOMAIN_NAMES[layer.domain ?? 'enterprise'][0],
     versions: { attack: String(attackVersion), navigator: NAVIGATOR_VERSION, layer: LAYER_VERSION },
     techniques: Object.entries(layer.entries).map(([techniqueID, e]) => ({
       techniqueID,
@@ -47,7 +53,7 @@ const clamp = (n) => Math.min(4, Math.max(0, Math.round(n)))
 
 /**
  * Read a Navigator layer. Throws LayerImportError (naming the field) instead of returning a partial layer.
- * @returns {{name: string, entries: Record<string, import('./store.js').Entry>, unknownCount: number}}
+ * @returns {{name: string, domain: 'enterprise'|'ics', entries: Record<string, import('./store.js').Entry>, unknownCount: number}}
  */
 export function fromNavigatorLayer(json, { knownIds }) {
   if (json === null || typeof json !== 'object' || Array.isArray(json)) {
@@ -56,8 +62,9 @@ export function fromNavigatorLayer(json, { knownIds }) {
   if (!Array.isArray(json.techniques)) {
     throw new LayerImportError('This file has no "techniques" list, so it is not a Navigator layer.', 'techniques')
   }
-  if (json.domain !== undefined && !ENTERPRISE_DOMAINS.includes(json.domain)) {
-    throw new LayerImportError(`Only Enterprise layers are supported; this one has domain "${json.domain}".`, 'domain')
+  const domain = domainOfName(json.domain)
+  if (!domain) {
+    throw new LayerImportError(`Only Enterprise and ICS layers are supported; this one has domain "${json.domain}".`, 'domain')
   }
 
   const entries = {}
@@ -89,7 +96,7 @@ export function fromNavigatorLayer(json, { knownIds }) {
     entries[id] = merged
   }
   for (const id of Object.keys(entries)) if (isEmptyEntry(entries[id])) delete entries[id]
-  return { name: typeof json.name === 'string' && json.name ? json.name : 'Imported layer', entries, unknownCount: unknown.size }
+  return { name: typeof json.name === 'string' && json.name ? json.name : 'Imported layer', domain, entries, unknownCount: unknown.size }
 }
 
 export const exportFileName = (layer) =>

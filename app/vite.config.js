@@ -26,10 +26,10 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,json}'],
-        globIgnores: ['data/version.json'],
+        globIgnores: ['data/version.json', 'data/ics-version.json'],
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
         // attack.json is precached (offline first run) but never runtime-cached: the app's own update logic owns it
-        runtimeCaching: [{ urlPattern: ({ url }) => url.pathname.endsWith('/data/version.json'), handler: 'NetworkFirst' }],
+        runtimeCaching: [{ urlPattern: ({ url }) => /\/data\/(ics-)?version\.json$/.test(url.pathname), handler: 'NetworkFirst' }],
       },
     }),
   ],

@@ -81,3 +81,17 @@ test('offline: error, no throw', async () => {
   const r = await checkForUpdate({ current: bundled, force: true, fetchFn: stubFetch({ offline: true }) })
   expect(r.status).toBe('error')
 })
+
+test('ICS has its own files and cache; Enterprise is untouched', async () => {
+  const f = stubFetch()
+  await loadDataset({ fetchFn: f, domain: 'ics' })
+  expect(f.mock.calls[0][0]).toMatch(/data\/ics\.json$/)
+  const icsFetch = vi.fn((url) => stubFetch()(url.replace('ics.json', 'remote/ics.json')))
+  const r = await checkForUpdate({ current: bundled, force: true, domain: 'ics', fetchFn: icsFetch })
+  expect(r.status).toBe('updated')
+  expect(icsFetch.mock.calls.map((c) => c[0]).join()).toMatch(/ics-version\.json.*ics\.json/)
+  expect((await loadDataset({ fetchFn: stubFetch(), domain: 'ics' })).source).toBe('cache')
+  expect((await loadDataset({ fetchFn: stubFetch() })).source).toBe('bundled')
+  expect((await getDataStatus('ics')).attackVersion).toBe('2')
+  expect((await getDataStatus()).attackVersion).toBeNull()
+})

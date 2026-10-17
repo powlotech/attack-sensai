@@ -15,6 +15,10 @@ const ABBR = {
   'command-and-control': 'C2',
   exfiltration: 'EF',
   impact: 'IM',
+  // ICS-only tactics
+  evasion: 'EV',
+  'inhibit-response-function': 'IR',
+  'impair-process-control': 'IP',
 }
 export const tacticAbbr = (shortname) => ABBR[shortname] ?? shortname.slice(0, 2).toUpperCase()
 

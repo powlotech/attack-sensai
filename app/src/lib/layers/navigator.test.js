@@ -109,3 +109,13 @@ test('exportFileName', () => {
   expect(exportFileName(layer)).toBe('my-layer-v1.layer.json')
   expect(exportFileName({ name: '!!!' })).toBe('layer.layer.json')
 })
+
+test('ICS layers export as ics-attack and import back with their domain', () => {
+  const out = toNavigatorLayer({ name: 'P', domain: 'ics', entries: { T0800: { score: 2, comment: '', learned: false } } }, { attackVersion: '20.0' })
+  expect(out.domain).toBe('ics-attack')
+  expect(toNavigatorLayer({ name: 'E', entries: {} }, { attackVersion: '20.0' }).domain).toBe('enterprise-attack')
+  const r = fromNavigatorLayer(out, { knownIds: new Set(['T0800']) })
+  expect(r.domain).toBe('ics')
+  expect(fromNavigatorLayer({ techniques: [] }, { knownIds: new Set() }).domain).toBe('enterprise')
+  expect(() => fromNavigatorLayer({ domain: 'mobile-attack', techniques: [] }, { knownIds: new Set() })).toThrow(/Enterprise and ICS/)
+})

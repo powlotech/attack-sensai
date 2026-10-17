@@ -1,9 +1,8 @@
 <script>
   import { onMount } from 'svelte'
   import { startTheme } from './lib/theme/theme.js'
-  import { checkForUpdate, getDataStatus, loadDataset } from './lib/data/dataset.js'
-  import { ensureDefaultLayer } from './lib/layers/store.js'
-  import { dataStatus, toast, refreshLayers, setDataset } from './lib/stores.js'
+  import { toast, domain, switchDomain, updateDomainData } from './lib/stores.js'
+  import { get } from 'svelte/store'
   import { navigate, route } from './lib/router.js'
   import TabBar from './components/TabBar.svelte'
   import Intro from './screens/Intro.svelte'
@@ -30,16 +29,10 @@
     const stopTheme = startTheme((t) => syncStatusBar(t).catch(() => {}))
     ;(async () => {
       try {
-        const { data } = await loadDataset()
-        setDataset(data)
-        await ensureDefaultLayer()
-        await refreshLayers()
-        dataStatus.set(await getDataStatus())
+        await switchDomain(get(domain))
         if (!introSeen() && $route.name !== 'intro') navigate('/intro')
         ready = true
-        const result = await checkForUpdate({ current: data })
-        if (result.status === 'updated') setDataset(result.data)
-        dataStatus.set(await getDataStatus())
+        await updateDomainData()
       } catch (e) {
         failure = e.message
       }

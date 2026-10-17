@@ -1,13 +1,20 @@
 import { openDb } from '../data/db.js'
 
 /** @typedef {{score: number, comment: string, learned: boolean, order?: number, when?: string}} Entry */
-/** @typedef {{id: string, name: string, createdAt: number, updatedAt: number, entries: Record<string, Entry>}} Layer */
+/** @typedef {{id: string, name: string, domain?: 'enterprise'|'ics', createdAt: number, updatedAt: number, entries: Record<string, Entry>}} Layer */
 
 /** An entry with nothing worth keeping; `order` is the step in an incident, `when` free-text timing. */
 export const isEmptyEntry = (e) => e.score === 0 && e.comment === '' && !e.learned && e.order == null && !e.when
 
 const EMPTY = { score: 0, comment: '', learned: false }
-const ACTIVE_KEY = 'attack-learner.activeLayer'
+const ACTIVE_KEY = 'attack-learner.activeLayer' // enterprise; other domains append ':<domain>'
+
+/** Layers saved before domains existed have none: they are Enterprise. */
+export const layerDomain = (l) => l.domain ?? 'enterprise'
+// ponytail: module-level current domain keeps callers of create/ensureDefault/active-id unchanged; the app sets it on every domain switch.
+let current = 'enterprise'
+export const setStoreDomain = (d) => (current = d)
+const activeKey = () => (current === 'enterprise' ? ACTIVE_KEY : `${ACTIVE_KEY}:${current}`)
 
 // ponytail: IndexedDB failure means layers live in this Map and vanish on reload; isPersistent() lets the UI warn.
 const memory = new Map()
@@ -58,9 +65,9 @@ export const isPersistent = async () => {
 export const listLayers = async () => (await readAll()).sort((a, b) => a.createdAt - b.createdAt)
 export const getLayer = async (id) => (await readAll()).find((l) => l.id === id)
 
-export const createLayer = (name, entries = {}) =>
+export const createLayer = (name, entries = {}, domain = current) =>
   serial(async () => {
-    const layer = { id: crypto.randomUUID(), name, createdAt: now(), updatedAt: now(), entries }
+    const layer = { id: crypto.randomUUID(), name, domain, createdAt: now(), updatedAt: now(), entries }
     await write(layer)
     return layer
   })
@@ -116,16 +123,16 @@ export const setEntry = (layerId, techId, patch) =>
 
 export const ensureDefaultLayer = () =>
   serial(async () => {
-    const all = await listLayers()
-    if (all.length) return all[0]
-    const layer = { id: crypto.randomUUID(), name: 'Learning progress', createdAt: now(), updatedAt: now(), entries: {} }
+    const mine = (await listLayers()).filter((l) => layerDomain(l) === current)
+    if (mine.length) return mine[0]
+    const layer = { id: crypto.randomUUID(), name: 'Learning progress', domain: current, createdAt: now(), updatedAt: now(), entries: {} }
     await write(layer)
     return layer
   })
 
 export function getActiveLayerId() {
   try {
-    return localStorage.getItem(ACTIVE_KEY)
+    return localStorage.getItem(activeKey())
   } catch {
     return null
   }
@@ -133,7 +140,7 @@ export function getActiveLayerId() {
 
 export function setActiveLayerId(id) {
   try {
-    localStorage.setItem(ACTIVE_KEY, id)
+    localStorage.setItem(activeKey(), id)
   } catch {
     // storage blocked: active layer falls back to the first layer next launch
   }

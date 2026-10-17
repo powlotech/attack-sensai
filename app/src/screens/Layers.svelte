@@ -1,13 +1,12 @@
 <script>
   import { onMount } from 'svelte'
   import ConfirmSheet from '../components/ConfirmSheet.svelte'
-  import { idx, layers, activeLayer, dataset, dataStatus, refreshLayers, setDataset, showToast } from '../lib/stores.js'
+  import { idx, layers, activeLayer, dataset, dataStatus, domain, DOMAINS, refreshLayers, switchDomain, updateDomainData, showToast } from '../lib/stores.js'
   import { createLayer, renameLayer, duplicateLayer, deleteLayer, ensureDefaultLayer, setActiveLayerId, orphanCount, isPersistent } from '../lib/layers/store.js'
-  import { fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
+  import { domainOfName, fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
   import { navigate } from '../lib/router.js'
   import { syncStatusBar } from '../lib/native/statusBar.js'
   import { shareOrDownload } from '../lib/layers/share.js'
-  import { checkForUpdate, getDataStatus } from '../lib/data/dataset.js'
   import { getThemePref, setThemePref, resolveTheme } from '../lib/theme/theme.js'
 
   let sheet
@@ -32,6 +31,11 @@
   const select = async (id) => {
     setActiveLayerId(id)
     await after()
+  }
+  const pickDomain = async (d) => {
+    if (d === $domain) return
+    await switchDomain(d)
+    showToast(`Showing the ${DOMAINS.find(([k]) => k === d)[1]} matrix`)
   }
   const create = () =>
     sheet.open({ title: 'New layer', input: '', label: 'Create', onconfirm: async (name) => {
@@ -68,7 +72,10 @@
     e.currentTarget.value = ''
     if (!file) return
     try {
-      const r = fromNavigatorLayer(JSON.parse(await file.text()), { knownIds: new Set($idx.byId.keys()) })
+      const json = JSON.parse(await file.text())
+      const target = domainOfName(json?.domain)
+      if (target && target !== $domain) await switchDomain(target)
+      const r = fromNavigatorLayer(json, { knownIds: new Set($idx.byId.keys()) })
       const l = await createLayer(r.name, r.entries)
       setActiveLayerId(l.id)
       await after()
@@ -79,9 +86,7 @@
   }
 
   async function checkNow() {
-    const r = await checkForUpdate({ current: $dataset, force: true })
-    if (r.status === 'updated') setDataset(r.data)
-    dataStatus.set(await getDataStatus())
+    const r = await updateDomainData({ force: true })
     showToast(r.status === 'updated' ? 'Data updated' : r.status === 'error' ? 'Check failed' : 'Already up to date')
   }
 
@@ -97,6 +102,11 @@
 <div class="page">
   <header><h1>Layers</h1><button type="button" class="new" onclick={create}>+ New</button></header>
   {#if !persistent}<p class="warn" role="alert">Layers won't be saved in this browser mode.</p>{/if}
+  <div class="seg" role="group" aria-label="Matrix">
+    {#each DOMAINS as [k, label]}
+      <button type="button" aria-pressed={$domain === k} class:on={$domain === k} onclick={() => pickDomain(k)}>{label}</button>
+    {/each}
+  </div>
   <p class="lede">A layer is your own colouring of the matrix: progress, a threat group, or your detections. The active layer's scores show everywhere.</p>
 
   {#each $layers as l (l.id)}
@@ -165,6 +175,9 @@
   .menu { position: absolute; right: 8px; top: 52px; z-index: 5; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 6px 20px rgb(0 0 0 / 0.2); display: flex; flex-direction: column; min-width: 160px; }
   .menu button { background: none; border: 0; text-align: left; padding: 0 16px; color: var(--text); cursor: pointer; }
   .menu .del { color: #b3261e; }
+  .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: 12px; }
+  .seg button { flex: 1; border: 0; border-radius: 12px; background: none; cursor: pointer; }
+  .seg button.on { background: var(--surface); font-weight: 600; }
   .ghost, .solid { width: 100%; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font-weight: 700; margin-top: 12px; cursor: pointer; }
   .ghost { background: none; color: var(--accent); }
   .solid { background: var(--accent); color: var(--bg); }
