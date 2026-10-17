@@ -4,6 +4,7 @@
   import { idx, layers, activeLayer, dataset, dataStatus, refreshLayers, setDataset, showToast } from '../lib/stores.js'
   import { createLayer, renameLayer, duplicateLayer, deleteLayer, ensureDefaultLayer, setActiveLayerId, orphanCount, isPersistent } from '../lib/layers/store.js'
   import { fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
+  import { navigate } from '../lib/router.js'
   import { syncStatusBar } from '../lib/native/statusBar.js'
   import { shareOrDownload } from '../lib/layers/share.js'
   import { checkForUpdate, getDataStatus } from '../lib/data/dataset.js'
@@ -111,6 +112,7 @@
           <button type="button" role="menuitem" onclick={() => act(rename, l)}>Rename</button>
           <button type="button" role="menuitem" onclick={() => act(duplicate, l)}>Duplicate</button>
           <button type="button" role="menuitem" onclick={() => act(exportLayer, l)}>Export</button>
+          <button type="button" role="menuitem" onclick={() => navigate(`/compare?ref=${l.id}`)}>Compare…</button>
           <button type="button" role="menuitem" class="del" onclick={() => act(remove, l)}>Delete</button>
         </div>
       {/if}

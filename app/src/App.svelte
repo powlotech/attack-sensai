@@ -11,6 +11,7 @@
   import Search from './screens/Search.svelte'
   import { syncStatusBar } from './lib/native/statusBar.js'
   import Layers from './screens/Layers.svelte'
+  import Compare from './screens/Compare.svelte'
   import Technique from './screens/Technique.svelte'
   import Matrix from './screens/Matrix.svelte'
 
@@ -62,6 +63,8 @@
     <Search />
   {:else if $route.name === 'layers'}
     <Layers />
+  {:else if $route.name === 'compare'}
+    <Compare />
   {:else if $route.name === 'technique'}
     <Technique />
   {:else}
