@@ -6,7 +6,7 @@
   import { domainOfName, fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
   import { navigate } from '../lib/router.js'
   import { shareOrDownload } from '../lib/layers/share.js'
-  import { layerCsv, timelineMarkdown, printTimeline } from '../lib/layers/report.js'
+  import { layerCsv, timelineMarkdown, timelineHtml, printTimeline } from '../lib/layers/report.js'
 
   let sheet
   let fileInput
@@ -75,7 +75,13 @@
   }
   const exportCsv = (l) => exportText(l, layerCsv(l, $idx), 'csv', 'text/csv')
   const exportMd = (l) => exportText(l, timelineMarkdown(l, $idx), 'md', 'text/markdown')
-  const printPdf = (l) => printTimeline(l, $idx) || showToast('Pop-up blocked')
+  const printPdf = async (l) => {
+    const { Capacitor } = await import('@capacitor/core')
+    if (Capacitor.isNativePlatform()) {
+      await exportText(l, timelineHtml(l, $idx), 'html', 'text/html')
+      showToast('Open the file in Chrome, then Print > Save as PDF')
+    } else printTimeline(l, $idx)
+  }
   const act = (fn, l) => {
     menuId = null
     fn(l)

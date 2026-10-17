@@ -24,13 +24,19 @@ export function timelineMarkdown(layer, idx) {
 
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c])
 
-/** Open the timeline as a printable page; the user picks "Save as PDF" in the print dialog. */
+const timelineBody = (layer, idx) =>
+  esc(timelineMarkdown(layer, idx)).replace(/^# (.*)$/m, '<h1>$1</h1>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+
+/** Standalone printable page, for sharing from the APK (WebView cannot print); open in Chrome, Print > Save as PDF. */
+export const timelineHtml = (layer, idx) =>
+  `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${esc(layer.name)}</title><body style="font:14px sans-serif;white-space:pre-wrap">${timelineBody(layer, idx)}`
+
+/** Print the timeline from the current page; the user picks "Save as PDF". */
 export function printTimeline(layer, idx) {
-  const body = esc(timelineMarkdown(layer, idx)).replace(/^# (.*)$/m, '<h1>$1</h1>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-  const w = window.open('', '_blank')
-  if (!w) return false
-  w.document.write(`<!doctype html><title>${esc(layer.name)}</title><body style="font:14px sans-serif;white-space:pre-wrap">${body}`)
-  w.document.close()
-  w.print()
-  return true
+  document.getElementById('print-root')?.remove()
+  const root = document.createElement('div')
+  root.id = 'print-root'
+  root.innerHTML = `<style>#print-root{display:none}@media print{body>*:not(#print-root){display:none!important}#print-root{display:block;font:14px sans-serif;white-space:pre-wrap;color:#000;background:#fff}}</style>${timelineBody(layer, idx)}`
+  document.body.append(root)
+  window.print()
 }
