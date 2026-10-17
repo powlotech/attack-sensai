@@ -9,6 +9,7 @@
   import Intro from './screens/Intro.svelte'
   import Learn from './screens/Learn.svelte'
   import Search from './screens/Search.svelte'
+  import Layers from './screens/Layers.svelte'
   import Technique from './screens/Technique.svelte'
   import Matrix from './screens/Matrix.svelte'
 
@@ -58,6 +59,8 @@
     <Matrix />
   {:else if $route.name === 'search'}
     <Search />
+  {:else if $route.name === 'layers'}
+    <Layers />
   {:else if $route.name === 'technique'}
     <Technique />
   {:else}
