@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Matrix overview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#4FB3B8}a:hover{color:#7CCBCF}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: {{t.bg}}; color: {{t.ink}}; font-family: 'IBM Plex Sans', sans-serif; overflow: hidden">
+  <header style="padding: 24px 20px 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px">
+    <h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Matrix</h1>
+    <button type="button" style="height: 44px; padding: 0 14px; border-radius: 22px; border: 1px solid {{t.line}}; background: {{t.surface}}; font-family: inherit; font-size: 14px; font-weight: 500; color: {{t.ink}}; display: flex; align-items: center; gap: 6px">
+      <span style="width: 10px; height: 10px; border-radius: 5px; background: #E07A2E"></span>Learning progress
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+    </button>
+  </header>
+
+  <div style="margin: 0 20px 14px; display: flex; background: {{t.track}}; border-radius: 12px; padding: 4px" role="tablist" aria-label="Matrix view">
+    <a href="Matrix.dc.html" role="tab" aria-selected="false" style="flex: 1; height: 40px; border-radius: 9px; font-size: 14px; font-weight: 500; color: {{t.muted}}; text-decoration: none; display: flex; align-items: center; justify-content: center">List</a>
+    <span role="tab" aria-selected="true" style="flex: 1; height: 40px; border-radius: 9px; background: {{t.surface}}; font-size: 14px; font-weight: 600; color: {{t.ink}}; display: flex; align-items: center; justify-content: center">Overview</span>
+  </div>
+
+  <div style="flex: 1; overflow: hidden; padding: 0 20px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 3px; align-items: start">
+      <sc-for list="{{cols}}" as="col" hint-placeholder-count="14">
+        <button type="button" onClick="{{col.pick}}" aria-label="{{col.name}}" aria-pressed="{{col.pressed}}" style="{{col.style}}">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; color: {{col.labelInk}}; height: 16px; display: flex; align-items: center">{{col.abbr}}</span>
+          <span style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; width: 100%">
+            <sc-for list="{{col.cells}}" as="c" hint-placeholder-count="10">
+              <span style="{{c}}"></span>
+            </sc-for>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="background: {{t.surface}}; border: 1px solid {{t.line}}; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span style="font-size: 17px; font-weight: 600">{{sel.name}}</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.muted}}">{{sel.id}}</span>
+      </div>
+      <span style="font-size: 14px; color: {{t.muted}}">{{sel.summary}}</span>
+      <a href="Matrix.dc.html" style="font-size: 15px; font-weight: 600; text-decoration: none; padding: 6px 0">Open in list →</a>
+    </div>
+  </div>
+
+  <div style="height: 44px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 0 20px; background: {{t.surface}}; border-top: 1px solid {{t.line}}; font-size: 13px; color: {{t.muted}}">
+    <span>Score</span>
+    <sc-for list="{{legend}}" as="l" hint-placeholder-count="5">
+      <span style="display: flex; align-items: center; gap: 4px"><span style="{{l.style}}"></span>{{l.n}}</span>
+    </sc-for>
+    <span style="flex: 1"></span>
+    <span>Illustrative data</span>
+  </div>
+
+  <nav aria-label="Main" style="display: flex; height: 72px; flex-shrink: 0; background: {{t.surface}}; border-top: 1px solid {{t.line}}">
+    <a href="Main.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; color: {{t.muted}}; font-size: 12px; font-weight: 500">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"></path><path d="M4 21V5"></path></svg>Learn</a>
+    <a href="MatrixOverview.dc.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; color: {{t.accent}}; font-size: 12px; font-weight: 600">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>Matrix</a>
+    <a href="Search.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; color: {{t.muted}}; font-size: 12px; font-weight: 500">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>Search</a>
+    <a href="Layers.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; color: {{t.muted}}; font-size: 12px; font-weight: 500">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"></path><path d="M3 13l9 5 9-5"></path></svg>Layers</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":true},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 6 };
+  }
+  renderVals() {
+    const dark = this.props.dark ?? true;
+    const t = dark
+      ? { bg: '#111316', surface: '#1B1E22', track: '#24282D', line: '#30353B', ink: '#ECEEF0', muted: '#A3A8B0', accent: '#4FB3B8', selBg: '#1F3536' }
+      : { bg: '#F4F5F2', surface: '#FFFFFF', track: '#E6E8E3', line: '#DADDD6', ink: '#16181D', muted: '#4A4F57', accent: '#0F6E74', selBg: '#E3F0F0' };
+    const fills = dark
+      ? ['#2A2E33', '#4A3520', '#8A5320', '#D9772E', '#FFB070']
+      : ['#FFFFFF', '#FCE7C8', '#F6B76B', '#E07A2E', '#9A3F0E'];
+    const zeroBorder = dark ? '#3A3F46' : '#C5C9C2';
+    const tactics = [
+      ['RE', 'Reconnaissance', 'TA0043', 10], ['RD', 'Resource Development', 'TA0042', 8],
+      ['IA', 'Initial Access', 'TA0001', 10], ['EX', 'Execution', 'TA0002', 16],
+      ['PE', 'Persistence', 'TA0003', 22], ['PR', 'Privilege Escalation', 'TA0004', 14],
+      ['DE', 'Defense Evasion', 'TA0005', 44], ['CA', 'Credential Access', 'TA0006', 17],
+      ['DI', 'Discovery', 'TA0007', 32], ['LM', 'Lateral Movement', 'TA0008', 9],
+      ['CO', 'Collection', 'TA0009', 17], ['C2', 'Command and Control', 'TA0011', 18],
+      ['EF', 'Exfiltration', 'TA0010', 9], ['IM', 'Impact', 'TA0040', 14]
+    ];
+    let seed = 7;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const cell = (s) => `display: block; aspect-ratio: 1; border-radius: 2px; box-sizing: border-box; background: ${fills[s]}; border: 1px solid ${s === 0 ? zeroBorder : fills[s]}`;
+    const cols = tactics.map(([abbr, name, id, count], i) => {
+      const bias = [0.2, 0.1, 0.5, 0.7, 0.4, 0.3, 0.15, 0.35, 0.25, 0.1, 0.2, 0.3, 0.05, 0.2][i];
+      const scores = Array.from({ length: count }, () => { const r = rnd(); return r < 1 - bias ? 0 : 1 + Math.floor(rnd() * 4); });
+      const on = this.state.sel === i;
+      return {
+        abbr, name, id,
+        scored: scores.filter((s) => s > 0).length, count,
+        cells: scores.map(cell),
+        pressed: on ? 'true' : 'false',
+        pick: () => this.setState({ sel: i }),
+        labelInk: on ? t.accent : t.muted,
+        style: `display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 2px 6px; border-radius: 6px; border: 0; cursor: pointer; background: ${on ? t.selBg : 'transparent'}; outline: ${on ? '2px solid ' + t.accent : 'none'}; min-height: 44px`
+      };
+    });
+    const c = cols[this.state.sel];
+    const sel = { name: c.name, id: c.id, summary: `${c.scored} of ${c.count} techniques scored in this layer · tap a column to switch` };
+    const legend = [0, 1, 2, 3, 4].map((n) => ({ n, style: `width: 14px; height: 14px; border-radius: 4px; box-sizing: border-box; background: ${fills[n]}; border: 1.5px solid ${n === 0 ? zeroBorder : fills[n]}` }));
+    return { t, cols, sel, legend };
+  }
+}
+</script>
+</body>
+</html>

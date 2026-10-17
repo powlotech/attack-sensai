@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>First-launch intro</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0F6E74}a:hover{color:#0A4F53}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F5F2; color: #16181D; font-family: 'IBM Plex Sans', sans-serif; padding: 24px 24px 32px; overflow: hidden">
+  <div style="display: flex; justify-content: space-between; align-items: center; height: 44px">
+    <span style="font-size: 14px; color: #4A4F57; font-weight: 500">1 of 3</span>
+    <a href="Main.dc.html" style="font-size: 15px; font-weight: 500; text-decoration: none; padding: 12px 4px">Skip intro</a>
+  </div>
+
+  <div style="margin-top: 36px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; gap: 4px" aria-hidden="true">
+      <sc-for list="{{steps}}" as="s" hint-placeholder-count="14">
+        <span style="flex: 1; height: 44px; border-radius: 6px; background: {{s.fill}}"></span>
+      </sc-for>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5B606A">
+      <span>Reconnaissance</span><span>→ 14 goals →</span><span>Impact</span>
+    </div>
+  </div>
+
+  <h1 style="margin: 40px 0 0; font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em">ATT&amp;CK is a map of how real attackers work</h1>
+  <p style="margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: #33373D">MITRE built it from public reports of real intrusions. It breaks an attack into <strong>goals</strong> (tactics) and the <strong>methods</strong> used to reach them (techniques).</p>
+
+  <div style="margin-top: 24px; background: #FFFFFF; border: 1px solid #DADDD6; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B606A">Example</span>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 13px; color: #5B606A">Goal (tactic)</span>
+      <span style="font-size: 16px; font-weight: 600">Persistence: stay in after a reboot</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 13px; color: #5B606A">Method (technique)</span>
+      <span style="font-size: 16px; font-weight: 600">Scheduled Task/Job <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #5B606A">T1053</span></span>
+    </div>
+  </div>
+
+  <div style="flex: 1"></div>
+
+  <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px" aria-hidden="true">
+    <span style="width: 24px; height: 8px; border-radius: 4px; background: {{accent}}"></span>
+    <span style="width: 8px; height: 8px; border-radius: 4px; background: #C5C9C2"></span>
+    <span style="width: 8px; height: 8px; border-radius: 4px; background: #C5C9C2"></span>
+  </div>
+  <a href="Main.dc.html" style="height: 56px; border-radius: 14px; background: {{accent}}; color: #FFFFFF; font-size: 17px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center">Next: tactics vs techniques</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#0F6E74","options":["#0F6E74","#2F4FA8","#7A3E9D"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const shades = ['#D5E9E9','#C2DFDF','#AED4D5','#9ACACB','#86BFC1','#72B4B6','#5EA9AC','#4A9EA2','#368F94','#258187','#18737A','#0F6E74','#0B5D62','#084C50'];
+    return {
+      accent: this.props.accent ?? '#0F6E74',
+      steps: shades.map((fill) => ({ fill }))
+    };
+  }
+}
+</script>
+</body>
+</html>
