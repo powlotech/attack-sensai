@@ -5,7 +5,7 @@
   import { getSyncConfig, setSyncConfig, syncWithGithub } from '../lib/sync/github.js'
   import { shareOrDownload } from '../lib/layers/share.js'
   import { daily, setDaily } from '../lib/daily.js'
-  import { allowNotifications, scheduleDaily } from '../lib/native/daily.js'
+  import { allowNotifications, scheduleDaily, testReminder } from '../lib/native/daily.js'
   import tacticGoals from '../lib/content/tactics.json'
   import { syncStatusBar } from '../lib/native/statusBar.js'
   import { getThemePref, setThemePref, resolveTheme } from '../lib/theme/theme.js'
@@ -23,12 +23,15 @@
       return showToast('Notifications are only available in the Android app, and must be allowed')
     }
     setDaily({ on })
-    await scheduleDaily($dataset, $idx, tacticGoals)
+    const r = await scheduleDaily($dataset, $idx, tacticGoals)
+    if (r) showToast(r)
   }
+  const test = async () => showToast((await allowNotifications()) ? await testReminder() : 'Notifications are not allowed')
   async function changeTime(time) {
     if (!time) return
     setDaily({ time })
-    await scheduleDaily($dataset, $idx, tacticGoals)
+    const r = await scheduleDaily($dataset, $idx, tacticGoals)
+    if (r) showToast(r)
   }
 
   async function checkNow() {
@@ -110,6 +113,7 @@
   <h2>Daily question</h2>
   <label class="row"><input type="checkbox" checked={$daily.on} onchange={(e) => toggleDaily(e.currentTarget.checked)} /> Remind me every day (Android)</label>
   <label class="row">Time <input type="time" value={$daily.time} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
+  <button type="button" class="solid" onclick={test}>Send a test reminder (15 s)</button>
 
   <h2>Sync progress</h2>
   <p class="muted">Layers (including learned ticks) and bookmarks. Importing merges and never overwrites: higher scores and learned ticks are kept, comments are joined. Deleted layers are not synced.</p>
