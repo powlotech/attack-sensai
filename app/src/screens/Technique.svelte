@@ -164,11 +164,11 @@
 {/if}
 
 <style>
-  .page { padding: 12px 20px 32px; }
+  .page { padding: 20px 20px 32px; }
   .miss { padding: 24px; }
-  .back { border: 0; background: none; color: var(--accent); font-weight: 600; padding: 0; cursor: pointer; }
+  .back { display: block; margin-bottom: var(--gap); border: 0; background: none; color: var(--accent); font-weight: 600; padding: 0; cursor: pointer; }
   .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  h1 { margin: var(--gap) 0 4px; font-size: 26px; }
+  h1 { margin: 0 0 var(--gap); font-size: 26px; }
   h2 { font-size: 17px; margin: var(--gap) 0 var(--gap); }
   .star { flex-shrink: 0; min-height: 44px; border: 1.5px solid var(--accent); border-radius: 12px; background: none; color: var(--accent); font: inherit; font-weight: 600; padding: 0 14px; cursor: pointer; }
   .star[aria-pressed='true'] { background: var(--accent); color: var(--bg); }

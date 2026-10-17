@@ -144,8 +144,8 @@
 </div>
 
 <style>
-  .page { padding: 12px 20px 96px; }
-  h1 { margin: var(--gap) 0; font-size: 28px; }
+  .page { padding: 20px 20px 96px; }
+  h1 { margin: 0 0 var(--gap); font-size: 32px; }
   h2 { font-size: 17px; margin: var(--gap) 0 var(--gap); }
   .status { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--border); border-radius: 16px; padding: 12px 16px; margin-top: var(--gap); }
   .status button { border: 0; background: none; color: var(--accent); font-weight: 700; cursor: pointer; }

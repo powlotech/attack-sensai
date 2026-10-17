@@ -158,9 +158,9 @@
 </dialog>
 
 <style>
-  .page { padding: 12px 20px 96px; }
-  header { display: flex; justify-content: space-between; align-items: center; }
-  h1 { margin: var(--gap) 0; font-size: 28px; }
+  .page { padding: 20px 20px 96px; }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--gap); }
+  h1 { margin: 0; font-size: 32px; }
   h2 { font-size: 17px; margin: var(--gap) 0 var(--gap); }
   .new { background: var(--accent); color: var(--bg); border: 0; border-radius: 24px; padding: 0 20px; font-weight: 700; cursor: pointer; }
   .lede, .note { color: var(--muted); }

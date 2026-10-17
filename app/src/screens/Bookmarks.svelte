@@ -59,8 +59,8 @@
 </main>
 
 <style>
-  main { padding: 24px 20px 32px; }
-  h1 { font-size: 32px; margin: 0 0 4px; }
+  main { padding: 20px 20px 32px; }
+  h1 { font-size: 32px; margin: 0 0 var(--gap); }
   h2 { font-size: 18px; margin: var(--gap) 0 0; }
   .muted { color: var(--muted); margin: 0; }
   .empty { margin-top: var(--gap); }

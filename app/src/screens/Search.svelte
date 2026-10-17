@@ -123,8 +123,8 @@
 </div>
 
 <style>
-  .page { padding: 12px 20px 96px; }
-  h1 { margin: var(--gap) 0 var(--gap); font-size: 28px; }
+  .page { padding: 20px 20px 96px; }
+  h1 { margin: 0 0 var(--gap); font-size: 32px; }
   input { width: 100%; box-sizing: border-box; min-height: 52px; padding: 0 16px; border: 2px solid var(--accent); border-radius: 16px; background: var(--surface); color: var(--text); font: inherit; }
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; margin: var(--gap) 0; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }

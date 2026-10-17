@@ -51,8 +51,8 @@
 </main>
 
 <style>
-  main { padding: 24px 20px 32px; }
-  h1 { font-size: 32px; margin: 0 0 4px; }
+  main { padding: 20px 20px 32px; }
+  h1 { font-size: 32px; margin: 0 0 var(--gap); }
   .muted { color: var(--muted); margin: 0; }
   .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: var(--gap); }
   .prompt { font-weight: 600; margin: 0 0 var(--gap); }
