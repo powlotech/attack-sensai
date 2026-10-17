@@ -2,13 +2,15 @@
   import { onMount } from 'svelte'
   import ConfirmSheet from '../components/ConfirmSheet.svelte'
   import { idx, layers, activeLayer, dataset, domain, DOMAINS, refreshLayers, switchDomain, showToast } from '../lib/stores.js'
-  import { createLayer, renameLayer, duplicateLayer, deleteLayer, ensureDefaultLayer, setActiveLayerId, orphanCount, isPersistent } from '../lib/layers/store.js'
+  import { createLayer, renameLayer, duplicateLayer, mergeLayers, layerDomain, deleteLayer, ensureDefaultLayer, setActiveLayerId, orphanCount, isPersistent } from '../lib/layers/store.js'
   import { domainOfName, fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
   import { navigate } from '../lib/router.js'
   import { shareOrDownload } from '../lib/layers/share.js'
 
   let sheet
   let fileInput
+  let mergeDlg
+  let mergeFrom = $state(null)
   let menuId = $state(null)
   let persistent = $state(true)
   onMount(async () => (persistent = await isPersistent()))
@@ -43,6 +45,17 @@
   const duplicate = async (l) => {
     await duplicateLayer(l.id)
     await after()
+  }
+  const merge = (l) => {
+    mergeFrom = l
+    mergeDlg.showModal()
+  }
+  const mergeWith = async (other) => {
+    mergeDlg.close()
+    const m = await mergeLayers(mergeFrom.id, other.id)
+    setActiveLayerId(m.id)
+    await after()
+    showToast(`Created '${m.name}'`)
   }
   const remove = (l) =>
     sheet.open({ title: `Delete '${l.name}'?`, message: 'This cannot be undone.', label: 'Delete', danger: true, onconfirm: async () => {
@@ -100,6 +113,7 @@
         <div class="menu" role="menu">
           <button type="button" role="menuitem" onclick={() => act(rename, l)}>Rename</button>
           <button type="button" role="menuitem" onclick={() => act(duplicate, l)}>Duplicate</button>
+          <button type="button" role="menuitem" onclick={() => act(merge, l)}>Merge into new layer…</button>
           <button type="button" role="menuitem" onclick={() => act(exportLayer, l)}>Export</button>
           <button type="button" role="menuitem" onclick={() => navigate(`/compare?ref=${l.id}`)}>Compare…</button>
           <button type="button" role="menuitem" class="del" onclick={() => act(remove, l)}>Delete</button>
@@ -115,6 +129,19 @@
 </div>
 
 <ConfirmSheet bind:this={sheet} />
+
+<dialog bind:this={mergeDlg} aria-label="Merge layers" onclick={(e) => e.target === mergeDlg && mergeDlg.close()}>
+  <h2>Merge '{mergeFrom?.name}' with…</h2>
+  <p class="note">Creates a new layer. Higher score wins; the originals are not changed.</p>
+  <ul>
+    {#each $layers.filter((o) => mergeFrom && o.id !== mergeFrom.id && layerDomain(o) === layerDomain(mergeFrom)) as o (o.id)}
+      <li><button type="button" onclick={() => mergeWith(o)}>{o.name}</button></li>
+    {:else}
+      <li class="note">No other layer in this matrix.</li>
+    {/each}
+  </ul>
+  <button type="button" class="close" onclick={() => mergeDlg.close()}>Cancel</button>
+</dialog>
 
 <style>
   .page { padding: 12px 20px 96px; }
@@ -146,4 +173,10 @@
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
   .seg button.on { background: var(--surface); font-weight: 700; }
+  dialog { margin: auto 0 0; width: 100%; max-width: none; border: 0; border-radius: 20px 20px 0 0; background: var(--surface); color: var(--text); padding: 16px 16px calc(16px + var(--sab)); box-sizing: border-box; }
+  dialog::backdrop { background: rgb(0 0 0 / 0.45); }
+  dialog h2 { margin: 0 0 8px; font-size: 18px; }
+  dialog ul { list-style: none; margin: 0; padding: 0; }
+  dialog li button { width: 100%; min-height: 48px; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--border); padding: 0 4px; cursor: pointer; }
+  dialog .close { width: 100%; margin-top: 12px; border: 1px solid var(--border); border-radius: 12px; background: none; cursor: pointer; }
 </style>

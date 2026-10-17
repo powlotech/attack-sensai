@@ -7,7 +7,7 @@ Ideas agreed with Paul. Done items first, then the rest ordered easiest to harde
 - [x] 3. Polish: release notes in About, short commit hash for Pages version
 - [x] 4. Keep the bottom tab bar visible on technique pages (App.svelte hides it for the intro and technique routes)
 - [x] 5. Coverage dashboard (as "Detailed Progress", linked from Learn): % learned per tactic, "next to learn"
-- [ ] 6. Layer extras: duplicate, merge, heatmap legend
+- [x] 6. Layer extras: duplicate, merge into new layer, heatmap legend (duplicate and legend already existed)
 - [ ] 7. Sync and export learning progress (layers, learned ticks, quiz results) between devices; manual file export/import, as bookmarks do
 - [ ] 8. Export: PDF/CSV layer report, Markdown incident timeline
 - [ ] 9. "What changed" after a data update: added, changed, deprecated techniques/groups/tools

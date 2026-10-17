@@ -90,6 +90,29 @@ export const duplicateLayer = (id) =>
     return copy
   })
 
+/** Combine two entries: higher score, learned if either, both comments, first layer's order/when win. */
+export function mergeEntries(a, b) {
+  if (!a || !b) return structuredClone(a ?? b)
+  const out = { ...EMPTY, ...b, ...a, score: Math.max(a.score, b.score), learned: !!(a.learned || b.learned) }
+  out.comment = a.comment === b.comment ? a.comment : [a.comment, b.comment].filter(Boolean).join('\n')
+  if (a.order == null && b.order != null) out.order = b.order
+  if (!a.when && b.when) out.when = b.when
+  return structuredClone(out)
+}
+
+/** Merge two layers of the same domain into a new layer; both originals are left untouched. */
+export const mergeLayers = (idA, idB) =>
+  serial(async () => {
+    const [a, b] = [await getLayer(idA), await getLayer(idB)]
+    if (!a || !b) throw new Error('No such layer')
+    if (layerDomain(a) !== layerDomain(b)) throw new Error('Layers are in different matrices')
+    const entries = {}
+    for (const id of new Set([...Object.keys(a.entries), ...Object.keys(b.entries)])) entries[id] = mergeEntries(a.entries[id], b.entries[id])
+    const layer = { id: crypto.randomUUID(), name: `${a.name} + ${b.name}`, domain: layerDomain(a), createdAt: now(), updatedAt: now(), entries }
+    await write(layer)
+    return layer
+  })
+
 export const deleteLayer = (id) =>
   serial(async () => {
     const d = await db()

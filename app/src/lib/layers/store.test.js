@@ -114,3 +114,10 @@ test('layers carry a domain; each domain has its own default and active layer', 
   }
   expect(layerDomain({ id: 'old' })).toBe('enterprise')
 })
+
+test('mergeEntries keeps the higher score, either learned tick, and both comments', async () => {
+  const { mergeEntries } = await import('./store.js')
+  const m = mergeEntries({ score: 1, comment: 'a', learned: false }, { score: 3, comment: 'b', learned: true, order: 2 })
+  expect(m).toMatchObject({ score: 3, comment: 'a\nb', learned: true, order: 2 })
+  expect(mergeEntries(undefined, { score: 2, comment: '', learned: false }).score).toBe(2)
+})
