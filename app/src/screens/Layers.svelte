@@ -100,6 +100,8 @@
   }
 </script>
 
+<svelte:window onclick={(e) => { if (!e.target.closest('.menu, .dots')) menuId = null }} onkeydown={(e) => e.key === 'Escape' && (menuId = null)} />
+
 <div class="page">
   <header><h1>Layers</h1><button type="button" class="new" onclick={create}>+ New</button></header>
   {#if !persistent}<p class="warn" role="alert">Layers won't be saved in this browser mode.</p>{/if}

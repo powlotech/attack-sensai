@@ -19,4 +19,4 @@ Ideas agreed with Paul. Done items first, then the rest ordered easiest to harde
 
 ## UI tweaks (low priority)
 
-- [ ] Menus opened from the vertical ellipsis must close when tapping outside them, not only by tapping the ellipsis again
+- [x] Menus opened from the vertical ellipsis must close when tapping outside them, not only by tapping the ellipsis again
