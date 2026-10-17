@@ -33,9 +33,9 @@
     background: var(--surface); color: var(--text); padding: 16px 16px calc(16px + var(--sab)); box-sizing: border-box;
   }
   dialog::backdrop { background: rgb(0 0 0 / 0.45); }
-  h2 { margin: 0 0 8px; font-size: 18px; }
+  h2 { margin: 0 0 var(--gap); font-size: 18px; }
   input { width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); font: inherit; }
-  .row { display: flex; gap: 8px; margin-top: 16px; }
+  .row { display: flex; gap: 8px; margin-top: var(--gap); }
   .row button { flex: 1; border: 1.5px solid var(--accent); border-radius: 12px; background: none; color: var(--accent); font-weight: 600; cursor: pointer; }
   .go { background: var(--accent) !important; color: var(--bg) !important; }
   .danger { background: #b3261e !important; border-color: #b3261e !important; }

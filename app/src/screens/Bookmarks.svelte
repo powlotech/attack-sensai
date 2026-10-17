@@ -61,19 +61,19 @@
 <style>
   main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
-  h2 { font-size: 18px; margin: 24px 0 0; }
+  h2 { font-size: 18px; margin: var(--gap) 0 0; }
   .muted { color: var(--muted); margin: 0; }
-  .empty { margin-top: 16px; }
-  .card { display: block; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: 12px; }
+  .empty { margin-top: var(--gap); }
+  .card { display: block; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: var(--gap); }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   a { color: inherit; text-decoration: none; }
-  textarea { width: 100%; box-sizing: border-box; margin-top: 10px; font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; resize: vertical; }
+  textarea { width: 100%; box-sizing: border-box; margin-top: var(--gap); font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; resize: vertical; }
   .link { background: none; border: 0; color: var(--muted); min-height: 44px; padding: 0 4px; cursor: pointer; }
   .recent a { display: block; min-height: 44px; line-height: 44px; }
-  .ghost, .solid { width: 100%; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font: inherit; font-weight: 700; margin-top: 12px; cursor: pointer; }
+  .ghost, .solid { width: 100%; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font: inherit; font-weight: 700; margin-top: var(--gap); cursor: pointer; }
   .ghost { background: none; color: var(--accent); }
   .solid { background: var(--accent); color: var(--bg); }
   .solid:disabled { opacity: 0.5; }
-  .hint { margin-top: 12px; font-size: 14px; }
+  .hint { margin-top: var(--gap); font-size: 14px; }
   code { font-size: 13px; }
 </style>

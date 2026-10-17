@@ -65,15 +65,15 @@
 
 <style>
   main { padding: 20px 20px 96px; }
-  label { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
-  select { flex: 1; min-height: 44px; }
-  header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 12px; }
+  label { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: var(--gap); }
+  select { flex: 1; min-height: 48px; }
+  header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: var(--gap); }
   h1 { font-size: 32px; margin: 0; }
-  .back { display: block; color: var(--accent); text-decoration: none; margin-bottom: 12px; }
+  .back { display: block; color: var(--accent); text-decoration: none; margin-bottom: var(--gap); }
   .muted { color: var(--muted); }
-  .banner { background: var(--accent-tint); padding: 6px 12px; border-radius: 12px; margin: 8px 0; }
+  .banner { background: var(--accent-tint); padding: 6px 12px; border-radius: 12px; margin: var(--gap) 0; }
   .sum { font-size: 18px; }
-  .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: 12px; }
+  .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: var(--gap); }
   .seg button { flex: 1; border: 0; border-radius: 12px; background: none; cursor: pointer; }
   .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 600; }
   ul { list-style: none; margin: 0; padding: 0; }
@@ -81,5 +81,5 @@
   .txt { flex: 1; min-width: 0; }
   small { display: block; color: var(--muted); }
   code { font-size: 13px; color: var(--muted); }
-  .solid { width: 100%; margin-top: 12px; background: var(--accent); color: var(--bg); min-height: 52px; border: 0; border-radius: 16px; font-weight: 700; }
+  .solid { width: 100%; margin-top: var(--gap); background: var(--accent); color: var(--bg); min-height: 52px; border: 0; border-radius: 16px; font-weight: 700; }
 </style>

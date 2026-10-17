@@ -158,13 +158,13 @@
 <style>
   .page { padding: 12px 20px 96px; }
   header { display: flex; justify-content: space-between; align-items: center; }
-  h1 { margin: 8px 0; font-size: 28px; }
-  h2 { font-size: 17px; margin: 24px 0 8px; }
+  h1 { margin: var(--gap) 0; font-size: 28px; }
+  h2 { font-size: 17px; margin: var(--gap) 0 var(--gap); }
   .new { background: var(--accent); color: var(--bg); border: 0; border-radius: 24px; padding: 0 20px; font-weight: 700; cursor: pointer; }
   .lede, .note { color: var(--muted); }
   .note { text-align: center; }
   .warn { background: var(--accent-tint); border-radius: 12px; padding: 10px 14px; font-weight: 600; }
-  .card { position: relative; display: flex; align-items: center; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 12px; }
+  .card { position: relative; display: flex; align-items: center; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: var(--gap); }
   .card.on { box-shadow: 0 0 0 2px var(--accent); }
   .pick { flex: 1; display: flex; align-items: center; gap: 14px; border: 0; background: none; color: inherit; text-align: left; padding: 16px; cursor: pointer; font: inherit; }
   .pick strong, .pick small { display: block; }
@@ -175,10 +175,10 @@
   .menu { position: absolute; right: 8px; top: 52px; z-index: 5; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 6px 20px rgb(0 0 0 / 0.2); display: flex; flex-direction: column; min-width: 160px; }
   .menu button { background: none; border: 0; text-align: left; padding: 0 16px; color: var(--text); cursor: pointer; }
   .menu .del { color: #b3261e; }
-  .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: 12px; }
+  .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: var(--gap); }
   .seg button { flex: 1; border: 0; border-radius: 12px; background: none; cursor: pointer; }
   .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 600; }
-  .ghost, .solid { width: 100%; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font-weight: 700; margin-top: 12px; cursor: pointer; }
+  .ghost, .solid { width: 100%; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font-weight: 700; margin-top: var(--gap); cursor: pointer; }
   .ghost { background: none; color: var(--accent); }
   .solid { background: var(--accent); color: var(--bg); }
   .solid:disabled { opacity: 0.5; }
@@ -187,8 +187,8 @@
   .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 700; }
   dialog { margin: auto 0 0; width: 100%; max-width: none; border: 0; border-radius: 20px 20px 0 0; background: var(--surface); color: var(--text); padding: 16px 16px calc(16px + var(--sab)); box-sizing: border-box; }
   dialog::backdrop { background: rgb(0 0 0 / 0.45); }
-  dialog h2 { margin: 0 0 8px; font-size: 18px; }
+  dialog h2 { margin: 0 0 var(--gap); font-size: 18px; }
   dialog ul { list-style: none; margin: 0; padding: 0; }
   dialog li button { width: 100%; min-height: 48px; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--border); padding: 0 4px; cursor: pointer; }
-  dialog .close { width: 100%; margin-top: 12px; border: 1px solid var(--border); border-radius: 12px; background: none; cursor: pointer; }
+  dialog .close { width: 100%; margin-top: var(--gap); border: 1px solid var(--border); border-radius: 12px; background: none; cursor: pointer; }
 </style>

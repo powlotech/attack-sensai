@@ -42,8 +42,8 @@
     background: var(--surface); color: var(--text); padding: 16px 16px calc(16px + var(--sab));
   }
   dialog::backdrop { background: rgb(0 0 0 / 0.45); }
-  h2 { margin: 0 0 8px; font-size: 18px; }
+  h2 { margin: 0 0 var(--gap); font-size: 18px; }
   ul { list-style: none; margin: 0; padding: 0; }
   li button { width: 100%; display: flex; justify-content: space-between; align-items: center; background: none; border: 0; border-bottom: 1px solid var(--border); padding: 0 4px; text-align: left; cursor: pointer; }
-  .close { width: 100%; margin-top: 12px; border: 1px solid var(--border); border-radius: 12px; background: none; cursor: pointer; }
+  .close { width: 100%; margin-top: var(--gap); border: 1px solid var(--border); border-radius: 12px; background: none; cursor: pointer; }
 </style>

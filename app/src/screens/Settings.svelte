@@ -145,18 +145,18 @@
 
 <style>
   .page { padding: 12px 20px 96px; }
-  h1 { margin: 8px 0; font-size: 28px; }
-  h2 { font-size: 17px; margin: 24px 0 8px; }
-  .status { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--border); border-radius: 16px; padding: 12px 16px; margin-top: 24px; }
+  h1 { margin: var(--gap) 0; font-size: 28px; }
+  h2 { font-size: 17px; margin: var(--gap) 0 var(--gap); }
+  .status { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--border); border-radius: 16px; padding: 12px 16px; margin-top: var(--gap); }
   .status button { border: 0; background: none; color: var(--accent); font-weight: 700; cursor: pointer; }
   .row { display: flex; gap: 8px; }
-  .ghost, .solid { flex: 1; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font: inherit; font-weight: 700; margin-top: 12px; cursor: pointer; }
+  .ghost, .solid { flex: 1; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font: inherit; font-weight: 700; margin-top: var(--gap); cursor: pointer; }
   .ghost { background: none; color: var(--accent); }
   .solid { background: var(--accent); color: var(--bg); }
   .solid:disabled { opacity: 0.5; }
   .solid:not(.row .solid) { width: 100%; }
-  label { display: block; margin: 12px 0 8px; font-size: 14px; }
-  label input { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+  label { display: block; margin: var(--gap) 0 var(--gap); font-size: 14px; }
+  label input { display: block; width: 100%; box-sizing: border-box; margin-top: var(--gap-label); padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
   label.check { display: flex; align-items: center; gap: 10px; }
   label.check input { display: inline-block; width: 20px; height: 20px; margin: 0; padding: 0; }
   .muted { color: var(--muted, inherit); opacity: 0.8; font-size: 14px; }

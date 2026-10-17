@@ -75,13 +75,13 @@
   .bars { display: flex; gap: 4px; height: 44px; margin-top: 48px; }
   .bars span { flex: 1; background: var(--accent); border-radius: 6px; }
   .ends { display: flex; justify-content: space-between; font-size: 14px; margin-top: 6px; }
-  h1 { font-size: 28px; line-height: 1.2; margin: 28px 0 12px; }
-  .body { font-size: 18px; color: var(--muted); margin: 0 0 24px; }
+  h1 { font-size: 28px; line-height: 1.2; margin: var(--gap) 0 var(--gap); }
+  .body { font-size: 18px; color: var(--muted); margin: 0 0 var(--gap); }
   .example { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
-  .example h2 { font-size: 13px; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 8px; }
-  .example p { margin: 0 0 8px; }
+  .example h2 { font-size: 13px; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 var(--gap); }
+  .example p { margin: 0 0 var(--gap); }
   footer { margin-top: auto; padding-top: 24px; }
-  .dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .dots { display: flex; justify-content: center; gap: 8px; margin-bottom: var(--gap); }
   .dots i { width: 8px; height: 8px; border-radius: 4px; background: var(--border); }
   .dots i.on { width: 24px; background: var(--accent); }
   .primary { width: 100%; min-height: 56px; border: 0; border-radius: 16px; background: var(--accent); color: var(--bg); font-weight: 600; font-size: 17px; cursor: pointer; }

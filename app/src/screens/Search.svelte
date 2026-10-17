@@ -123,9 +123,9 @@
 
 <style>
   .page { padding: 12px 20px 96px; }
-  h1 { margin: 8px 0 12px; font-size: 28px; }
+  h1 { margin: var(--gap) 0 var(--gap); font-size: 28px; }
   input { width: 100%; box-sizing: border-box; min-height: 52px; padding: 0 16px; border: 2px solid var(--accent); border-radius: 16px; background: var(--surface); color: var(--text); font: inherit; }
-  .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; margin: 12px 0; }
+  .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; margin: var(--gap) 0; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
   .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 700; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 12px; }
@@ -138,7 +138,7 @@
   .list strong { display: block; font-weight: 500; }
   .list small { color: var(--muted); text-transform: capitalize; }
   .list code { flex: none; color: var(--muted); }
-  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-bottom: 16px; }
+  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-bottom: var(--gap); }
   .card header { display: flex; justify-content: space-between; align-items: baseline; }
   .card h2 { margin: 0; font-size: 20px; }
   .lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; }
@@ -148,6 +148,6 @@
   .actions button { flex: 1; border: 1.5px solid var(--accent); border-radius: 12px; font-weight: 600; cursor: pointer; }
   .primary { background: var(--accent); color: var(--bg); }
   .ghost { background: none; color: var(--accent); }
-  .more { width: 100%; margin-top: 12px; border: 0; background: none; color: var(--muted); font-weight: 600; text-align: left; text-transform: uppercase; font-size: 13px; letter-spacing: 0.04em; cursor: pointer; }
-  .inner { margin-top: 8px; }
+  .more { width: 100%; margin-top: var(--gap); border: 0; background: none; color: var(--muted); font-weight: 600; text-align: left; text-transform: uppercase; font-size: 13px; letter-spacing: 0.04em; cursor: pointer; }
+  .inner { margin-top: var(--gap); }
 </style>

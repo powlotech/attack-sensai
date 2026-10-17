@@ -44,9 +44,9 @@
   main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   .muted { color: var(--muted); margin: 0; }
-  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: 12px; }
-  .prompt { font-weight: 600; margin: 0 0 12px; }
-  .opt { display: block; width: 100%; min-height: 48px; margin-top: 8px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: inherit; font: inherit; text-align: left; padding: 0 14px; cursor: pointer; }
+  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: var(--gap); }
+  .prompt { font-weight: 600; margin: 0 0 var(--gap); }
+  .opt { display: block; width: 100%; min-height: 48px; margin-top: var(--gap); border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: inherit; font: inherit; text-align: left; padding: 0 14px; cursor: pointer; }
   .right { border-color: var(--accent); background: var(--accent-tint); }
   .wrong { border-style: dashed; text-decoration: line-through; }
 </style>

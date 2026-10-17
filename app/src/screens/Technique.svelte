@@ -168,28 +168,28 @@
   .miss { padding: 24px; }
   .back { border: 0; background: none; color: var(--accent); font-weight: 600; padding: 0; cursor: pointer; }
   .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  h1 { margin: 8px 0 4px; font-size: 26px; }
-  h2 { font-size: 17px; margin: 20px 0 8px; }
+  h1 { margin: var(--gap) 0 4px; font-size: 26px; }
+  h2 { font-size: 17px; margin: var(--gap) 0 var(--gap); }
   .star { flex-shrink: 0; min-height: 44px; border: 1.5px solid var(--accent); border-radius: 12px; background: none; color: var(--accent); font: inherit; font-weight: 600; padding: 0 14px; cursor: pointer; }
   .star[aria-pressed='true'] { background: var(--accent); color: var(--bg); }
-  .meta { color: var(--muted); margin: 0 0 8px; }
+  .meta { color: var(--muted); margin: 0 0 var(--gap); }
   .meta a { color: var(--accent); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip { border-radius: var(--radius); box-shadow: var(--shadow); padding: 0 14px; min-height: 36px; display: inline-flex; align-items: center; background: var(--surface); color: inherit; text-decoration: none; }
-  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 4px 16px 16px; margin-top: 16px; }
+  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 4px 16px 16px; margin-top: var(--gap); }
   .scores { display: flex; gap: 8px; }
   .scores button { flex: 1; border: 1.5px solid var(--score-0-border); border-radius: 10px; font-weight: 700; font-size: 17px; cursor: pointer; }
   .scores button.on { outline: 3px solid var(--accent); outline-offset: 2px; }
-  .when { display: flex; gap: 8px; margin-bottom: 8px; }
+  .when { display: flex; gap: 8px; margin-bottom: var(--gap); }
   .when input { min-height: 44px; border: 1px solid var(--border); border-radius: 10px; padding: 0 10px; background: var(--bg); color: var(--text); font: inherit; }
   .when input[type=number] { width: 96px; flex: none; }
   .when input[type=text] { flex: 1; min-width: 0; }
-  .learned { display: flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 8px; }
+  .learned { display: flex; align-items: center; gap: 10px; min-height: 44px; margin-top: var(--gap); }
   textarea { width: 100%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: var(--bg); color: var(--text); font: inherit; }
-  .desc :global(.defcard) { background: var(--accent-tint); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; }
+  .desc :global(.defcard) { background: var(--accent-tint); border-radius: 10px; padding: 10px 12px; margin: 0 0 var(--gap); }
   .item { border-top: 1px solid var(--border); padding: 8px 0; }
   .item summary { cursor: pointer; min-height: 36px; }
   .item .how { color: var(--muted); margin: 6px 0; }
-  .item .chips { margin: 8px 0; }
-  .ext { display: inline-block; margin-top: 24px; color: var(--accent); font-weight: 600; }
+  .item .chips { margin: var(--gap) 0; }
+  .ext { display: inline-block; margin-top: var(--gap); color: var(--accent); font-weight: 600; }
 </style>

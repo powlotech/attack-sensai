@@ -73,12 +73,12 @@
 {/each}
 
 <style>
-  .banner { display: flex; justify-content: space-between; align-items: center; background: var(--accent-tint); color: var(--accent); border-radius: 12px; padding: 4px 8px 4px 14px; margin-bottom: 8px; font-weight: 600; }
+  .banner { display: flex; justify-content: space-between; align-items: center; background: var(--accent-tint); color: var(--accent); border-radius: 12px; padding: 4px 8px 4px 14px; margin-bottom: var(--gap); font-weight: 600; }
   .banner button { background: none; border: 0; cursor: pointer; }
   .chips { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px; scrollbar-width: none; }
   .chip { flex: none; padding: 0 16px; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); cursor: pointer; }
   .chip.on { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
-  section { scroll-margin-top: 8px; }
+  section { scroll-margin-top: var(--gap); }
   .head { width: 100%; display: flex; align-items: center; gap: 12px; padding: 0 20px; min-height: 52px; border: 0; border-top: 1px solid var(--border); background: var(--surface); text-align: left; cursor: pointer; margin: 0; }
   .head.open { background: var(--accent-tint); color: var(--accent); }
   .name { flex: 1; }

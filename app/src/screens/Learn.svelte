@@ -45,14 +45,14 @@
   main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   .muted { color: var(--muted); margin: 0; }
-  .card { display: block; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: 12px; }
+  .card { display: block; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: var(--gap); }
   a.card { color: inherit; text-decoration: none; }
   .detail { display: block; text-align: right; }
   .row { display: flex; justify-content: space-between; align-items: baseline; }
-  .track { height: 8px; border-radius: 4px; background: var(--border); margin: 12px 0; overflow: hidden; }
+  .track { height: 8px; border-radius: 4px; background: var(--border); margin: var(--gap) 0; overflow: hidden; }
   .track span { display: block; height: 100%; background: var(--accent); }
   .link { background: none; border: 0; padding: 0; cursor: pointer; }
-  .quiz { display: block; width: 100%; min-height: 56px; margin-top: 12px; border: 0; border-radius: 18px; background: var(--accent); color: var(--bg); font: inherit; font-size: 18px; font-weight: 700; cursor: pointer; }
+  .quiz { display: block; width: 100%; min-height: 56px; margin-top: var(--gap); border: 0; border-radius: 18px; background: var(--accent); color: var(--bg); font: inherit; font-size: 18px; font-weight: 700; cursor: pointer; }
   .replay { display: block; margin: 32px auto 0; min-height: 44px; color: var(--muted); }
   .tactic { display: flex; align-items: center; gap: 14px; color: inherit; text-decoration: none; min-height: 72px; }
   .n { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent-tint); color: var(--accent); font-weight: 700; display: grid; place-items: center; }

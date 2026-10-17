@@ -36,6 +36,6 @@
 <style>
   main { padding: 24px 20px 96px; }
   .back { display: inline-block; min-height: 44px; line-height: 44px; color: var(--accent); text-decoration: none; }
-  h2 { margin: 20px 0 0; font-size: 18px; }
-  .card { display: flex; flex-direction: column; gap: 2px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; margin-top: 10px; color: inherit; text-decoration: none; }
+  h2 { margin: var(--gap) 0 0; font-size: 18px; }
+  .card { display: flex; flex-direction: column; gap: 2px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; margin-top: var(--gap); color: inherit; text-decoration: none; }
 </style>

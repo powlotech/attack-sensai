@@ -33,7 +33,7 @@
 {/if}
 
 <style>
-  .grid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 2px; margin: 8px 0 16px; }
+  .grid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 2px; margin: var(--gap) 0 var(--gap); }
   .grid > button { background: none; border: 2px solid transparent; border-radius: 10px; padding: 4px 1px; min-width: 0; min-height: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; align-self: start; }
   .grid > button.sel { border-color: var(--accent); }
   b { font: 500 11px 'IBM Plex Mono', monospace; color: var(--muted); }
@@ -44,6 +44,6 @@
   .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; }
   h2 { margin: 0; font-size: 20px; }
-  p { color: var(--muted); margin: 8px 0 12px; }
+  p { color: var(--muted); margin: var(--gap) 0 var(--gap); }
   .open { background: none; border: 0; padding: 0; font-weight: 600; font-size: 17px; cursor: pointer; }
 </style>

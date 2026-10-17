@@ -34,8 +34,9 @@ button { transition: transform 0.12s ease, background-color 0.15s ease, opacity 
 button:active { transform: scale(0.97); }
 select, input:not([type='checkbox']):not([type='radio']), textarea {
   font: inherit; color: var(--text); background: var(--surface);
-  border: 1px solid var(--border); border-radius: 12px; padding: 0 12px;
+  border: 1px solid var(--border); border-radius: 12px; padding: 0 12px; min-height: 48px;
 }
+textarea { padding: 12px; }
 select:focus-visible, input:focus-visible, textarea:focus-visible { border-color: var(--accent); outline-offset: 0; }
 details { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 4px 16px; }
 main { animation: screen-in 0.2s ease; }

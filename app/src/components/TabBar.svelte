@@ -40,7 +40,7 @@
     display: flex; align-items: center; justify-content: center; width: 48px; height: 48px;
   }
   .close {
-    align-self: flex-end; margin: 4px 8px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+    align-self: flex-end; margin: 4px var(--gap); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
     background: none; border: 0; color: var(--muted); cursor: pointer;
   }
   .backdrop { position: fixed; inset: 0; z-index: 30; border: 0; background: rgb(0 0 0 / 0.5); }
