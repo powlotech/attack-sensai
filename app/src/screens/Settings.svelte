@@ -100,9 +100,9 @@
     {@const d = $dataStatus.lastDiff}
     <details class="status">
       <summary>What changed in the last update ({d.from} → {d.to})</summary>
-      {#each ['techniques', 'groups', 'software'] as kind}
+      {#each ['techniques', 'groups', 'software', 'campaigns'] as kind}
         {#each [['added', 'Added'], ['changed', 'Changed'], ['removed', 'Deprecated/removed']] as [k, label]}
-          {#if d[kind][k].length}
+          {#if d[kind]?.[k].length}
             <p><strong>{label} {kind} ({d[kind][k].length}):</strong> {d[kind][k].map((o) => `${o.id} ${o.name}`).join(', ')}</p>
           {/if}
         {/each}

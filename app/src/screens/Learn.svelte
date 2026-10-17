@@ -21,6 +21,8 @@
     <span class="muted detail">Detailed Progress ›</span>
   </a>
 
+  <a class="card" href="#/campaigns"><div class="row"><strong>Campaigns</strong><span class="muted">{$dataset?.campaigns?.length ?? 0} · by year ›</span></div></a>
+
   <a class="card" href="#/daily"><div class="row"><strong>Daily question</strong><span class="muted">🔥 {currentStreak($daily)} day streak</span></div></a>
 
   <button type="button" class="quiz" onclick={() => navigate('/quiz')}>Take a quiz</button>

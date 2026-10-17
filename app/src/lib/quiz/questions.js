@@ -47,6 +47,26 @@ const MAKERS = [
     const opts = options(answer, nonUsers.concat(answer), rng)
     return opts && { prompt: `Which group uses ${t.id} ${t.name}?`, options: opts, answer, techId: t.id }
   },
+  // which group ran a campaign
+  (d, _idx, _goals, rng) => {
+    const c = pick((d.campaigns ?? []).filter((x) => x.groups.length), rng)
+    if (!c) return null
+    const answer = d.groups.find((g) => g.id === pick(c.groups, rng))?.name
+    if (!answer) return null
+    const others = d.groups.filter((g) => !c.groups.includes(g.id)).map((g) => g.name)
+    const opts = options(answer, others.concat(answer), rng)
+    return opts && { prompt: `Which group ran the campaign ${c.name}?`, options: opts, answer }
+  },
+  // which campaign used a technique
+  (d, idx, _goals, rng) => {
+    const t = pick(d.techniques.filter((x) => idx.usedBy.get(x.id)?.campaigns.length), rng)
+    if (!t) return null
+    const users = idx.usedBy.get(t.id).campaigns
+    const answer = pick(users, rng).name
+    const others = d.campaigns.filter((c) => !users.includes(c)).map((c) => c.name)
+    const opts = options(answer, others.concat(answer), rng)
+    return opts && { prompt: `Which campaign used ${t.id} ${t.name}?`, options: opts, answer, techId: t.id }
+  },
 ]
 
 /** Up to `count` questions mixing all types. `goals` maps tactic shortname to a plain-language goal. */

@@ -1,6 +1,6 @@
 import { readable } from 'svelte/store'
 
-const ROUTES = new Set(['learn', 'intro', 'matrix', 'search', 'layers', 'compare', 'quiz', 'daily', 'settings', 'bookmarks', 'coverage'])
+const ROUTES = new Set(['learn', 'intro', 'matrix', 'search', 'layers', 'compare', 'quiz', 'daily', 'settings', 'bookmarks', 'coverage', 'campaigns'])
 const DETAIL = new Set(['technique', 'group', 'software'])
 
 const decode = (s) => {

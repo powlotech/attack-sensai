@@ -1,4 +1,4 @@
-const KINDS = ['techniques', 'groups', 'software']
+const KINDS = ['techniques', 'groups', 'software', 'campaigns']
 // fields that count as "changed"; other edits (relationships, urls) are too noisy
 const FIELDS = ['name', 'description', 'tactics']
 

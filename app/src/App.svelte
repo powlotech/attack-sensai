@@ -12,6 +12,7 @@
   import tacticGoals from './lib/content/tactics.json'
   import { scheduleDaily, onReminderTap } from './lib/native/daily.js'
   import Coverage from './screens/Coverage.svelte'
+  import Campaigns from './screens/Campaigns.svelte'
   import Settings from './screens/Settings.svelte'
   import Search from './screens/Search.svelte'
   import { syncStatusBar } from './lib/native/statusBar.js'
@@ -73,6 +74,8 @@
     <Settings />
   {:else if $route.name === 'coverage'}
     <Coverage />
+  {:else if $route.name === 'campaigns'}
+    <Campaigns />
   {:else if $route.name === 'quiz'}
     <Quiz />
   {:else if $route.name === 'daily'}

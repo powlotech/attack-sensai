@@ -14,3 +14,11 @@ describe('diffDatasets', () => {
     expect([d.from, d.to]).toEqual(['1', '2'])
   })
 })
+
+describe('diffDatasets campaigns', () => {
+  it('lists added campaigns, even when the old dataset has none', () => {
+    const c = { id: 'C1', name: 'C1', description: '' }
+    const d = diffDatasets({ attackVersion: '1', techniques: [], groups: [], software: [] }, { attackVersion: '2', techniques: [], groups: [], software: [], campaigns: [c] })
+    expect(d.campaigns.added.map((o) => o.id)).toEqual(['C1'])
+  })
+})

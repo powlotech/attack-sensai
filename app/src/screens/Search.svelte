@@ -28,6 +28,13 @@
     openId = null
     sync.call(q, k)
   }
+  const goTo = (name, k) => {
+    q = applied = name
+    kind = k
+    openId = null
+    history.replaceState(null, '', `#/search?q=${encodeURIComponent(name)}&kind=${k}`)
+  }
+  const campaignsOf = (g) => [...$idx.campaignsById.values()].filter((c) => c.groups.includes(g.id))
   const toggle = (key) => {
     const next = new Set($platformFilter)
     next.has(key) ? next.delete(key) : next.add(key)
@@ -82,7 +89,16 @@
         {#if item.aliases?.length}<p class="aka">Also known as: {item.aliases.join(', ')}</p>{/if}
         {#if kind === 'campaigns'}
           <p class="aka">
-            {item.firstSeen ?? '?'} – {item.lastSeen ?? '?'}{#if item.groups?.length} · Attributed to: {item.groups.map((g) => $idx.groupsById.get(g)?.name ?? g).join(', ')}{/if}
+            {item.firstSeen ?? '?'} – {item.lastSeen ?? '?'} · {item.techniques.length} techniques
+            {#if item.groups?.length}
+              · Attributed to:
+              {#each item.groups as g, i}{i ? ', ' : ''}<button type="button" class="lnk" onclick={() => goTo($idx.groupsById.get(g)?.name ?? g, 'groups')}>{$idx.groupsById.get(g)?.name ?? g}</button>{/each}
+            {/if}
+          </p>
+        {:else if kind === 'groups' && campaignsOf(item).length}
+          <p class="aka">
+            Campaigns:
+            {#each campaignsOf(item) as c, i}{i ? ', ' : ''}<button type="button" class="lnk" onclick={() => goTo(c.name, 'campaigns')}>{c.name}</button>{/each}
           </p>
         {/if}
         <p class="desc">{plain(item.description)}</p>
@@ -125,6 +141,7 @@
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
   .card header { display: flex; justify-content: space-between; align-items: baseline; }
   .card h2 { margin: 0; font-size: 20px; }
+  .lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; }
   .card code, .aka { color: var(--muted); }
   .desc { display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .actions { display: flex; gap: 8px; }

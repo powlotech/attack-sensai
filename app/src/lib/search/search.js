@@ -54,8 +54,8 @@ export function search(si, query, { kind, platforms } = {}) {
   for (const e of si[kind] ?? []) {
     if (allowed && !allowed.has(e.item.id)) continue
     const r = rank(e, q, normId)
-    if (r >= 0) out.push({ r, name: e.name, item: e.item })
+    if (r >= 0) out.push({ r, name: e.name, item: e.item, last: e.item.lastSeen ?? '' })
   }
-  out.sort((a, b) => a.r - b.r || a.name.localeCompare(b.name))
+  out.sort((a, b) => a.r - b.r || b.last.localeCompare(a.last) || a.name.localeCompare(b.name)) // campaigns: newest first within a rank
   return out.slice(0, LIMIT).map((x) => x.item)
 }
