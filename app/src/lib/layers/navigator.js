@@ -1,4 +1,6 @@
 // Format: Navigator layer v4.5 (see docs/sources.md).
+import { isEmptyEntry } from './store.js'
+
 const LAYER_VERSION = '4.5'
 const NAVIGATOR_VERSION = '5.2.0'
 const ENTERPRISE_DOMAINS = ['enterprise-attack', 'mitre-enterprise'] // the second is the pre-v4 spelling
@@ -13,6 +15,16 @@ export class LayerImportError extends Error {
   }
 }
 
+const metadataFor = (e) => {
+  const metadata = [
+    ...(e.learned ? [{ name: 'learned', value: 'true' }] : []),
+    ...(e.order != null ? [{ name: 'order', value: String(e.order) }] : []),
+    ...(e.when ? [{ name: 'when', value: e.when }] : []),
+  ]
+  return metadata.length ? { metadata } : {}
+}
+const metaValue = (t, name) => t.metadata?.find?.((m) => m?.name === name)?.value
+
 /** @param {import('./store.js').Layer} layer */
 export function toNavigatorLayer(layer, { attackVersion }) {
   return {
@@ -24,7 +36,7 @@ export function toNavigatorLayer(layer, { attackVersion }) {
       score: e.score,
       comment: e.comment,
       enabled: true,
-      ...(e.learned && { metadata: [{ name: 'learned', value: 'true' }] }),
+      ...metadataFor(e),
     })),
     gradient: { colors: [SCORE_COLOURS[0], SCORE_COLOURS[3]], minValue: 0, maxValue: 4 },
     legendItems: SCORE_COLOURS.map((color, i) => ({ label: `Score ${i + 1}`, color })),
@@ -60,19 +72,23 @@ export function fromNavigatorLayer(json, { knownIds }) {
     const score = Number.isFinite(t.score) ? clamp(t.score) : 0
     const comment = typeof t.comment === 'string' ? t.comment : ''
     const learned = !!t.metadata?.some?.((m) => m?.name === 'learned' && m.value === 'true')
+    const step = Math.round(Number(metaValue(t, 'order')))
+    const when = String(metaValue(t, 'when') ?? '').trim()
     const prev = entries[id]
-    entries[id] = prev
+    const merged = prev
       ? {
           score: Math.max(prev.score, score),
           comment: [prev.comment, comment].filter(Boolean).join('\n'),
           learned: prev.learned || learned,
+          order: prev.order ?? (step >= 1 ? step : undefined),
+          when: prev.when || when,
         }
-      : { score, comment, learned }
+      : { score, comment, learned, order: step >= 1 ? step : undefined, when }
+    if (merged.order === undefined) delete merged.order
+    if (!merged.when) delete merged.when
+    entries[id] = merged
   }
-  for (const id of Object.keys(entries)) {
-    const e = entries[id]
-    if (e.score === 0 && !e.comment && !e.learned) delete entries[id]
-  }
+  for (const id of Object.keys(entries)) if (isEmptyEntry(entries[id])) delete entries[id]
   return { name: typeof json.name === 'string' && json.name ? json.name : 'Imported layer', entries, unknownCount: unknown.size }
 }
 

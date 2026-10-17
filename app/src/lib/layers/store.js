@@ -1,7 +1,10 @@
 import { openDb } from '../data/db.js'
 
-/** @typedef {{score: number, comment: string, learned: boolean}} Entry */
+/** @typedef {{score: number, comment: string, learned: boolean, order?: number, when?: string}} Entry */
 /** @typedef {{id: string, name: string, createdAt: number, updatedAt: number, entries: Record<string, Entry>}} Layer */
+
+/** An entry with nothing worth keeping; `order` is the step in an incident, `when` free-text timing. */
+export const isEmptyEntry = (e) => e.score === 0 && e.comment === '' && !e.learned && e.order == null && !e.when
 
 const EMPTY = { score: 0, comment: '', learned: false }
 const ACTIVE_KEY = 'attack-learner.activeLayer'
@@ -98,8 +101,13 @@ export const setEntry = (layerId, techId, patch) =>
     if (!layer) throw new Error(`No such layer: ${layerId}`)
     const merged = { ...EMPTY, ...layer.entries[techId], ...patch }
     merged.score = clampScore(merged.score)
+    const step = Math.round(merged.order)
+    if (step >= 1) merged.order = step
+    else delete merged.order
+    merged.when = (merged.when ?? '').trim()
+    if (!merged.when) delete merged.when
     const entries = { ...layer.entries }
-    if (merged.score === 0 && merged.comment === '' && !merged.learned) delete entries[techId]
+    if (isEmptyEntry(merged)) delete entries[techId]
     else entries[techId] = merged
     const next = { ...layer, entries, updatedAt: now() }
     await write(next)

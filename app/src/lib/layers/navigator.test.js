@@ -32,6 +32,17 @@ test('round trip preserves score, comment and learned', () => {
   expect(back.unknownCount).toBe(0)
 })
 
+test('order and when round-trip through Navigator metadata', () => {
+  const l = { ...layer, entries: { T1059: { score: 1, comment: '', learned: true, order: 2, when: 'day 1' }, T1078: { score: 0, comment: '', learned: false, order: 1 } } }
+  const n = toNavigatorLayer(l, { attackVersion: '20.0' })
+  expect(n.techniques.find((t) => t.techniqueID === 'T1059').metadata).toEqual([
+    { name: 'learned', value: 'true' }, { name: 'order', value: '2' }, { name: 'when', value: 'day 1' },
+  ])
+  expect(fromNavigatorLayer(n, { knownIds: IDS }).entries).toEqual(l.entries)
+  const bad = { name: 'x', techniques: [{ techniqueID: 'T1078', score: 1, metadata: [{ name: 'order', value: 'abc' }] }] }
+  expect(fromNavigatorLayer(bad, { knownIds: IDS }).entries.T1078.order).toBeUndefined()
+})
+
 test('official sample keeps scores and comments', () => {
   const ids = new Set(sample.techniques.map((t) => t.techniqueID))
   const r = fromNavigatorLayer(sample, { knownIds: ids })

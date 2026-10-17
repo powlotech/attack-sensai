@@ -37,6 +37,20 @@ test('an all-default entry is removed', async () => {
   expect(r.entries).toEqual({})
 })
 
+test('order and when are stored only when set; an entry with only a step is kept', async () => {
+  const l = await createLayer('L')
+  let r = await setEntry(l.id, 'T1059', { order: 3 })
+  expect(r.entries.T1059).toEqual({ score: 0, comment: '', learned: false, order: 3 })
+  r = await setEntry(l.id, 'T1059', { when: '03:12 UTC' })
+  expect(r.entries.T1059).toMatchObject({ order: 3, when: '03:12 UTC' })
+  r = await setEntry(l.id, 'T1059', { order: null, when: '' })
+  expect(r.entries).toEqual({})
+  r = await setEntry(l.id, 'T1078', { order: 2.7 })
+  expect(r.entries.T1078.order).toBe(3)
+  r = await setEntry(l.id, 'T1078', { order: -4 })
+  expect(r.entries).toEqual({})
+})
+
 test('duplicateLayer, renameLayer, deleteLayer', async () => {
   const l = await createLayer('Mine', { T1059: { score: 1, comment: '', learned: false } })
   const copy = await duplicateLayer(l.id)
