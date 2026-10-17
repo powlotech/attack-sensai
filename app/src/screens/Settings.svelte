@@ -69,6 +69,19 @@
     <span>ATT&CK data {$dataStatus.attackVersion ?? $dataset?.attackVersion ?? '—'} · checked {rel($dataStatus.lastChecked)}{#if $dataStatus.lastError}<br /><small class="err">Last error: {$dataStatus.lastError}</small>{/if}</span>
     <button type="button" onclick={checkNow}>Check now</button>
   </div>
+  {#if $dataStatus.lastDiff}
+    {@const d = $dataStatus.lastDiff}
+    <details class="status">
+      <summary>What changed in the last update ({d.from} → {d.to})</summary>
+      {#each ['techniques', 'groups', 'software'] as kind}
+        {#each [['added', 'Added'], ['changed', 'Changed'], ['removed', 'Deprecated/removed']] as [k, label]}
+          {#if d[kind][k].length}
+            <p><strong>{label} {kind} ({d[kind][k].length}):</strong> {d[kind][k].map((o) => `${o.id} ${o.name}`).join(', ')}</p>
+          {/if}
+        {/each}
+      {/each}
+    </details>
+  {/if}
 
   <h2>Theme</h2>
   <div class="seg" role="radiogroup" aria-label="Theme">

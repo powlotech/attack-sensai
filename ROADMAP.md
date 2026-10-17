@@ -10,7 +10,7 @@ Ideas agreed with Paul. Done items first, then the rest ordered easiest to harde
 - [x] 6. Layer extras: duplicate, merge into new layer, heatmap legend (duplicate and legend already existed)
 - [x] 7. Sync and export learning progress (layers incl. learned ticks, bookmarks, quiz results) between devices: manual file export/import, plus optional GitHub sync to the private repo `attack-learner-sync` (fine-grained token, one `progress.json`, per-item newest-wins merge).. Quiz results are not stored yet, so not included
 - [x] 8. Export: CSV layer report, Markdown incident timeline, print-to-PDF timeline (browser print dialog; untested on the APK)
-- [ ] 9. "What changed" after a data update: added, changed, deprecated techniques/groups/tools
+- [x] 9. "What changed" after a data update: added, changed, deprecated techniques/groups/tools
 - [ ] 10. Mitigations and detections (data sources) on technique pages; may need the data build extended
 - [ ] 11. Campaigns (needs a data build step)
 - [ ] 12. Daily "technique of the day" notification (Android, Capacitor)

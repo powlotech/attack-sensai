@@ -19,7 +19,7 @@ setStoreDomain(savedDomain())
 
 export const dataset = writable(null)
 export const idx = writable(null)
-export const dataStatus = writable({ attackVersion: null, builtAt: null, lastChecked: null, lastError: null })
+export const dataStatus = writable({ attackVersion: null, builtAt: null, lastChecked: null, lastError: null, lastDiff: null })
 export const layers = writable([])
 export const activeLayer = writable(null)
 /** Session-only search highlight on the matrix: { label, ids: Set } */

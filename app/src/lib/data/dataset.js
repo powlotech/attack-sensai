@@ -1,5 +1,6 @@
 import { BUNDLED_BASE, CHECK_INTERVAL_MS, DATA_BASE } from '../config.js'
 import { openDb } from './db.js'
+import { diffDatasets } from './diff.js'
 
 /** Per-domain file names; non-Enterprise meta keys get a ':<domain>' suffix so each matrix has its own cache and check time. */
 const FILES = {
@@ -73,8 +74,9 @@ export async function checkForUpdate({ current, force = false, now = Date.now(),
       await setMeta({ lastChecked: now, lastError: null }, domain)
       return { status: 'current' }
     }
-    await setMeta({ dataset: next, lastChecked: now, lastError: null }, domain)
-    return { status: 'updated', data: next }
+    const diff = diffDatasets(current, next)
+    await setMeta({ dataset: next, lastDiff: diff, lastChecked: now, lastError: null }, domain)
+    return { status: 'updated', data: next, diff }
   } catch (e) {
     const message = e?.message || String(e)
     await setMeta({ lastChecked: now, lastError: message }, domain).catch(() => {})
@@ -90,5 +92,6 @@ export async function getDataStatus(domain = 'enterprise') {
     builtAt: dataset?.builtAt ?? null,
     lastChecked: (await get('lastChecked')) ?? null,
     lastError: (await get('lastError')) ?? null,
+    lastDiff: (await get('lastDiff')) ?? null,
   }
 }
