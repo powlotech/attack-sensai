@@ -1,6 +1,7 @@
 <script>
   import tacticGoals from '../lib/content/tactics.json'
   import { dataset, activeLayer } from '../lib/stores.js'
+  import { daily, currentStreak } from '../lib/daily.js'
   import { navigate } from '../lib/router.js'
 
   const learned = $derived(Object.values($activeLayer?.entries ?? {}).filter((e) => e.learned).length)
@@ -19,6 +20,8 @@
     </div>
     <span class="muted detail">Detailed Progress ›</span>
   </a>
+
+  <a class="card" href="#/daily"><div class="row"><strong>Daily question</strong><span class="muted">🔥 {currentStreak($daily)} day streak</span></div></a>
 
   <button type="button" class="quiz" onclick={() => navigate('/quiz')}>Take a quiz</button>
 

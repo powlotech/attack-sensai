@@ -8,6 +8,7 @@
 
 <main>
   <h1>Detailed Progress</h1>
+  <a class="back" href="#/learn">← Learn</a>
   <p class="muted">Techniques you have ticked "Learned it", by tactic.</p>
 
   {#each rows as r}
@@ -29,6 +30,7 @@
 </main>
 
 <style>
+  .back { display: inline-block; min-height: 44px; line-height: 44px; color: var(--accent); text-decoration: none; }
   main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   h2 { font-size: 22px; margin: 28px 0 0; }

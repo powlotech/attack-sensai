@@ -42,7 +42,7 @@
 
 <style>
   main { padding: 20px 20px 140px; }
-  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 12px; }
   h1 { font-size: 32px; margin: 0; }
   .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: 12px; }
   .seg button { flex: 1; border: 0; border-radius: 12px; background: none; cursor: pointer; }

@@ -92,9 +92,11 @@
   <p class="miss">Technique not found.</p>
 {:else}
   <div class="page">
-    <button type="button" class="back" onclick={back}>← {tacticName}</button>
     <h1>{tech.name}</h1>
-    <button type="button" class="star" aria-pressed={saved} onclick={() => toggleBookmark(tech.id, $domain)}>{saved ? '★ Saved' : '☆ Save'}</button>
+    <div class="top">
+      <button type="button" class="back" onclick={back}>← {tacticName}</button>
+      <button type="button" class="star" aria-pressed={saved} onclick={() => toggleBookmark(tech.id, $domain)}>{saved ? '★ Saved' : '☆ Save'}</button>
+    </div>
     <p class="meta"><code>{tech.id}</code>
       {#if parent}· sub-technique of <a href="#/technique/{parent.id}">{parent.name}</a>{/if}</p>
     <div class="chips">
@@ -146,9 +148,10 @@
   .page { padding: 12px 20px 32px; }
   .miss { padding: 24px; }
   .back { border: 0; background: none; color: var(--accent); font-weight: 600; padding: 0; cursor: pointer; }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   h1 { margin: 8px 0 4px; font-size: 26px; }
   h2 { font-size: 17px; margin: 20px 0 8px; }
-  .star { min-height: 44px; border: 1.5px solid var(--accent); border-radius: 12px; background: none; color: var(--accent); font: inherit; font-weight: 600; padding: 0 14px; cursor: pointer; }
+  .star { flex-shrink: 0; min-height: 44px; border: 1.5px solid var(--accent); border-radius: 12px; background: none; color: var(--accent); font: inherit; font-weight: 600; padding: 0 14px; cursor: pointer; }
   .star[aria-pressed='true'] { background: var(--accent); color: var(--bg); }
   .meta { color: var(--muted); margin: 0 0 8px; }
   .meta a { color: var(--accent); }

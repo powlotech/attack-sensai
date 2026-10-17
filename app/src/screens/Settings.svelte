@@ -1,9 +1,12 @@
 <script>
   const RELEASES = 'https://github.com/powlotech/attack-learner/releases'
-  import { dataset, dataStatus, updateDomainData, showToast, refreshLayers } from '../lib/stores.js'
+  import { dataset, idx, dataStatus, updateDomainData, showToast, refreshLayers } from '../lib/stores.js'
   import { exportProgress, importProgress } from '../lib/sync/progress.js'
   import { getSyncConfig, setSyncConfig, syncWithGithub } from '../lib/sync/github.js'
   import { shareOrDownload } from '../lib/layers/share.js'
+  import { daily, setDaily } from '../lib/daily.js'
+  import { allowNotifications, scheduleDaily } from '../lib/native/daily.js'
+  import tacticGoals from '../lib/content/tactics.json'
   import { syncStatusBar } from '../lib/native/statusBar.js'
   import { getThemePref, setThemePref, resolveTheme } from '../lib/theme/theme.js'
 
@@ -12,6 +15,20 @@
     if (!ts) return 'never'
     const h = Math.floor((Date.now() - ts) / 36e5)
     return h < 1 ? 'just now' : h < 24 ? `${h} h ago` : `${Math.floor(h / 24)} d ago`
+  }
+
+  async function toggleDaily(on) {
+    if (on && !(await allowNotifications())) {
+      setDaily({ on: false })
+      return showToast('Notifications are only available in the Android app, and must be allowed')
+    }
+    setDaily({ on })
+    await scheduleDaily($dataset, $idx, tacticGoals)
+  }
+  async function changeTime(time) {
+    if (!time) return
+    setDaily({ time })
+    await scheduleDaily($dataset, $idx, tacticGoals)
   }
 
   async function checkNow() {
@@ -89,6 +106,10 @@
       <button type="button" role="radio" aria-checked={theme === p} class:on={theme === p} onclick={() => setTheme(p)}>{p[0].toUpperCase() + p.slice(1)}</button>
     {/each}
   </div>
+
+  <h2>Daily question</h2>
+  <label class="row"><input type="checkbox" checked={$daily.on} onchange={(e) => toggleDaily(e.currentTarget.checked)} /> Remind me every day (Android)</label>
+  <label class="row">Time <input type="time" value={$daily.time} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
 
   <h2>Sync progress</h2>
   <p class="muted">Layers (including learned ticks) and bookmarks. Importing merges and never overwrites: higher scores and learned ticks are kept, comments are joined. Deleted layers are not synced.</p>

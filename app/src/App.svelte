@@ -1,13 +1,16 @@
 <script>
   import { onMount } from 'svelte'
   import { startTheme } from './lib/theme/theme.js'
-  import { toast, domain, switchDomain, updateDomainData } from './lib/stores.js'
+  import { toast, dataset, idx, domain, switchDomain, updateDomainData } from './lib/stores.js'
   import { get } from 'svelte/store'
   import { navigate, route } from './lib/router.js'
   import TabBar from './components/TabBar.svelte'
   import Intro from './screens/Intro.svelte'
   import Learn from './screens/Learn.svelte'
   import Quiz from './screens/Quiz.svelte'
+  import Daily from './screens/Daily.svelte'
+  import tacticGoals from './lib/content/tactics.json'
+  import { scheduleDaily, onReminderTap } from './lib/native/daily.js'
   import Coverage from './screens/Coverage.svelte'
   import Settings from './screens/Settings.svelte'
   import Search from './screens/Search.svelte'
@@ -36,6 +39,8 @@
         await switchDomain(get(domain))
         if (!introSeen() && $route.name !== 'intro') navigate('/intro')
         ready = true
+        onReminderTap(() => navigate('/daily'))
+        scheduleDaily(get(dataset), get(idx), tacticGoals)
         await updateDomainData()
       } catch (e) {
         failure = e.message
@@ -70,6 +75,8 @@
     <Coverage />
   {:else if $route.name === 'quiz'}
     <Quiz />
+  {:else if $route.name === 'daily'}
+    <Daily />
   {:else if $route.name === 'technique'}
     <Technique />
   {:else}
