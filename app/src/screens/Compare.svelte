@@ -27,7 +27,7 @@
 </script>
 
 <main>
-  <header><a href="#/layers" class="back">← Layers</a><h1>Compare</h1></header>
+  <header><h1>Compare</h1><a href="#/layers" class="back">← Layers</a></header>
   <label>Reference <select bind:value={refId} aria-label="Reference layer"><option value="">Choose…</option>{#each $layers as l (l.id)}<option value={l.id}>{l.name}</option>{/each}</select></label>
   <label>Mine <select bind:value={mineId} aria-label="My layer"><option value="">Active layer</option>{#each $layers as l (l.id)}<option value={l.id}>{l.name}</option>{/each}</select></label>
   {#if allowed}<div class="banner">Platform filter on <button type="button" aria-label="Clear platform filter" onclick={() => platformFilter.set(new Set())}>✕</button></div>{/if}
@@ -66,7 +66,7 @@
   main { padding: 16px 16px 96px; }
   label { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
   select { flex: 1; min-height: 44px; }
-  .back { color: var(--accent); text-decoration: none; }
+  .back { display: block; color: var(--accent); text-decoration: none; margin-bottom: 12px; }
   .muted { color: var(--muted); }
   .banner { background: var(--accent-tint); padding: 6px 12px; border-radius: 12px; margin: 8px 0; }
   .sum { font-size: 18px; }
