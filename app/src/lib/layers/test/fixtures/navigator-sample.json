@@ -1,0 +1,119 @@
+{
+  "name": "example layer",
+  "versions": {
+    "attack": "18",
+    "navigator": "5.2.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "hello, world",
+  "filters": {
+    "platforms": [
+      "Windows",
+      "macOS"
+    ]
+  },
+  "sorting": 2,
+  "layout": {
+    "layout": "side",
+    "showName": true,
+    "showID": false,
+    "showAggregateScores": true,
+    "countUnscored": true,
+    "aggregateFunction": "average",
+    "expandedSubtechniques": "annotated"
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1110",
+      "score": 0,
+      "color": "#fd8d3c",
+      "comment": "This is a comment for technique T1110",
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1110.001",
+      "score": 100,
+      "comment": "This is a comment for T1110.001 - the first subtechnique of technique T1110.001",
+      "links": [
+        {
+          "label": "Navigator GitHub",
+          "url": "https://github.com/mitre-attack/attack-navigator"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1134",
+      "tactic": "defense-evasion",
+      "score": 75,
+      "comment": "this is a comment for T1134 which is only applied on the defense-evasion tactic"
+    },
+    {
+      "techniqueID": "T1078",
+      "tactic": "discovery",
+      "enabled": false
+    },
+    {
+      "techniqueID": "T1053",
+      "tactic": "privilege-escalation",
+      "metadata": [
+        {
+          "name": "T1053 metadata1",
+          "value": "T1053 metadata1 value"
+        },
+        {
+          "divider": true
+        },
+        {
+          "name": "T1053 metadata2",
+          "value": "T1053 metadata2 value"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1098",
+      "tactic": "persistence",
+      "score": 80,
+      "links": [
+        {
+          "label": "Navigator GitHub",
+          "url": "https://github.com/mitre-attack/attack-navigator"
+        }
+      ]
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#ff6666",
+      "#ffe766",
+      "#8ec843"
+    ],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "Legend Item Label",
+      "color": "#FF00FF"
+    }
+  ],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": false,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false,
+  "metadata": [
+    {
+      "name": "layer metadata 1",
+      "value": "layer metadata 1 value"
+    },
+    {
+      "divider": true
+    },
+    {
+      "name": "layer metadata 2",
+      "value": "layer metadata 2 value"
+    }
+  ]
+}
