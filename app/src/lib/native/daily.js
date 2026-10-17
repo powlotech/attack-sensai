@@ -37,15 +37,6 @@ export async function scheduleDaily(dataset, idx, goals) {
   return r.warning?.message ?? `${notifications.length} reminders scheduled`
 }
 
-/** Fire one reminder in 15 seconds so you can check notifications work on this device. */
-export async function testReminder() {
-  const { LocalNotifications } = await import('@capacitor/local-notifications')
-  const r = await LocalNotifications.schedule({
-    notifications: [{ id: 99, title: 'Daily question', body: 'Test reminder', schedule: { at: new Date(Date.now() + 15000), allowWhileIdle: true } }],
-  })
-  return r.warning?.message ?? 'Test reminder in 15 seconds'
-}
-
 /** Open the daily question when a reminder is tapped. */
 export async function onReminderTap(go) {
   const { Capacitor } = await import('@capacitor/core')

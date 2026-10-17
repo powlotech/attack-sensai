@@ -5,7 +5,7 @@
   import { getSyncConfig, setSyncConfig, syncWithGithub } from '../lib/sync/github.js'
   import { shareOrDownload } from '../lib/layers/share.js'
   import { daily, setDaily } from '../lib/daily.js'
-  import { allowNotifications, scheduleDaily, testReminder, pendingSummary } from '../lib/native/daily.js'
+  import { allowNotifications, scheduleDaily, pendingSummary } from '../lib/native/daily.js'
   import tacticGoals from '../lib/content/tactics.json'
   import { syncStatusBar } from '../lib/native/statusBar.js'
   import { getThemePref, setThemePref, resolveTheme } from '../lib/theme/theme.js'
@@ -30,10 +30,6 @@
   let pending = $state('')
   const refreshPending = async () => { pending = await pendingSummary().catch(() => '') }
   refreshPending()
-  const test = async () => {
-    showToast((await allowNotifications()) ? await testReminder() : 'Notifications are not allowed')
-    refreshPending()
-  }
   // some Android pickers never fire `change`, so also act shortly after the last `input`
   let timer
   const timeSoon = (t) => { clearTimeout(timer); timer = setTimeout(() => changeTime(t), 800) }
@@ -125,7 +121,6 @@
   <label class="row"><input type="checkbox" checked={$daily.on} onchange={(e) => toggleDaily(e.currentTarget.checked)} /> Remind me every day (Android)</label>
   <label class="row">Time <input type="time" value={$daily.time} oninput={(e) => timeSoon(e.currentTarget.value)} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
   {#if pending}<p class="muted">{pending}</p>{/if}
-  <button type="button" class="solid" onclick={test}>Send a test reminder (15 s)</button>
 
   <h2>Sync progress</h2>
   <p class="muted">Layers (including learned ticks) and bookmarks. Importing merges and never overwrites: higher scores and learned ticks are kept, comments are joined. Deleted layers are not synced.</p>
