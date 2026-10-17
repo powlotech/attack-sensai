@@ -17,7 +17,7 @@ export async function scheduleDaily(dataset, idx, goals) {
   const { Capacitor } = await import('@capacitor/core')
   if (!Capacitor.isNativePlatform()) return
   const { LocalNotifications } = await import('@capacitor/local-notifications')
-  const { pending } = await LocalNotifications.getPending()
+  const { notifications: pending } = await LocalNotifications.getPending()
   if (pending.length) await LocalNotifications.cancel({ notifications: pending })
   const s = get(daily)
   if (!s.on) return 'Reminder is switched off'
