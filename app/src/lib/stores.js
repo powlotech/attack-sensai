@@ -3,7 +3,7 @@ import { indexDataset } from './data/indexDataset.js'
 import { ensureDefaultLayer, getActiveLayerId, layerDomain, listLayers, setStoreDomain } from './layers/store.js'
 import { loadDataset, checkForUpdate, getDataStatus } from './data/dataset.js'
 
-export const DOMAINS = [['enterprise', 'Enterprise'], ['ics', 'ICS']]
+export const DOMAINS = [['enterprise', 'Enterprise'], ['ics', 'ICS'], ['mobile', 'Mobile']]
 const DOMAIN_KEY = 'attack-learner.domain'
 const savedDomain = () => {
   try {

@@ -41,12 +41,18 @@ jobs:
             -PsigningStorePassword="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
             -PsigningKeyAlias="${{ secrets.ANDROID_KEY_ALIAS }}" \
             -PsigningKeyPassword="${{ secrets.ANDROID_KEY_PASSWORD }}"
+      - name: Name APK <project>-<version>
+        run: |
+          mv app/android/app/build/outputs/apk/release/app-release.apk "app/android/app/build/outputs/apk/release/attack-learner-$VERSION_NAME.apk"
+          echo "APK=app/android/app/build/outputs/apk/release/attack-learner-$VERSION_NAME.apk" >> "$GITHUB_ENV"
+        env:
+          VERSION_NAME: ${{ github.ref_type == 'tag' && github.ref_name || format('0.0.{0}', github.run_number) }}
       - uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: app/android/app/build/outputs/apk/release/app-release.apk
+          name: attack-learner-apk
+          path: ${{ env.APK }}
       - name: Publish release
         if: github.ref_type == 'tag'
-        run: gh release create "$GITHUB_REF_NAME" app/android/app/build/outputs/apk/release/app-release.apk --title "$GITHUB_REF_NAME" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" "$APK" --title "$GITHUB_REF_NAME" --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}

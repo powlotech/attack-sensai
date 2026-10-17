@@ -5,6 +5,7 @@ import { openDb } from './db.js'
 const FILES = {
   enterprise: { file: 'attack.json', version: 'version.json' },
   ics: { file: 'ics.json', version: 'ics-version.json' },
+  mobile: { file: 'mobile.json', version: 'mobile-version.json' },
 }
 const metaKey = (key, domain) => (domain === 'enterprise' ? key : `${key}:${domain}`)
 

@@ -75,7 +75,7 @@ test('unknown ids are counted and excluded', () => {
 test('other domain is rejected (Review Focus 2)', () => {
   expect.assertions(3)
   try {
-    fromNavigatorLayer({ name: 'm', domain: 'mobile-attack', techniques: [] }, { knownIds: IDS })
+    fromNavigatorLayer({ name: 'm', domain: 'pre-attack', techniques: [] }, { knownIds: IDS })
   } catch (e) {
     expect(e).toBeInstanceOf(LayerImportError)
     expect(e.field).toBe('domain')
@@ -117,5 +117,11 @@ test('ICS layers export as ics-attack and import back with their domain', () => 
   const r = fromNavigatorLayer(out, { knownIds: new Set(['T0800']) })
   expect(r.domain).toBe('ics')
   expect(fromNavigatorLayer({ techniques: [] }, { knownIds: new Set() }).domain).toBe('enterprise')
-  expect(() => fromNavigatorLayer({ domain: 'mobile-attack', techniques: [] }, { knownIds: new Set() })).toThrow(/Enterprise and ICS/)
+  expect(() => fromNavigatorLayer({ domain: 'pre-attack', techniques: [] }, { knownIds: new Set() })).toThrow(/Enterprise, ICS and Mobile/)
+})
+
+test('Mobile layers export as mobile-attack and import back with their domain', () => {
+  const out = toNavigatorLayer({ name: 'P', domain: 'mobile', entries: { T1398: { score: 2, comment: '', learned: false } } }, { attackVersion: '20.0' })
+  expect(out.domain).toBe('mobile-attack')
+  expect(fromNavigatorLayer(out, { knownIds: new Set(['T1398']) }).domain).toBe('mobile')
 })

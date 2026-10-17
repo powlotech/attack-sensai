@@ -1,7 +1,7 @@
 import { openDb } from '../data/db.js'
 
 /** @typedef {{score: number, comment: string, learned: boolean, order?: number, when?: string}} Entry */
-/** @typedef {{id: string, name: string, domain?: 'enterprise'|'ics', createdAt: number, updatedAt: number, entries: Record<string, Entry>}} Layer */
+/** @typedef {{id: string, name: string, domain?: 'enterprise'|'ics'|'mobile', createdAt: number, updatedAt: number, entries: Record<string, Entry>}} Layer */
 
 /** An entry with nothing worth keeping; `order` is the step in an incident, `when` free-text timing. */
 export const isEmptyEntry = (e) => e.score === 0 && e.comment === '' && !e.learned && e.order == null && !e.when

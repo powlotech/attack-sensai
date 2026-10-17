@@ -6,6 +6,7 @@ const NAVIGATOR_VERSION = '5.2.0'
 const DOMAIN_NAMES = {
   enterprise: ['enterprise-attack', 'mitre-enterprise'], // the second is the pre-v4 spelling
   ics: ['ics-attack', 'mitre-ics'],
+  mobile: ['mobile-attack', 'mitre-mobile'],
 }
 /** 'enterprise' | 'ics' for a Navigator domain string; undefined (a file with no domain) means enterprise, unknown values give null. */
 export const domainOfName = (name) =>
@@ -53,7 +54,7 @@ const clamp = (n) => Math.min(4, Math.max(0, Math.round(n)))
 
 /**
  * Read a Navigator layer. Throws LayerImportError (naming the field) instead of returning a partial layer.
- * @returns {{name: string, domain: 'enterprise'|'ics', entries: Record<string, import('./store.js').Entry>, unknownCount: number}}
+ * @returns {{name: string, domain: 'enterprise'|'ics'|'mobile', entries: Record<string, import('./store.js').Entry>, unknownCount: number}}
  */
 export function fromNavigatorLayer(json, { knownIds }) {
   if (json === null || typeof json !== 'object' || Array.isArray(json)) {
@@ -64,7 +65,7 @@ export function fromNavigatorLayer(json, { knownIds }) {
   }
   const domain = domainOfName(json.domain)
   if (!domain) {
-    throw new LayerImportError(`Only Enterprise and ICS layers are supported; this one has domain "${json.domain}".`, 'domain')
+    throw new LayerImportError(`Only Enterprise, ICS and Mobile layers are supported; this one has domain "${json.domain}".`, 'domain')
   }
 
   const entries = {}

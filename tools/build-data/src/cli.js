@@ -16,6 +16,7 @@ async function getJson(url) {
 const DOMAINS = [
   { name: 'Enterprise ATT&CK', file: 'attack.json', versionFile: 'version.json', minTechniques: 100 },
   { name: 'ICS ATT&CK', file: 'ics.json', versionFile: 'ics-version.json', minTechniques: 50 },
+  { name: 'Mobile ATT&CK', file: 'mobile.json', versionFile: 'mobile-version.json', minTechniques: 50 },
 ]
 
 async function build(index, out, { name, file, versionFile, minTechniques }) {

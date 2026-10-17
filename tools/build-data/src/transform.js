@@ -17,7 +17,8 @@ export function transform(bundle, { builtAt }) {
   const idOf = new Map(objs.filter(attackId).map((o) => [o.id, attackId(o)]))
 
   const collection = objs.find((o) => o.type === 'x-mitre-collection')
-  const matrix = objs.find((o) => o.type === 'x-mitre-matrix')
+  // Mobile bundles also ship a small "Network-Based Effects" matrix; the main one has the most tactics.
+  const matrix = objs.filter((o) => o.type === 'x-mitre-matrix').sort((x, y) => y.tactic_refs.length - x.tactic_refs.length)[0]
   const tacticByStix = new Map(ofType('x-mitre-tactic').map((o) => [o.id, o]))
   const tactics = matrix.tactic_refs
     .map((id) => tacticByStix.get(id))
