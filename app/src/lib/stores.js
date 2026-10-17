@@ -9,6 +9,14 @@ export const layers = writable([])
 export const activeLayer = writable(null)
 /** Session-only search highlight on the matrix: { label, ids: Set } */
 export const highlight = writable(null)
+/** One-line message shown above the tab bar; auto-clears. */
+export const toast = writable('')
+let toastTimer
+export function showToast(msg) {
+  toast.set(msg)
+  clearTimeout(toastTimer)
+  toastTimer = setTimeout(() => toast.set(''), 3000)
+}
 export const platformFilter = writable(new Set())
 
 export function setDataset(d) {
