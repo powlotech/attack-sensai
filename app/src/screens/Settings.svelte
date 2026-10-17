@@ -23,7 +23,7 @@
       return showToast('Notifications are only available in the Android app, and must be allowed')
     }
     setDaily({ on })
-    const r = await scheduleDaily($dataset, $idx, tacticGoals)
+    const r = await scheduleDaily($dataset, $idx, tacticGoals).catch((e) => `Schedule failed: ${e.message ?? e}`)
     if (r) showToast(r)
     refreshPending()
   }
@@ -34,10 +34,13 @@
     showToast((await allowNotifications()) ? await testReminder() : 'Notifications are not allowed')
     refreshPending()
   }
+  // some Android pickers never fire `change`, so also act shortly after the last `input`
+  let timer
+  const timeSoon = (t) => { clearTimeout(timer); timer = setTimeout(() => changeTime(t), 800) }
   async function changeTime(time) {
     if (!time) return
     setDaily({ time })
-    const r = await scheduleDaily($dataset, $idx, tacticGoals)
+    const r = await scheduleDaily($dataset, $idx, tacticGoals).catch((e) => `Schedule failed: ${e.message ?? e}`)
     if (r) showToast(r)
     refreshPending()
   }
@@ -120,7 +123,7 @@
 
   <h2>Daily question</h2>
   <label class="row"><input type="checkbox" checked={$daily.on} onchange={(e) => toggleDaily(e.currentTarget.checked)} /> Remind me every day (Android)</label>
-  <label class="row">Time <input type="time" value={$daily.time} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
+  <label class="row">Time <input type="time" value={$daily.time} oninput={(e) => timeSoon(e.currentTarget.value)} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
   {#if pending}<p class="muted">{pending}</p>{/if}
   <button type="button" class="solid" onclick={test}>Send a test reminder (15 s)</button>
 

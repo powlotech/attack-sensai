@@ -20,7 +20,7 @@ export async function scheduleDaily(dataset, idx, goals) {
   const { pending } = await LocalNotifications.getPending()
   if (pending.length) await LocalNotifications.cancel({ notifications: pending })
   const s = get(daily)
-  if (!s.on) return
+  if (!s.on) return 'Reminder is switched off'
   const [h, m] = s.time.split(':').map(Number)
   const now = new Date()
   const notifications = []
@@ -32,7 +32,7 @@ export async function scheduleDaily(dataset, idx, goals) {
     const q = dailyQuestion(dataset, idx, goals, key)
     if (q) notifications.push({ id: i + 1, title: 'Daily question', body: q.prompt, schedule: { at, allowWhileIdle: true } })
   }
-  if (!notifications.length) return
+  if (!notifications.length) return `Nothing to schedule (time ${s.time}, answered today: ${s.answer?.day === dayKey()})`
   const r = await LocalNotifications.schedule({ notifications })
   return r.warning?.message ?? `${notifications.length} reminders scheduled`
 }
