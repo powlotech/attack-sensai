@@ -33,7 +33,7 @@
 <style>
   .pill {
     display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px;
-    background: var(--surface); border: 1px solid var(--border); border-radius: 24px; cursor: pointer; max-width: 60vw;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 24px; cursor: pointer; min-width: 0;
   }
   .pill span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--score-3); }
