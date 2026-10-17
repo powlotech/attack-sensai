@@ -12,12 +12,13 @@
   <h1>Learn</h1>
   <p class="muted">The {$dataset?.tactics.length} attacker goals, in the order an attack usually unfolds.</p>
 
-  <section class="card">
+  <a class="card" href="#/coverage">
     <div class="row"><strong>Your progress</strong><span class="muted">{learned} techniques learned</span></div>
     <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax={total} aria-valuenow={learned} aria-label="Techniques learned">
       <span style="width: {total ? (100 * learned) / total : 0}%"></span>
     </div>
-  </section>
+    <span class="muted detail">Detailed Progress ›</span>
+  </a>
 
   <button type="button" class="quiz" onclick={() => navigate('/quiz')}>Take a quiz</button>
 
@@ -36,10 +37,12 @@
 </main>
 
 <style>
-  main { padding: 24px 20px 88px; }
+  main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   .muted { color: var(--muted); margin: 0; }
   .card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; }
+  a.card { color: inherit; text-decoration: none; }
+  .detail { display: block; text-align: right; }
   .row { display: flex; justify-content: space-between; align-items: baseline; }
   .track { height: 8px; border-radius: 4px; background: var(--border); margin: 12px 0; overflow: hidden; }
   .track span { display: block; height: 100%; background: var(--accent); }

@@ -8,6 +8,7 @@
   import Intro from './screens/Intro.svelte'
   import Learn from './screens/Learn.svelte'
   import Quiz from './screens/Quiz.svelte'
+  import Coverage from './screens/Coverage.svelte'
   import Settings from './screens/Settings.svelte'
   import Search from './screens/Search.svelte'
   import { syncStatusBar } from './lib/native/statusBar.js'
@@ -65,6 +66,8 @@
     <Bookmarks />
   {:else if $route.name === 'settings'}
     <Settings />
+  {:else if $route.name === 'coverage'}
+    <Coverage />
   {:else if $route.name === 'quiz'}
     <Quiz />
   {:else if $route.name === 'technique'}
@@ -79,5 +82,5 @@
 {/if}
 
 <style>
-  .toast { position: fixed; left: 16px; right: 16px; bottom: calc(88px + var(--sab)); z-index: 10; background: var(--text); color: var(--bg); border-radius: 12px; padding: 12px 16px; text-align: center; }
+  .toast { position: fixed; left: 16px; right: 16px; bottom: calc(24px + var(--sab)); z-index: 10; background: var(--text); color: var(--bg); border-radius: 12px; padding: 12px 16px; text-align: center; }
 </style>

@@ -59,7 +59,7 @@
 </main>
 
 <style>
-  main { padding: 24px 20px 88px; }
+  main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   h2 { font-size: 18px; margin: 24px 0 0; }
   .muted { color: var(--muted); margin: 0; }

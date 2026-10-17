@@ -143,7 +143,7 @@
 {/if}
 
 <style>
-  .page { padding: 12px 20px 88px; }
+  .page { padding: 12px 20px 32px; }
   .miss { padding: 24px; }
   .back { border: 0; background: none; color: var(--accent); font-weight: 600; padding: 0; cursor: pointer; }
   h1 { margin: 8px 0 4px; font-size: 26px; }

@@ -56,7 +56,7 @@
 </main>
 
 <style>
-  main { padding: 24px 20px 88px; }
+  main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   .muted { color: var(--muted); margin: 0; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; }
