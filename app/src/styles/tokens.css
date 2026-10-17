@@ -13,6 +13,11 @@
   --score-2: #f6b76b;
   --score-3: #e07a2e;
   --score-4: #9a3f0e;
+  --score-0-text: #4a4f57;
+  --score-1-text: #5a3a10;
+  --score-2-text: #3d2408;
+  --score-3-text: #ffffff;
+  --score-4-text: #ffffff;
 }
 [data-theme='dark'] {
   --bg: #111316;
@@ -28,4 +33,9 @@
   --score-2: #8a5320;
   --score-3: #d9772e;
   --score-4: #ffb070;
+  --score-0-text: #a3a8b0;
+  --score-1-text: #f3d9b8;
+  --score-2-text: #ffe9d0;
+  --score-3-text: #1b1e22;
+  --score-4-text: #1b1e22;
 }

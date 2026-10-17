@@ -8,6 +8,7 @@
   import TabBar from './components/TabBar.svelte'
   import Intro from './screens/Intro.svelte'
   import Learn from './screens/Learn.svelte'
+  import Matrix from './screens/Matrix.svelte'
 
   let ready = $state(false)
   let failure = $state('')
@@ -51,6 +52,8 @@
     <Intro />
   {:else if $route.name === 'learn'}
     <Learn />
+  {:else if $route.name === 'matrix'}
+    <Matrix />
   {:else}
     <p style="padding: 24px">Coming soon: {$route.name}</p>
   {/if}
