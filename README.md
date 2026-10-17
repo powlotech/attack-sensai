@@ -25,6 +25,10 @@ Typical uses:
 - **Intro**: a short first-run walkthrough of what ATT&CK is and how the app is laid out.
 - **Learn tab**: the tactics in attack order, each with a plain-language goal, leading into its techniques.
 - **Glossary**: defined terms in descriptions are tappable and show a short explanation.
+- **Quiz**: questions on tactic goals, technique-to-tactic and "which group uses this"; correct answers feed the *Learned it* tick.
+- **Daily question**: one question a day, with an optional reminder notification on Android (set the time in Settings). Your streak is kept.
+- **Detailed Progress**: percent learned per tactic and what to learn next, linked from the Learn tab.
+- **Saved**: bookmark techniques, groups and software, and see what you opened recently.
 
 ### Matrix
 - **List view**: browse the techniques and sub-techniques of each tactic.
@@ -34,12 +38,15 @@ Typical uses:
 
 ### Technique, group and software pages
 - Description, tactics, platforms and the groups and software known to use a technique.
+- **Mitigations** (with how they apply) and **detection strategies** (with their data components), as collapsible lists.
+- **Campaigns** that used the technique, shown as chips.
 - A link out to the full entry on attack.mitre.org.
 - Score the technique on the active layer right from its page (see below).
 
 ### Search
 - Search techniques, groups and software by name or ID (for example `T1059` or `APT29`).
 - Open a group or tool and save its techniques straight into a new layer.
+- A Campaigns tab lists campaigns and the techniques they used.
 
 ### Layers
 A layer is your own colouring of the matrix. Each technique can have:
@@ -49,10 +56,13 @@ A layer is your own colouring of the matrix. Each technique can have:
 - a **Learned it** tick;
 - an optional **step number** and **when** note (for example `03:12 UTC`) to build an incident timeline.
 
-You can create, rename, duplicate and delete layers. Each matrix keeps its own layers and its own active layer. The Learning progress layer is created for you.
+You can create, rename, duplicate, merge and delete layers. A score legend stays pinned to the bottom of the Matrix screen. Each matrix keeps its own layers and its own active layer. The Learning progress layer is created for you.
 
 ### Compare layers
 Pick a reference layer (for example a threat group) and one of your own. The app lists the reference techniques as **Gaps** (you score 0), **Weak** (score 1) or **Covered** (score 2 or more), and shows a summary such as "N of M techniques are gaps". **Save gaps as layer** turns the gaps into a new layer to work through.
+
+### Reports
+From a layer's menu, export a **CSV** report, a **Markdown** incident timeline or a **PDF** timeline (through the print dialog).
 
 ### Navigator import and export
 - **Export** the active layer as a Navigator layer file and share it from your phone. It opens in the official ATT&CK Navigator.
@@ -64,16 +74,20 @@ Switch between **Enterprise**, **ICS** and **Mobile** on the Layers screen. The 
 
 ### Works offline, stays current
 - All three matrices are bundled, so the app works with no connection after the first load.
-- When online, it checks for newer ATT&CK data at most once a day. New data is verified with a SHA-256 checksum before it is used, and a failed check or download never replaces the data you already have. **Check now** on the Layers screen forces a check.
+- When online, it checks for newer ATT&CK data at most once a day, and **What changed** lists the techniques, groups and tools added, changed or deprecated. New data is verified with a SHA-256 checksum before it is used, and a failed check or download never replaces the data you already have. **Check now** in Settings forces a check.
 - A scheduled workflow rebuilds the data from MITRE's official STIX releases every week.
 
 ### Theme and layout
-- System, light or dark theme.
+- System, light or dark theme, set in Settings.
+- A hamburger menu opens the main screens: Learn, Matrix, Search, Layers, Saved and Settings.
 - Built for portrait use on a phone. The Android app respects the status bar and navigation bar.
 
 ## Your data
 
-Layers, scores and notes are stored only on your device (IndexedDB). Nothing is sent to a server. The only network requests are for the app files and the ATT&CK data update check.
+Layers, scores and notes are stored on your device (IndexedDB), with settings in local storage. Nothing is sent to a server unless you turn on sync. The only other network requests are for the app files and the ATT&CK data update check.
+
+### Sync between devices
+In Settings, **Export file** and **Import file** move your layers (including *Learned it* ticks) and bookmarks between devices. Importing merges and never overwrites: higher scores and ticks are kept and comments are joined. Optionally, sync through a private GitHub repo you own using a fine-grained token limited to that repo. Deleted layers are not synced.
 
 ## Installing
 
