@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { effectiveScore, tacticAbbr, tacticSummary } from './summary.js'
+import { effectiveScore, rolledScore, tacticAbbr, tacticSummary } from './summary.js'
 
 const t = (id, extra = {}) => ({ id, name: id, isSub: false, tactics: ['execution'], ...extra })
 const idx = {
@@ -18,6 +18,13 @@ test('tacticSummary counts top-level techniques scored above 0 only', () => {
   expect(tacticSummary(idx, layer, 'empty')).toEqual({ scored: 0, total: 0 })
   expect(tacticSummary(idx, null, 'execution')).toEqual({ scored: 0, total: 3 })
   expect(tacticSummary(idx, layer, 'unknown')).toEqual({ scored: 0, total: 0 })
+})
+test('a technique whose only scored child is a sub-technique counts as scored', () => {
+  const i = { topByTactic: new Map([['execution', [t('T3')]]]), childrenOf: new Map([['T3', [t('T3.001', { isSub: true })]]]) }
+  const l = { entries: { 'T3.001': { score: 3 } } }
+  expect(rolledScore(i, l, 'T3')).toBe(3)
+  expect(rolledScore(i, null, 'T3')).toBe(0)
+  expect(tacticSummary(i, l, 'execution')).toEqual({ scored: 1, total: 1 })
 })
 test('tacticAbbr is two characters, with a fallback for new tactics', () => {
   expect(tacticAbbr('command-and-control')).toBe('C2')

@@ -20,8 +20,12 @@ export const tacticAbbr = (shortname) => ABBR[shortname] ?? shortname.slice(0, 2
 
 export const effectiveScore = (layer, techId) => layer?.entries[techId]?.score ?? 0
 
-/** Top-level techniques only; a technique counts as scored when its score is above 0. */
+/** A top-level technique's own score or its highest sub-technique score; used by the overview. */
+export const rolledScore = (idx, layer, techId) =>
+  Math.max(effectiveScore(layer, techId), ...(idx.childrenOf.get(techId) ?? []).map((c) => effectiveScore(layer, c.id)))
+
+/** Top-level techniques only; one counts as scored when it or any sub-technique scores above 0. */
 export function tacticSummary(idx, layer, shortname) {
   const list = idx.topByTactic.get(shortname) ?? []
-  return { scored: list.filter((t) => effectiveScore(layer, t.id) > 0).length, total: list.length }
+  return { scored: list.filter((t) => rolledScore(idx, layer, t.id) > 0).length, total: list.length }
 }

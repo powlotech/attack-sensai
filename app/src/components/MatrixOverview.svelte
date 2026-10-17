@@ -1,6 +1,6 @@
 <script>
   import { idx, activeLayer, dataset } from '../lib/stores.js'
-  import { effectiveScore, tacticAbbr, tacticSummary } from '../lib/matrix/summary.js'
+  import { rolledScore, tacticAbbr, tacticSummary } from '../lib/matrix/summary.js'
 
   let { tactic, onopen } = $props()
   let selected = $state(tactic)
@@ -17,7 +17,7 @@
       <b>{tacticAbbr(t.shortname)}</b>
       <span class="cells">
         {#each $idx.topByTactic.get(t.shortname) as tech}
-          <i style="background: var(--score-{effectiveScore($activeLayer, tech.id)})" class:zero={effectiveScore($activeLayer, tech.id) === 0}></i>
+          <i style="background: var(--score-{rolledScore($idx, $activeLayer, tech.id)})" class:zero={rolledScore($idx, $activeLayer, tech.id) === 0}></i>
         {/each}
       </span>
     </button>

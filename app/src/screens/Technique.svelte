@@ -24,9 +24,11 @@
   let showAll = $state(false)
   const usedShown = $derived(showAll ? usedAll : usedAll.slice(0, 6))
 
+  let dirty = false // the draft has edits that are not stored yet
   const save = async (layerId, techId, patch) => {
     await setEntry(layerId, techId, patch)
     await refreshLayers()
+    if (patch.comment !== undefined && patch.comment === note) dirty = false
   }
   const noteSaver = debounce(save, 500)
   let note = $state('')
@@ -37,11 +39,17 @@
     techId, layerId
     untrack(() => {
       noteSaver.flush()
+      dirty = false
       note = ($activeLayer && tech && $activeLayer.entries[tech.id]?.comment) || ''
     })
   })
+  $effect(() => {
+    // a write still in flight when this page opened lands after mount; pick it up unless the user is typing
+    const stored = entry?.comment ?? ''
+    untrack(() => { if (!dirty) note = stored })
+  })
   const setPatch = (patch) => $activeLayer && save($activeLayer.id, tech.id, patch)
-  const onNote = () => $activeLayer && noteSaver.call($activeLayer.id, tech.id, { comment: note })
+  const onNote = () => $activeLayer && (dirty = true, noteSaver.call($activeLayer.id, tech.id, { comment: note }))
 
   const flush = () => noteSaver.flush()
   const onVis = () => document.visibilityState === 'hidden' && flush()
