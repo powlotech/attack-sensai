@@ -5,7 +5,7 @@
   import { getSyncConfig, setSyncConfig, syncWithGithub } from '../lib/sync/github.js'
   import { shareOrDownload } from '../lib/layers/share.js'
   import { daily, setDaily } from '../lib/daily.js'
-  import { allowNotifications, scheduleDaily, testReminder } from '../lib/native/daily.js'
+  import { allowNotifications, scheduleDaily, testReminder, pendingSummary } from '../lib/native/daily.js'
   import tacticGoals from '../lib/content/tactics.json'
   import { syncStatusBar } from '../lib/native/statusBar.js'
   import { getThemePref, setThemePref, resolveTheme } from '../lib/theme/theme.js'
@@ -25,13 +25,21 @@
     setDaily({ on })
     const r = await scheduleDaily($dataset, $idx, tacticGoals)
     if (r) showToast(r)
+    refreshPending()
   }
-  const test = async () => showToast((await allowNotifications()) ? await testReminder() : 'Notifications are not allowed')
+  let pending = $state('')
+  const refreshPending = async () => { pending = await pendingSummary().catch(() => '') }
+  refreshPending()
+  const test = async () => {
+    showToast((await allowNotifications()) ? await testReminder() : 'Notifications are not allowed')
+    refreshPending()
+  }
   async function changeTime(time) {
     if (!time) return
     setDaily({ time })
     const r = await scheduleDaily($dataset, $idx, tacticGoals)
     if (r) showToast(r)
+    refreshPending()
   }
 
   async function checkNow() {
@@ -113,6 +121,7 @@
   <h2>Daily question</h2>
   <label class="row"><input type="checkbox" checked={$daily.on} onchange={(e) => toggleDaily(e.currentTarget.checked)} /> Remind me every day (Android)</label>
   <label class="row">Time <input type="time" value={$daily.time} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
+  {#if pending}<p class="muted">{pending}</p>{/if}
   <button type="button" class="solid" onclick={test}>Send a test reminder (15 s)</button>
 
   <h2>Sync progress</h2>

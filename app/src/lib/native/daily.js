@@ -53,3 +53,14 @@ export async function onReminderTap(go) {
   const { LocalNotifications } = await import('@capacitor/local-notifications')
   await LocalNotifications.addListener('localNotificationActionPerformed', () => go())
 }
+
+/** What the phone has pending, e.g. "3 pending, next 2026-10-18 10:20". Empty in a browser. */
+export async function pendingSummary() {
+  const { Capacitor } = await import('@capacitor/core')
+  if (!Capacitor.isNativePlatform()) return ''
+  const { LocalNotifications } = await import('@capacitor/local-notifications')
+  const { notifications } = await LocalNotifications.getPending()
+  const ats = notifications.map((n) => n.schedule?.at).filter(Boolean).map((a) => new Date(a)).sort((a, b) => a - b)
+  if (!notifications.length) return 'No reminders pending'
+  return `${notifications.length} pending${ats.length ? `, next ${ats[0].toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}` : ''}`
+}
