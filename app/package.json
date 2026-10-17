@@ -29,6 +29,7 @@
     "@capacitor/status-bar": "^8.0.4",
     "dompurify": "^3.4.17",
     "idb": "^8.0.4",
+    "jspdf": "^4.2.1",
     "marked": "^18.1.1"
   }
 }

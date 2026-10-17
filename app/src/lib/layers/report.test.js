@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { layerCsv, timelineMarkdown } from './report.js'
+import { layerCsv, timelineMarkdown, timelinePdf } from './report.js'
 
 const idx = { byId: new Map([['T1', { id: 'T1', name: 'A', tactics: ['x', 'y'] }], ['T2', { id: 'T2', name: 'B', tactics: [] }]]) }
 const layer = { name: 'L', entries: {
@@ -13,4 +13,9 @@ test('csv quotes fields and skips unknown techniques', () => {
 })
 test('markdown lists steps', () => {
   expect(timelineMarkdown(layer, idx)).toBe('# L\n\n1. **T2** B (day 1)\n')
+})
+
+test('timeline pdf is a real PDF', async () => {
+  const head = new Uint8Array(await (await timelinePdf(layer, idx)).arrayBuffer()).slice(0, 5)
+  expect(String.fromCharCode(...head)).toBe('%PDF-')
 })

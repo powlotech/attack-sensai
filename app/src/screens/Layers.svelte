@@ -6,7 +6,7 @@
   import { domainOfName, fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
   import { navigate } from '../lib/router.js'
   import { shareOrDownload } from '../lib/layers/share.js'
-  import { layerCsv, timelineMarkdown, timelineHtml, printTimeline } from '../lib/layers/report.js'
+  import { layerCsv, timelineMarkdown, timelinePdf } from '../lib/layers/report.js'
 
   let sheet
   let fileInput
@@ -75,13 +75,7 @@
   }
   const exportCsv = (l) => exportText(l, layerCsv(l, $idx), 'csv', 'text/csv')
   const exportMd = (l) => exportText(l, timelineMarkdown(l, $idx), 'md', 'text/markdown')
-  const printPdf = async (l) => {
-    const { Capacitor } = await import('@capacitor/core')
-    if (Capacitor.isNativePlatform()) {
-      await exportText(l, timelineHtml(l, $idx), 'html', 'text/html')
-      showToast('Open the file in Chrome, then Print > Save as PDF')
-    } else printTimeline(l, $idx)
-  }
+  const printPdf = async (l) => exportText(l, await timelinePdf(l, $idx), 'pdf', 'application/pdf')
   const act = (fn, l) => {
     menuId = null
     fn(l)
@@ -132,7 +126,7 @@
           <button type="button" role="menuitem" onclick={() => act(exportLayer, l)}>Export</button>
           <button type="button" role="menuitem" onclick={() => act(exportCsv, l)}>Export CSV</button>
           <button type="button" role="menuitem" onclick={() => act(exportMd, l)}>Export timeline (.md)</button>
-          <button type="button" role="menuitem" onclick={() => act(printPdf, l)}>Print timeline / PDF</button>
+          <button type="button" role="menuitem" onclick={() => act(printPdf, l)}>Timeline as PDF</button>
           <button type="button" role="menuitem" onclick={() => navigate(`/compare?ref=${l.id}`)}>Compare…</button>
           <button type="button" role="menuitem" class="del" onclick={() => act(remove, l)}>Delete</button>
         </div>
