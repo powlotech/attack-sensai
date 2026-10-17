@@ -74,5 +74,5 @@
 {/if}
 
 <style>
-  .toast { position: fixed; left: 16px; right: 16px; bottom: 88px; z-index: 10; background: var(--text); color: var(--bg); border-radius: 12px; padding: 12px 16px; text-align: center; }
+  .toast { position: fixed; left: 16px; right: 16px; bottom: calc(88px + var(--sab)); z-index: 10; background: var(--text); color: var(--bg); border-radius: 12px; padding: 12px 16px; text-align: center; }
 </style>

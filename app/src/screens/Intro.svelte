@@ -68,7 +68,7 @@
 </main>
 
 <style>
-  main { min-height: 100dvh; padding: 24px 24px calc(24px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; }
+  main { min-height: calc(100dvh - var(--sat)); padding: 24px 24px calc(24px + var(--sab)); display: flex; flex-direction: column; }
   header { display: flex; justify-content: space-between; align-items: center; }
   .muted { color: var(--muted); margin: 0; }
   .link { background: none; border: 0; padding: 0 4px; cursor: pointer; }

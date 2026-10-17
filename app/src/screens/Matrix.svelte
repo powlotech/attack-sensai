@@ -44,7 +44,7 @@
   .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: 12px; }
   .seg button { flex: 1; border: 0; border-radius: 12px; background: none; cursor: pointer; }
   .seg button.on { background: var(--surface); font-weight: 600; }
-  .legend { position: fixed; inset: auto 0 calc(56px + env(safe-area-inset-bottom)) 0; display: flex; align-items: center; gap: 12px; padding: 10px 20px; background: var(--surface); border-top: 1px solid var(--border); color: var(--muted); font-size: 15px; }
+  .legend { position: fixed; inset: auto 0 calc(56px + var(--sab)) 0; display: flex; align-items: center; gap: 12px; padding: 10px 20px; background: var(--surface); border-top: 1px solid var(--border); color: var(--muted); font-size: 15px; }
   .k { display: inline-flex; align-items: center; gap: 4px; }
   .k i { width: 14px; height: 14px; border-radius: 3px; }
   .k i.zero { border: 1px solid var(--score-0-border); }

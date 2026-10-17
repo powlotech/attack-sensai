@@ -22,7 +22,7 @@
   nav {
     position: fixed; inset: auto 0 0 0; display: flex;
     background: var(--surface); border-top: 1px solid var(--border);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: var(--sab);
   }
   a {
     flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center;

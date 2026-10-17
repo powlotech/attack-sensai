@@ -39,7 +39,7 @@
   .dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--score-3); }
   dialog {
     margin: auto 0 0; width: 100%; max-width: none; border: 0; border-radius: 20px 20px 0 0;
-    background: var(--surface); color: var(--text); padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+    background: var(--surface); color: var(--text); padding: 16px 16px calc(16px + var(--sab));
   }
   dialog::backdrop { background: rgb(0 0 0 / 0.45); }
   h2 { margin: 0 0 8px; font-size: 18px; }
