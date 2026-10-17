@@ -14,3 +14,7 @@ Ideas agreed with Paul. Done items first, then the rest ordered easiest to harde
 - [ ] 10. Mitigations and detections (data sources) on technique pages; may need the data build extended
 - [ ] 11. Campaigns (needs a data build step)
 - [ ] 12. Daily "technique of the day" notification (Android, Capacitor)
+
+## UI tweaks (low priority)
+
+- [ ] Menus opened from the vertical ellipsis must close when tapping outside them, not only by tapping the ellipsis again
