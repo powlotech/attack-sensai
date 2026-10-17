@@ -1,6 +1,6 @@
 /** Hand a layer file to the user: native share sheet in the APK, Web Share if allowed, else a download. */
-export async function shareOrDownload(filename, json) {
-  const text = JSON.stringify(json, null, 2)
+export async function shareOrDownload(filename, json, type = 'application/json') {
+  const text = typeof json === 'string' ? json : JSON.stringify(json, null, 2)
   const { Capacitor } = await import('@capacitor/core')
   if (Capacitor.isNativePlatform()) {
     const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem')
@@ -9,7 +9,7 @@ export async function shareOrDownload(filename, json) {
     await Share.share({ title: filename, files: [uri] })
     return 'shared'
   }
-  const file = new File([text], filename, { type: 'application/json' })
+  const file = new File([text], filename, { type })
   if (navigator.share && navigator.canShare?.({ files: [file] })) {
     try {
       await navigator.share({ files: [file], title: filename })
