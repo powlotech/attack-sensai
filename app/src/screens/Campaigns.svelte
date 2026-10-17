@@ -16,7 +16,7 @@
 </script>
 
 <main>
-  <h1>Campaigns</h1>
+  <header><h1>Campaigns</h1></header>
   <a class="back" href="#/learn">← Learn</a>
   <p class="muted">Real operations, by the year they started. Tap one to open it in Search.</p>
 
@@ -34,8 +34,10 @@
 </main>
 
 <style>
-  main { padding: 24px 20px 96px; }
-  .back { display: inline-block; min-height: 44px; line-height: 44px; color: var(--accent); text-decoration: none; }
+  main { padding: 20px 20px 96px; }
+  header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: var(--gap); }
+  h1 { font-size: 32px; margin: 0; }
+  .back { display: block; color: var(--accent); text-decoration: none; margin-bottom: var(--gap); }
   h2 { margin: var(--gap) 0 0; font-size: 18px; }
   .card { display: flex; flex-direction: column; gap: 2px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; margin-top: var(--gap); color: inherit; text-decoration: none; }
 </style>
