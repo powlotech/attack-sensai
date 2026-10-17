@@ -14,4 +14,10 @@ export async function openTechnique(page, id) {
 }
 
 /** Bottom tab bar link (names like "Search" also match page content). */
-export const tab = (page, name) => page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name })
+// The nav is a slide-out drawer: open it, then click the link.
+export const tab = (page, name) => ({
+  click: async () => {
+    await page.getByRole('button', { name: 'Open menu' }).click()
+    await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name }).click()
+  },
+})
