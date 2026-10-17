@@ -1,20 +1,16 @@
 <script>
-  const RELEASES = 'https://github.com/powlotech/attack-learner/releases'
   import { onMount } from 'svelte'
   import ConfirmSheet from '../components/ConfirmSheet.svelte'
-  import { idx, layers, activeLayer, dataset, dataStatus, domain, DOMAINS, refreshLayers, switchDomain, updateDomainData, showToast } from '../lib/stores.js'
+  import { idx, layers, activeLayer, dataset, domain, DOMAINS, refreshLayers, switchDomain, showToast } from '../lib/stores.js'
   import { createLayer, renameLayer, duplicateLayer, deleteLayer, ensureDefaultLayer, setActiveLayerId, orphanCount, isPersistent } from '../lib/layers/store.js'
   import { domainOfName, fromNavigatorLayer, toNavigatorLayer, exportFileName, LayerImportError } from '../lib/layers/navigator.js'
   import { navigate } from '../lib/router.js'
-  import { syncStatusBar } from '../lib/native/statusBar.js'
   import { shareOrDownload } from '../lib/layers/share.js'
-  import { getThemePref, setThemePref, resolveTheme } from '../lib/theme/theme.js'
 
   let sheet
   let fileInput
   let menuId = $state(null)
   let persistent = $state(true)
-  let theme = $state(getThemePref())
   onMount(async () => (persistent = await isPersistent()))
 
   const after = () => refreshLayers()
@@ -22,11 +18,6 @@
   const edited = (l) => {
     const days = Math.floor((Date.now() - l.updatedAt) / 864e5)
     return days <= 0 ? 'today' : days === 1 ? 'yesterday' : `${days} days ago`
-  }
-  const rel = (ts) => {
-    if (!ts) return 'never'
-    const h = Math.floor((Date.now() - ts) / 36e5)
-    return h < 1 ? 'just now' : h < 24 ? `${h} h ago` : `${Math.floor(h / 24)} d ago`
   }
 
   const select = async (id) => {
@@ -85,19 +76,6 @@
       showToast(err instanceof LayerImportError ? err.message : err instanceof SyntaxError ? 'This file is not valid JSON.' : `Import failed: ${err.message}`)
     }
   }
-
-  async function checkNow() {
-    const r = await updateDomainData({ force: true })
-    showToast(r.status === 'updated' ? 'Data updated' : r.status === 'error' ? 'Check failed' : 'Already up to date')
-  }
-
-  const setTheme = (p) => {
-    theme = p
-    setThemePref(p)
-    const resolved = resolveTheme(p, matchMedia('(prefers-color-scheme: dark)').matches)
-    document.documentElement.dataset.theme = resolved
-    syncStatusBar(resolved).catch(() => {})
-  }
 </script>
 
 <div class="page">
@@ -134,26 +112,6 @@
   <button type="button" class="ghost" onclick={() => fileInput.click()}>Import Navigator file (.json)</button>
   <button type="button" class="solid" disabled={!$activeLayer} onclick={() => exportLayer($activeLayer)}>Share / export active layer</button>
   <p class="note">Exports open in the official MITRE ATT&CK Navigator.</p>
-
-  <div class="status">
-    <span>ATT&CK data {$dataStatus.attackVersion ?? $dataset?.attackVersion ?? '—'} · checked {rel($dataStatus.lastChecked)}{#if $dataStatus.lastError}<br /><small class="err">Last error: {$dataStatus.lastError}</small>{/if}</span>
-    <button type="button" onclick={checkNow}>Check now</button>
-  </div>
-
-  <h2>Theme</h2>
-  <div class="seg" role="radiogroup" aria-label="Theme">
-    {#each ['system', 'light', 'dark'] as p}
-      <button type="button" role="radio" aria-checked={theme === p} class:on={theme === p} onclick={() => setTheme(p)}>{p[0].toUpperCase() + p.slice(1)}</button>
-    {/each}
-  </div>
-
-  <details class="about">
-    <summary>About<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></summary>
-    <p>Version {__APP_VERSION__} · ATT&CK data {$dataset?.attackVersion ?? '—'}</p>
-    <p><a href={RELEASES + (/^v\d/.test(__APP_VERSION__) ? `/tag/${__APP_VERSION__}` : '')} target="_blank" rel="noopener">Release notes</a></p>
-    <p>© The MITRE Corporation. ATT&CK® is a registered trademark of The MITRE Corporation. This app is not affiliated with or endorsed by MITRE.</p>
-    <p><a href="https://attack.mitre.org/resources/legal-and-branding/terms-of-use/" target="_blank" rel="noopener">MITRE ATT&CK terms of use</a></p>
-  </details>
 </div>
 
 <ConfirmSheet bind:this={sheet} />
@@ -185,16 +143,7 @@
   .ghost { background: none; color: var(--accent); }
   .solid { background: var(--accent); color: var(--bg); }
   .solid:disabled { opacity: 0.5; }
-  .status { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--border); border-radius: 16px; padding: 12px 16px; margin-top: 24px; }
-  .status button { border: 0; background: none; color: var(--accent); font-weight: 700; cursor: pointer; }
-  .err { color: #b3261e; }
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
   .seg button.on { background: var(--surface); font-weight: 700; }
-  .about { margin-top: 24px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 0 16px 4px; }
-  .about summary { min-height: 52px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none; color: var(--text); font-weight: 700; font-size: 17px; }
-  .about summary::-webkit-details-marker { display: none; }
-  .about summary svg { transition: transform 0.2s; }
-  .about[open] summary svg { transform: rotate(180deg); }
-  .about a { color: var(--accent); }
 </style>
