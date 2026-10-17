@@ -7000,6 +7000,9 @@
    "x_mitre_modified_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
    "x_mitre_deprecated": false,
    "x_mitre_attack_spec_version": "3.3.0"
-  }
- ]
+  },
+{"type": "campaign", "id": "campaign--11111111-1111-4111-8111-111111111111", "revoked": false, "x_mitre_deprecated": false, "name": "Mini Campaign", "aliases": ["Mini Campaign", "MC-2020"], "description": "A test campaign.(Citation: X)", "first_seen": "2020-01-01T00:00:00Z", "last_seen": "2021-06-01T00:00:00Z", "external_references": [{"source_name": "mitre-attack", "external_id": "C0001"}]},
+{"type": "relationship", "id": "relationship--11111111-1111-4111-8111-222222222222", "revoked": false, "x_mitre_deprecated": false, "relationship_type": "uses", "source_ref": "campaign--11111111-1111-4111-8111-111111111111", "target_ref": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736"},
+{"type": "relationship", "id": "relationship--11111111-1111-4111-8111-333333333333", "revoked": false, "x_mitre_deprecated": false, "relationship_type": "attributed-to", "source_ref": "campaign--11111111-1111-4111-8111-111111111111", "target_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542"}
+]
 }

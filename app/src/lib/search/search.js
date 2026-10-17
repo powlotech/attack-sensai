@@ -31,6 +31,7 @@ export function buildSearchIndex(idx) {
     techniques: [...idx.byId.values()].map((t) => entry(t)),
     groups: [...idx.groupsById.values()].map((g) => entry(g, g.aliases)),
     software: [...idx.softwareById.values()].map((s) => entry(s, s.aliases)),
+    campaigns: [...idx.campaignsById.values()].map((c) => entry(c, c.aliases)),
   }
 }
 

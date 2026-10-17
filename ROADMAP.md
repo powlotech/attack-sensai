@@ -12,7 +12,7 @@ Ideas agreed with Paul. Done items first, then the rest ordered easiest to harde
 - [x] 8. Export: CSV layer report, Markdown incident timeline, print-to-PDF timeline (browser print dialog; untested on the APK)
 - [x] 9. "What changed" after a data update: added, changed, deprecated techniques/groups/tools
 - [ ] 10. Mitigations and detections (data sources) on technique pages; may need the data build extended
-- [ ] 11. Campaigns (needs a data build step)
+- [x] 11. Campaigns: build step, "Used by" chips on technique pages, Campaigns tab in Search (no standalone screen; not in "What changed")
 - [x] 12. Daily "technique of the day" notification (Android, Capacitor)
 
 - [x] 13. Rename repo and project to attack-sensai (repo, Pages URL, app id, display name, storage keys, sync repo); old progress/bookmark exports still import

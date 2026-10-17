@@ -17,10 +17,11 @@
   const entry = $derived(tech && $activeLayer?.entries[tech.id])
   const score = $derived(entry?.score ?? 0)
   const learned = $derived(!!entry?.learned)
-  const used = $derived($idx?.usedBy.get(tech?.id) ?? { groups: [], software: [] })
+  const used = $derived($idx?.usedBy.get(tech?.id) ?? { groups: [], software: [], campaigns: [] })
   const usedAll = $derived([
     ...used.groups.map((g) => ({ ...g, kind: 'groups' })),
     ...used.software.map((s) => ({ ...s, kind: 'software' })),
+    ...used.campaigns.map((c) => ({ ...c, kind: 'campaigns' })),
   ])
   let showAll = $state(false)
   const usedShown = $derived(showAll ? usedAll : usedAll.slice(0, 6))

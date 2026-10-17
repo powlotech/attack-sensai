@@ -7,7 +7,7 @@
   import { createLayer, setActiveLayerId } from '../lib/layers/store.js'
   import { debounce } from '../lib/util/debounce.js'
 
-  const KINDS = [['techniques', 'Techniques'], ['groups', 'Groups'], ['software', 'Software']]
+  const KINDS = [['techniques', 'Techniques'], ['groups', 'Groups'], ['software', 'Software'], ['campaigns', 'Campaigns']]
   let q = $state($route.query.q ?? '')
   let kind = $state(KINDS.some(([k]) => k === $route.query.kind) ? $route.query.kind : 'techniques')
   let applied = $state(q)

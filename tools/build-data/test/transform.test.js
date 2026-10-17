@@ -67,3 +67,14 @@ test('ICS bundle: mitre-ics-attack kill chain gives every technique a tactic', a
   expect(x.techniques.length).toBeGreaterThan(0)
   expect(x.techniques.every((t) => /^T\d{4}(\.\d{3})?$/.test(t.id) && t.tactics.length > 0)).toBe(true)
 })
+
+test('campaigns carry techniques and attributed groups', () => {
+  expect(d.campaigns.find((c) => c.id === 'C0001')).toMatchObject({
+    name: 'Mini Campaign',
+    aliases: ['MC-2020'],
+    firstSeen: '2020-01',
+    lastSeen: '2021-06',
+    groups: ['G0016'],
+    techniques: ['T1059.001'],
+  })
+})

@@ -60,6 +60,25 @@ export function transform(bundle, { builtAt }) {
     description: text(o.description),
     techniques: usedBy(o),
   }))
+  // attributed-to: campaign -> group
+  const groupsOf = new Map()
+  for (const r of objs) {
+    if (r.type !== 'relationship' || r.relationship_type !== 'attributed-to' || !alive(r)) continue
+    const g = idOf.get(r.target_ref)
+    if (!g || !idOf.has(r.source_ref)) continue
+    if (!groupsOf.has(r.source_ref)) groupsOf.set(r.source_ref, [])
+    groupsOf.get(r.source_ref).push(g)
+  }
+  const campaigns = ofType('campaign').map((o) => ({
+    id: attackId(o),
+    name: o.name,
+    aliases: (o.aliases ?? []).filter((a) => a !== o.name),
+    description: text(o.description),
+    firstSeen: o.first_seen?.slice(0, 7) ?? null,
+    lastSeen: o.last_seen?.slice(0, 7) ?? null,
+    groups: [...new Set(groupsOf.get(o.id) ?? [])].sort(),
+    techniques: usedBy(o),
+  }))
   const software = [...ofType('malware'), ...ofType('tool')].map((o) => ({
     id: attackId(o),
     name: o.name,
@@ -69,5 +88,5 @@ export function transform(bundle, { builtAt }) {
     techniques: usedBy(o),
   }))
 
-  return { attackVersion: collection.x_mitre_version, builtAt, tactics, techniques, groups, software }
+  return { attackVersion: collection.x_mitre_version, builtAt, tactics, techniques, groups, software, campaigns }
 }
