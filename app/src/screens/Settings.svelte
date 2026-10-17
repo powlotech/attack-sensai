@@ -118,8 +118,8 @@
   </div>
 
   <h2>Daily question</h2>
-  <label class="row"><input type="checkbox" checked={$daily.on} onchange={(e) => toggleDaily(e.currentTarget.checked)} /> Remind me every day (Android)</label>
-  <label class="row">Time <input type="time" value={$daily.time} oninput={(e) => timeSoon(e.currentTarget.value)} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
+  <label class="check"><input type="checkbox" checked={$daily.on} onchange={(e) => toggleDaily(e.currentTarget.checked)} /> Remind me every day (Android)</label>
+  <label>Time <input type="time" value={$daily.time} oninput={(e) => timeSoon(e.currentTarget.value)} onchange={(e) => changeTime(e.currentTarget.value)} /></label>
   {#if pending}<p class="muted">{pending}</p>{/if}
 
   <h2>Sync progress</h2>
@@ -157,6 +157,8 @@
   .solid:not(.row .solid) { width: 100%; }
   label { display: block; margin: 12px 0 8px; font-size: 14px; }
   label input { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+  label.check { display: flex; align-items: center; gap: 10px; }
+  label.check input { display: inline-block; width: 20px; height: 20px; margin: 0; padding: 0; }
   .muted { color: var(--muted, inherit); opacity: 0.8; font-size: 14px; }
   .err { color: #b3261e; }
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; }
