@@ -1,0 +1,17 @@
+{
+  "reconnaissance": "Researching the target before attacking",
+  "resource-development": "Setting up tools, accounts and servers",
+  "initial-access": "Getting a first foothold inside",
+  "execution": "Running the attacker's code",
+  "persistence": "Staying in after a reboot or password change",
+  "privilege-escalation": "Gaining higher permissions",
+  "stealth": "Hiding activity from defenders",
+  "defense-impairment": "Switching off or weakening defences",
+  "credential-access": "Stealing passwords and keys",
+  "discovery": "Learning what is on the network",
+  "lateral-movement": "Moving from machine to machine",
+  "collection": "Gathering the data of interest",
+  "command-and-control": "Talking to compromised machines remotely",
+  "exfiltration": "Sneaking the stolen data out",
+  "impact": "Disrupting, damaging or destroying things"
+}

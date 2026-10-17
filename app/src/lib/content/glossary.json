@@ -1,0 +1,392 @@
+[
+  {
+    "id": "cli",
+    "term": "command-line interface",
+    "aliases": [
+      "CLI",
+      "command line",
+      "shell"
+    ],
+    "definition": "A text-only way to control a computer by typing commands. Attackers like it because it can be scripted and leaves little on screen."
+  },
+  {
+    "id": "c2",
+    "term": "C2",
+    "aliases": [
+      "command and control",
+      "C&C"
+    ],
+    "definition": "The channel an attacker uses to send orders to a compromised machine and get results back. Defenders look for it by spotting odd network traffic."
+  },
+  {
+    "id": "lateral-movement",
+    "term": "lateral movement",
+    "aliases": [],
+    "definition": "Hopping from one compromised machine to others on the same network. It is how a small foothold grows into a big breach."
+  },
+  {
+    "id": "privilege",
+    "term": "privilege",
+    "aliases": [
+      "privileges",
+      "permissions"
+    ],
+    "definition": "What an account is allowed to do on a system. Attackers want more of it, such as administrator or root."
+  },
+  {
+    "id": "credential",
+    "term": "credential",
+    "aliases": [
+      "credentials"
+    ],
+    "definition": "A secret that proves who you are, such as a password, key or token. Stolen credentials let attackers log in like a normal user."
+  },
+  {
+    "id": "payload",
+    "term": "payload",
+    "aliases": [],
+    "definition": "The part of an attack that does the harmful work once it is running. It might steal files, encrypt data or open a backdoor."
+  },
+  {
+    "id": "persistence",
+    "term": "persistence",
+    "aliases": [],
+    "definition": "Techniques that keep an attacker's access alive after a reboot or password change. Examples are scheduled tasks and startup entries."
+  },
+  {
+    "id": "exfiltration",
+    "term": "exfiltration",
+    "aliases": [
+      "exfiltrate"
+    ],
+    "definition": "Secretly copying data out of a victim's network to the attacker. It is often disguised as normal traffic."
+  },
+  {
+    "id": "lsass",
+    "term": "LSASS",
+    "aliases": [],
+    "definition": "A Windows process that holds logon secrets in memory. Attackers dump its memory to steal passwords and hashes."
+  },
+  {
+    "id": "registry",
+    "term": "registry",
+    "aliases": [
+      "Windows Registry"
+    ],
+    "definition": "Windows' central database of settings. Attackers edit it to run programs at startup or change security settings."
+  },
+  {
+    "id": "scheduled-task",
+    "term": "scheduled task",
+    "aliases": [
+      "scheduled tasks",
+      "cron"
+    ],
+    "definition": "A job the system runs automatically at set times. Attackers use them to run their code again and again."
+  },
+  {
+    "id": "phishing",
+    "term": "phishing",
+    "aliases": [
+      "spearphishing"
+    ],
+    "definition": "Tricking someone with a fake message into clicking a link, opening a file or giving up a password. Spearphishing targets one person or group."
+  },
+  {
+    "id": "malware",
+    "term": "malware",
+    "aliases": [
+      "malicious software"
+    ],
+    "definition": "Software written to cause harm, such as stealing data or taking control. Viruses, trojans and ransomware are all malware."
+  },
+  {
+    "id": "backdoor",
+    "term": "backdoor",
+    "aliases": [],
+    "definition": "A hidden way back into a system that skips the normal login. Attackers plant one so they can return later."
+  },
+  {
+    "id": "obfuscation",
+    "term": "obfuscation",
+    "aliases": [
+      "obfuscated"
+    ],
+    "definition": "Making code or data hard to read so tools and analysts can't easily understand it. It is used to dodge detection."
+  },
+  {
+    "id": "powershell",
+    "term": "PowerShell",
+    "aliases": [],
+    "definition": "A powerful Windows command-line shell and scripting language. Attackers favour it because it is built in and can do almost anything."
+  },
+  {
+    "id": "wmi",
+    "term": "WMI",
+    "aliases": [
+      "Windows Management Instrumentation"
+    ],
+    "definition": "A built-in Windows feature for managing and querying computers, locally or remotely. Attackers use it to run commands on other machines."
+  },
+  {
+    "id": "api",
+    "term": "API",
+    "aliases": [
+      "APIs"
+    ],
+    "definition": "A set of rules that lets one program ask another to do something. Attackers call APIs to do things like inject code or read files."
+  },
+  {
+    "id": "process-injection",
+    "term": "process injection",
+    "aliases": [],
+    "definition": "Running malicious code inside another program's memory. It hides the attacker behind a trusted process name."
+  },
+  {
+    "id": "hash",
+    "term": "hash",
+    "aliases": [
+      "hashes"
+    ],
+    "definition": "A fixed-length fingerprint made from data by a one-way function. Passwords are stored as hashes, and file hashes identify known malware."
+  },
+  {
+    "id": "process",
+    "term": "process",
+    "aliases": [
+      "processes"
+    ],
+    "definition": "A running instance of a program. Security tools watch processes to spot suspicious behaviour."
+  },
+  {
+    "id": "dll",
+    "term": "DLL",
+    "aliases": [
+      "dynamic-link library"
+    ],
+    "definition": "A Windows file of code that programs load and share. Attackers trick programs into loading a malicious one."
+  },
+  {
+    "id": "shellcode",
+    "term": "shellcode",
+    "aliases": [],
+    "definition": "A small piece of machine code that an attacker injects and runs, often to get a shell. It is usually the first stage of an attack."
+  },
+  {
+    "id": "privilege-escalation-term",
+    "term": "escalate privileges",
+    "aliases": [
+      "privilege escalation"
+    ],
+    "definition": "Going from a low-powered account to a more powerful one. It often uses a software bug or a misconfiguration."
+  },
+  {
+    "id": "pass-the-hash",
+    "term": "pass the hash",
+    "aliases": [],
+    "definition": "Logging in with a stolen password hash instead of the password itself. It works because some systems accept the hash as proof."
+  },
+  {
+    "id": "brute-force",
+    "term": "brute force",
+    "aliases": [
+      "password spraying"
+    ],
+    "definition": "Guessing many passwords until one works. Spraying tries a few common passwords across many accounts to avoid lockouts."
+  },
+  {
+    "id": "keylogger",
+    "term": "keylogger",
+    "aliases": [
+      "keylogging"
+    ],
+    "definition": "Software that secretly records what a person types. It is used to capture passwords and messages."
+  },
+  {
+    "id": "ransomware",
+    "term": "ransomware",
+    "aliases": [],
+    "definition": "Malware that locks or encrypts files and demands payment to restore them. Some also threaten to leak stolen data."
+  },
+  {
+    "id": "rat",
+    "term": "remote access trojan",
+    "aliases": [
+      "RAT"
+    ],
+    "definition": "Malware that gives an attacker remote control of a machine. It can watch the screen, run commands and move files."
+  },
+  {
+    "id": "dropper",
+    "term": "dropper",
+    "aliases": [],
+    "definition": "A small program whose only job is to install other malware. It keeps the first stage small and easy to hide."
+  },
+  {
+    "id": "loader",
+    "term": "loader",
+    "aliases": [],
+    "definition": "Code that loads and starts the main malware, often decrypting it first. It is a common way to slip past scanners."
+  },
+  {
+    "id": "beacon",
+    "term": "beacon",
+    "aliases": [
+      "beaconing"
+    ],
+    "definition": "A regular check-in from malware to its C2 server, like a heartbeat. Steady timing is a clue defenders look for."
+  },
+  {
+    "id": "tunneling",
+    "term": "tunneling",
+    "aliases": [
+      "tunnel"
+    ],
+    "definition": "Wrapping one kind of traffic inside another to sneak past firewalls. DNS and HTTPS tunnels are common."
+  },
+  {
+    "id": "proxy",
+    "term": "proxy",
+    "aliases": [],
+    "definition": "A middleman server that passes traffic along. Attackers use proxies to hide where their traffic really comes from."
+  },
+  {
+    "id": "living-off-the-land",
+    "term": "living off the land",
+    "aliases": [
+      "LOLBin",
+      "LOLBins"
+    ],
+    "definition": "Using tools already on the victim's system instead of bringing new malware. It blends in with normal admin work."
+  },
+  {
+    "id": "active-directory",
+    "term": "Active Directory",
+    "aliases": [
+      "AD"
+    ],
+    "definition": "Microsoft's directory service that manages users, computers and permissions in a company. Controlling it often means controlling the whole network."
+  },
+  {
+    "id": "kerberos",
+    "term": "Kerberos",
+    "aliases": [],
+    "definition": "A ticket-based login system used in Windows domains. Attackers steal or forge tickets to impersonate users."
+  },
+  {
+    "id": "ntlm",
+    "term": "NTLM",
+    "aliases": [],
+    "definition": "An older Windows login method based on password hashes. It is weak and often abused for relaying and pass-the-hash."
+  },
+  {
+    "id": "token",
+    "term": "access token",
+    "aliases": [
+      "token",
+      "tokens"
+    ],
+    "definition": "A digital pass that says who you are and what you can do. Stealing one lets an attacker act as you without a password."
+  },
+  {
+    "id": "mfa",
+    "term": "multi-factor authentication",
+    "aliases": [
+      "MFA",
+      "2FA"
+    ],
+    "definition": "Logging in with more than a password, such as a phone code. It makes stolen passwords far less useful."
+  },
+  {
+    "id": "sandbox",
+    "term": "sandbox",
+    "aliases": [],
+    "definition": "A locked-down space for running code safely. Some malware checks for one and stays quiet if it finds it."
+  },
+  {
+    "id": "antivirus",
+    "term": "antivirus",
+    "aliases": [
+      "AV",
+      "EDR"
+    ],
+    "definition": "Software that looks for and blocks malware. EDR also records endpoint activity so defenders can investigate."
+  },
+  {
+    "id": "log",
+    "term": "log",
+    "aliases": [
+      "logs"
+    ],
+    "definition": "A record of events on a system. Attackers sometimes delete logs to cover their tracks."
+  },
+  {
+    "id": "vulnerability",
+    "term": "vulnerability",
+    "aliases": [
+      "vulnerabilities",
+      "exploit"
+    ],
+    "definition": "A flaw in software that can be abused. An exploit is the code that takes advantage of it."
+  },
+  {
+    "id": "zero-day",
+    "term": "zero-day",
+    "aliases": [
+      "0-day"
+    ],
+    "definition": "A flaw the vendor doesn't know about yet, so no fix exists. Attackers prize them for that reason."
+  },
+  {
+    "id": "supply-chain",
+    "term": "supply chain compromise",
+    "aliases": [
+      "supply chain"
+    ],
+    "definition": "Attacking a trusted supplier so the harm reaches its customers. A poisoned software update is a classic case."
+  },
+  {
+    "id": "domain-controller",
+    "term": "domain controller",
+    "aliases": [],
+    "definition": "The server that checks logins in a Windows domain. Taking it over gives an attacker the keys to the network."
+  },
+  {
+    "id": "dns",
+    "term": "DNS",
+    "aliases": [],
+    "definition": "The internet's phone book that turns names into addresses. Attackers abuse it to find targets and hide traffic."
+  },
+  {
+    "id": "encryption",
+    "term": "encryption",
+    "aliases": [
+      "encrypted"
+    ],
+    "definition": "Scrambling data so only someone with the key can read it. Attackers use it to hide traffic or hold files to ransom."
+  },
+  {
+    "id": "webshell",
+    "term": "web shell",
+    "aliases": [
+      "webshell"
+    ],
+    "definition": "A script planted on a web server that lets an attacker run commands through a web page. It gives them a quiet way back in."
+  },
+  {
+    "id": "macro",
+    "term": "macro",
+    "aliases": [
+      "macros"
+    ],
+    "definition": "A small program embedded in an Office document. Malicious ones run when the victim enables them."
+  },
+  {
+    "id": "sub-technique",
+    "term": "sub-technique",
+    "aliases": [
+      "sub-techniques"
+    ],
+    "definition": "A more specific version of a technique in ATT&CK. For example PowerShell is a sub-technique of Command and Scripting Interpreter."
+  }
+]
