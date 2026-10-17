@@ -80,6 +80,11 @@
       <section class="card">
         <header><h2>{item.name}</h2><code>{item.id}</code></header>
         {#if item.aliases?.length}<p class="aka">Also known as: {item.aliases.join(', ')}</p>{/if}
+        {#if kind === 'campaigns'}
+          <p class="aka">
+            {item.firstSeen ?? '?'} – {item.lastSeen ?? '?'}{#if item.groups?.length} · Attributed to: {item.groups.map((g) => $idx.groupsById.get(g)?.name ?? g).join(', ')}{/if}
+          </p>
+        {/if}
         <p class="desc">{plain(item.description)}</p>
         <div class="actions">
           <button type="button" class="primary" onclick={() => doHighlight(item)}>Highlight in matrix</button>
@@ -107,7 +112,7 @@
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; margin: 12px 0; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
   .seg button.on { background: var(--surface); font-weight: 700; }
-  .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 12px; }
   .chip { flex: none; padding: 0 16px; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); color: var(--text); cursor: pointer; }
   .chip.on { background: var(--text); color: var(--bg); font-weight: 600; }
   .empty { color: var(--muted); }
