@@ -35,7 +35,7 @@
   h1 { font-size: 32px; margin: 0 0 4px; }
   h2 { font-size: 22px; margin: 28px 0 0; }
   .muted { color: var(--muted); margin: 0; }
-  .card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; color: inherit; text-decoration: none; }
+  .card { display: block; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: 12px; color: inherit; text-decoration: none; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   .track { height: 8px; border-radius: 4px; background: var(--border); margin-top: 12px; overflow: hidden; }
   .track span { display: block; height: 100%; background: var(--accent); }

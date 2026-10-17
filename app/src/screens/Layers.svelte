@@ -164,8 +164,8 @@
   .lede, .note { color: var(--muted); }
   .note { text-align: center; }
   .warn { background: var(--accent-tint); border-radius: 12px; padding: 10px 14px; font-weight: 600; }
-  .card { position: relative; display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 12px; }
-  .card.on { border: 2px solid var(--accent); }
+  .card { position: relative; display: flex; align-items: center; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 12px; }
+  .card.on { box-shadow: 0 0 0 2px var(--accent); }
   .pick { flex: 1; display: flex; align-items: center; gap: 14px; border: 0; background: none; color: inherit; text-align: left; padding: 16px; cursor: pointer; font: inherit; }
   .pick strong, .pick small { display: block; }
   .pick small { color: var(--muted); }
@@ -177,14 +177,14 @@
   .menu .del { color: #b3261e; }
   .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: 12px; }
   .seg button { flex: 1; border: 0; border-radius: 12px; background: none; cursor: pointer; }
-  .seg button.on { background: var(--surface); font-weight: 600; }
+  .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 600; }
   .ghost, .solid { width: 100%; min-height: 52px; border: 1.5px solid var(--accent); border-radius: 16px; font-weight: 700; margin-top: 12px; cursor: pointer; }
   .ghost { background: none; color: var(--accent); }
   .solid { background: var(--accent); color: var(--bg); }
   .solid:disabled { opacity: 0.5; }
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
-  .seg button.on { background: var(--surface); font-weight: 700; }
+  .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 700; }
   dialog { margin: auto 0 0; width: 100%; max-width: none; border: 0; border-radius: 20px 20px 0 0; background: var(--surface); color: var(--text); padding: 16px 16px calc(16px + var(--sab)); box-sizing: border-box; }
   dialog::backdrop { background: rgb(0 0 0 / 0.45); }
   dialog h2 { margin: 0 0 8px; font-size: 18px; }

@@ -163,7 +163,7 @@
   .err { color: #b3261e; }
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
-  .seg button.on { background: var(--surface); font-weight: 700; }
+  .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 700; }
   .about { color: var(--muted); }
   .about a { color: var(--accent); }
 </style>

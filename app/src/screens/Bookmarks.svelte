@@ -64,7 +64,7 @@
   h2 { font-size: 18px; margin: 24px 0 0; }
   .muted { color: var(--muted); margin: 0; }
   .empty { margin-top: 16px; }
-  .card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; }
+  .card { display: block; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: 12px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   a { color: inherit; text-decoration: none; }
   textarea { width: 100%; box-sizing: border-box; margin-top: 10px; font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; resize: vertical; }

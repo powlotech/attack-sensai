@@ -27,3 +27,17 @@ button { font: inherit; color: inherit; min-height: 44px; min-width: 44px; }
   border-bottom: 1px dotted var(--accent); color: inherit;
 }
 body:has(.menu) h1 { padding-left: 44px; }
+
+/* Modern, soft look: global defaults that scoped screen styles can still override. */
+h1, h2, h3 { font-weight: 650; letter-spacing: -0.02em; }
+button { transition: transform 0.12s ease, background-color 0.15s ease, opacity 0.15s ease; }
+button:active { transform: scale(0.97); }
+select, input:not([type='checkbox']):not([type='radio']), textarea {
+  font: inherit; color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 12px; padding: 0 12px;
+}
+select:focus-visible, input:focus-visible, textarea:focus-visible { border-color: var(--accent); outline-offset: 0; }
+details { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 4px 16px; }
+main { animation: screen-in 0.2s ease; }
+@keyframes screen-in { from { opacity: 0; transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) { main { animation: none; } button { transition: none; } }

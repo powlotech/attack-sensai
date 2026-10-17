@@ -27,7 +27,8 @@
 </script>
 
 <main>
-  <header><h1>Compare</h1><a href="#/layers" class="back">← Layers</a></header>
+  <header><h1>Compare</h1></header>
+  <a href="#/layers" class="back">← Layers</a>
   <label>Reference <select bind:value={refId} aria-label="Reference layer"><option value="">Choose…</option>{#each $layers as l (l.id)}<option value={l.id}>{l.name}</option>{/each}</select></label>
   <label>Mine <select bind:value={mineId} aria-label="My layer"><option value="">Active layer</option>{#each $layers as l (l.id)}<option value={l.id}>{l.name}</option>{/each}</select></label>
   {#if allowed}<div class="banner">Platform filter on <button type="button" aria-label="Clear platform filter" onclick={() => platformFilter.set(new Set())}>✕</button></div>{/if}
@@ -63,16 +64,18 @@
 </main>
 
 <style>
-  main { padding: 16px 16px 96px; }
+  main { padding: 20px 20px 96px; }
   label { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
   select { flex: 1; min-height: 44px; }
+  header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 12px; }
+  h1 { font-size: 32px; margin: 0; }
   .back { display: block; color: var(--accent); text-decoration: none; margin-bottom: 12px; }
   .muted { color: var(--muted); }
   .banner { background: var(--accent-tint); padding: 6px 12px; border-radius: 12px; margin: 8px 0; }
   .sum { font-size: 18px; }
   .seg { display: flex; background: var(--border); border-radius: 16px; padding: 4px; margin-bottom: 12px; }
   .seg button { flex: 1; border: 0; border-radius: 12px; background: none; cursor: pointer; }
-  .seg button.on { background: var(--surface); font-weight: 600; }
+  .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 600; }
   ul { list-style: none; margin: 0; padding: 0; }
   a { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--border); color: inherit; text-decoration: none; min-height: 52px; }
   .txt { flex: 1; min-width: 0; }

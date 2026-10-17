@@ -41,7 +41,7 @@
   .cells { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; width: 100%; padding: 0 2px; }
   .cells i { aspect-ratio: 1; border-radius: 2px; }
   .cells i.zero { border: 1px solid var(--score-0-border); }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; }
+  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; }
   h2 { margin: 0; font-size: 20px; }
   p { color: var(--muted); margin: 8px 0 12px; }

@@ -175,8 +175,8 @@
   .meta { color: var(--muted); margin: 0 0 8px; }
   .meta a { color: var(--accent); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { border: 1px solid var(--border); border-radius: 18px; padding: 0 14px; min-height: 36px; display: inline-flex; align-items: center; background: var(--surface); color: inherit; text-decoration: none; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 4px 16px 16px; margin-top: 16px; }
+  .chip { border-radius: var(--radius); box-shadow: var(--shadow); padding: 0 14px; min-height: 36px; display: inline-flex; align-items: center; background: var(--surface); color: inherit; text-decoration: none; }
+  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 4px 16px 16px; margin-top: 16px; }
   .scores { display: flex; gap: 8px; }
   .scores button { flex: 1; border: 1.5px solid var(--score-0-border); border-radius: 10px; font-weight: 700; font-size: 17px; cursor: pointer; }
   .scores button.on { outline: 3px solid var(--accent); outline-offset: 2px; }

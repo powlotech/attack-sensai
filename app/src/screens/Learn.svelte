@@ -45,7 +45,7 @@
   main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   .muted { color: var(--muted); margin: 0; }
-  .card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; }
+  .card { display: block; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: 12px; }
   a.card { color: inherit; text-decoration: none; }
   .detail { display: block; text-align: right; }
   .row { display: flex; justify-content: space-between; align-items: baseline; }

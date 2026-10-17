@@ -127,18 +127,18 @@
   input { width: 100%; box-sizing: border-box; min-height: 52px; padding: 0 16px; border: 2px solid var(--accent); border-radius: 16px; background: var(--surface); color: var(--text); font: inherit; }
   .seg { display: flex; background: var(--border); border-radius: 12px; padding: 4px; margin: 12px 0; }
   .seg button { flex: 1; border: 0; background: none; border-radius: 9px; color: var(--text); cursor: pointer; }
-  .seg button.on { background: var(--surface); font-weight: 700; }
+  .seg button.on { background: var(--surface); box-shadow: var(--shadow); font-weight: 700; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 12px; }
   .chip { flex: none; padding: 0 16px; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); color: var(--text); cursor: pointer; }
   .chip.on { background: var(--text); color: var(--bg); font-weight: 600; }
   .empty { color: var(--muted); }
-  .list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .list { list-style: none; margin: 0; padding: 0; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
   .list li + li { border-top: 1px solid var(--border); }
   .list a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 16px; min-height: 56px; box-sizing: border-box; color: inherit; text-decoration: none; }
   .list strong { display: block; font-weight: 500; }
   .list small { color: var(--muted); text-transform: capitalize; }
   .list code { flex: none; color: var(--muted); }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
+  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-bottom: 16px; }
   .card header { display: flex; justify-content: space-between; align-items: baseline; }
   .card h2 { margin: 0; font-size: 20px; }
   .lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; }

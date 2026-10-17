@@ -54,7 +54,7 @@
   main { padding: 24px 20px 32px; }
   h1 { font-size: 32px; margin: 0 0 4px; }
   .muted { color: var(--muted); margin: 0; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; }
+  .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-top: 12px; }
   .prompt { font-weight: 600; margin: 0 0 12px; }
   .opt, .btn { display: block; width: 100%; min-height: 48px; margin-top: 8px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: inherit; font: inherit; text-align: left; padding: 0 14px; cursor: pointer; }
   .btn { background: var(--accent); color: var(--bg); border: 0; font-weight: 700; text-align: center; }

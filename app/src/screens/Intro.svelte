@@ -77,7 +77,7 @@
   .ends { display: flex; justify-content: space-between; font-size: 14px; margin-top: 6px; }
   h1 { font-size: 28px; line-height: 1.2; margin: 28px 0 12px; }
   .body { font-size: 18px; color: var(--muted); margin: 0 0 24px; }
-  .example { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; }
+  .example { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
   .example h2 { font-size: 13px; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 8px; }
   .example p { margin: 0 0 8px; }
   footer { margin-top: auto; padding-top: 24px; }
