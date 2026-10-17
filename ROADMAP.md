@@ -11,7 +11,7 @@ Ideas agreed with Paul. Done items first, then the rest ordered easiest to harde
 - [x] 7. Sync and export learning progress (layers incl. learned ticks, bookmarks, quiz results) between devices: manual file export/import, plus optional GitHub sync to the private repo `attack-sensai-sync` (fine-grained token, one `progress.json`, per-item newest-wins merge).. Quiz results are not stored yet, so not included
 - [x] 8. Export: CSV layer report, Markdown incident timeline, print-to-PDF timeline (browser print dialog; untested on the APK)
 - [x] 9. "What changed" after a data update: added, changed, deprecated techniques/groups/tools
-- [ ] 10. Mitigations and detections (data sources) on technique pages; may need the data build extended
+- [x] 10. Mitigations and detections (data sources) on technique pages; may need the data build extended Done: mitigations (with "how") and detection strategies (with data components) as collapsible lists; mitigations are in "What changed", detections are not (too many, noisy)
 - [x] 11. Campaigns: build step, "Used by" chips on technique pages, Campaigns tab in Search (no standalone screen; not in "What changed")
 - [x] 12. Daily "technique of the day" notification (Android, Capacitor)
 

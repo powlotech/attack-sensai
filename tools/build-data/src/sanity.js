@@ -6,7 +6,7 @@ export function sanityCheck(d, { minTechniques = 100 } = {}) {
   if (d.techniques.length < minTechniques) problems.push(`only ${d.techniques.length} techniques (need ${minTechniques})`)
   if (d.tactics.length === 0) problems.push('0 tactics')
   if (d.groups.length === 0) problems.push('0 groups')
-  if (!Array.isArray(d.campaigns)) problems.push('campaigns missing')
+  for (const k of ['campaigns', 'mitigations', 'detections']) if (!Array.isArray(d[k])) problems.push(`${k} missing`)
   const known = new Set(d.tactics.map((t) => t.shortname))
   for (const t of d.techniques) {
     for (const s of t.tactics) if (!known.has(s)) problems.push(`technique ${t.id} has unknown tactic "${s}"`)

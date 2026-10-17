@@ -78,3 +78,20 @@ test('campaigns carry techniques and attributed groups', () => {
     techniques: ['T1059.001'],
   })
 })
+
+test('mitigations and detections link to techniques', () => {
+  const ext = (id) => [{ source_name: 'mitre-attack', external_id: id }]
+  const tech = d.techniques[0]
+  const tStix = bundle.objects.find((o) => o.type === 'attack-pattern' && o.external_references?.some((r) => r.external_id === tech.id)).id
+  const extra = [
+    { type: 'course-of-action', id: 'course-of-action--1', name: 'Mit', description: 'd', external_references: ext('M9') },
+    { type: 'relationship', id: 'relationship--1', relationship_type: 'mitigates', source_ref: 'course-of-action--1', target_ref: tStix, description: 'how (Citation: x)' },
+    { type: 'x-mitre-data-component', id: 'x-mitre-data-component--1', name: 'Process Creation' },
+    { type: 'x-mitre-analytic', id: 'x-mitre-analytic--1', x_mitre_log_source_references: [{ x_mitre_data_component_ref: 'x-mitre-data-component--1' }] },
+    { type: 'x-mitre-detection-strategy', id: 'x-mitre-detection-strategy--1', name: 'Det', x_mitre_analytic_refs: ['x-mitre-analytic--1'], external_references: ext('DET9') },
+    { type: 'relationship', id: 'relationship--2', relationship_type: 'detects', source_ref: 'x-mitre-detection-strategy--1', target_ref: tStix },
+  ]
+  const r = transform({ objects: [...bundle.objects, ...extra] }, { builtAt: 'x' })
+  expect(r.mitigations).toEqual([{ id: 'M9', name: 'Mit', description: 'd', techniques: [{ id: tech.id, how: 'how' }] }])
+  expect(r.detections).toEqual([{ id: 'DET9', name: 'Det', dataComponents: ['Process Creation'], techniques: [tech.id] }])
+})

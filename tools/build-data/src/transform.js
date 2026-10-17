@@ -88,5 +88,47 @@ export function transform(bundle, { builtAt }) {
     techniques: usedBy(o),
   }))
 
-  return { attackVersion: collection.x_mitre_version, builtAt, tactics, techniques, groups, software, campaigns }
+  // course-of-action -> technique, with the per-technique note on how it mitigates
+  const mitigated = new Map()
+  for (const r of objs) {
+    if (r.type !== 'relationship' || r.relationship_type !== 'mitigates' || !alive(r)) continue
+    const target = idOf.get(r.target_ref)
+    if (!target || !techniqueIds.has(target)) continue
+    if (!mitigated.has(r.source_ref)) mitigated.set(r.source_ref, new Map())
+    mitigated.get(r.source_ref).set(target, text(r.description))
+  }
+  const mitigations = ofType('course-of-action')
+    .filter((o) => attackId(o))
+    .map((o) => ({
+      id: attackId(o),
+      name: o.name,
+      description: text(o.description),
+      techniques: [...(mitigated.get(o.id) ?? [])].map(([id, how]) => ({ id, how })).sort((a, b) => a.id.localeCompare(b.id)),
+    }))
+
+  // detection strategy -> technique; data components come from the strategy's analytics (ATT&CK v18+ model, absent in older bundles)
+  const byStix = new Map(objs.map((o) => [o.id, o]))
+  const detected = new Map()
+  for (const r of objs) {
+    if (r.type !== 'relationship' || r.relationship_type !== 'detects' || !alive(r)) continue
+    const target = idOf.get(r.target_ref)
+    if (!target || !techniqueIds.has(target)) continue
+    if (!detected.has(r.source_ref)) detected.set(r.source_ref, [])
+    detected.get(r.source_ref).push(target)
+  }
+  const detections = ofType('x-mitre-detection-strategy')
+    .filter((o) => attackId(o))
+    .map((o) => {
+      const comps = (o.x_mitre_analytic_refs ?? []).flatMap((a) =>
+        (byStix.get(a)?.x_mitre_log_source_references ?? []).map((l) => byStix.get(l.x_mitre_data_component_ref)?.name),
+      )
+      return {
+        id: attackId(o),
+        name: o.name,
+        dataComponents: [...new Set(comps.filter(Boolean))].sort(),
+        techniques: [...new Set(detected.get(o.id) ?? [])].sort(),
+      }
+    })
+
+  return { attackVersion: collection.x_mitre_version, builtAt, tactics, techniques, groups, software, campaigns, mitigations, detections }
 }

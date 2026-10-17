@@ -24,3 +24,9 @@ test('byId, groupsById, softwareById', () => {
   expect(idx.groupsById.get('G0016').name).toBe('APT29')
   expect(idx.softwareById.get('S0154').name).toBe('Cobalt Strike')
 })
+
+test('mitigationsOf and detectionsOf group by technique', () => {
+  const i = indexDataset({ ...transform(bundle, { builtAt: 'x' }), mitigations: [{ id: 'M1', name: 'Mit', techniques: [{ id: 'T1', how: 'h' }] }], detections: [{ id: 'DET1', name: 'D', dataComponents: [], techniques: ['T1'] }] })
+  expect(i.mitigationsOf.get('T1')).toEqual([{ id: 'M1', name: 'Mit', how: 'h' }])
+  expect(i.detectionsOf.get('T1')[0].id).toBe('DET1')
+})

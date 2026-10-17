@@ -23,6 +23,8 @@
     ...used.software.map((s) => ({ ...s, kind: 'software' })),
     ...used.campaigns.map((c) => ({ ...c, kind: 'campaigns' })),
   ])
+  const mitigations = $derived($idx?.mitigationsOf.get(tech?.id) ?? [])
+  const detections = $derived($idx?.detectionsOf.get(tech?.id) ?? [])
   let showAll = $state(false)
   const usedShown = $derived(showAll ? usedAll : usedAll.slice(0, 6))
 
@@ -141,6 +143,22 @@
       </div>
     {/if}
 
+    {#if mitigations.length}
+      <h2>Mitigations</h2>
+      {#each mitigations as m (m.id)}
+        <details class="item"><summary>{m.name} <code>{m.id}</code></summary>{#if m.how}<div class="how">{@html renderDescription(m.how)}</div>{/if}</details>
+      {/each}
+    {/if}
+
+    {#if detections.length}
+      <h2>Detection</h2>
+      {#each detections as x (x.id)}
+        <details class="item"><summary>{x.name} <code>{x.id}</code></summary>
+          {#if x.dataComponents.length}<div class="chips">{#each x.dataComponents as c}<span class="chip">{c}</span>{/each}</div>{/if}
+        </details>
+      {/each}
+    {/if}
+
     <a class="ext" href={tech.url} target="_blank" rel="noopener">Open on attack.mitre.org ↗</a>
   </div>
 {/if}
@@ -169,5 +187,9 @@
   .learned { display: flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 8px; }
   textarea { width: 100%; box-sizing: border-box; border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: var(--bg); color: var(--text); font: inherit; }
   .desc :global(.defcard) { background: var(--accent-tint); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; }
+  .item { border-top: 1px solid var(--border); padding: 8px 0; }
+  .item summary { cursor: pointer; min-height: 36px; }
+  .item .how { color: var(--muted); margin: 6px 0; }
+  .item .chips { margin: 8px 0; }
   .ext { display: inline-block; margin-top: 24px; color: var(--accent); font-weight: 600; }
 </style>

@@ -22,8 +22,15 @@ export function indexDataset(d) {
   for (const s of d.software) for (const id of s.techniques) slot(id).software.push(s)
   for (const c of d.campaigns ?? []) for (const id of c.techniques) slot(id).campaigns.push(c)
 
+  const mitigationsOf = new Map()
+  for (const m of d.mitigations ?? []) for (const { id, how } of m.techniques) (mitigationsOf.get(id) ?? mitigationsOf.set(id, []).get(id)).push({ id: m.id, name: m.name, how })
+  const detectionsOf = new Map()
+  for (const x of d.detections ?? []) for (const id of x.techniques) (detectionsOf.get(id) ?? detectionsOf.set(id, []).get(id)).push(x)
+
   return {
     byId,
+    mitigationsOf,
+    detectionsOf,
     childrenOf,
     topByTactic,
     groupsById: new Map(d.groups.map((g) => [g.id, g])),
